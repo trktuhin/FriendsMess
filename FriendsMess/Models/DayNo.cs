@@ -5,5 +5,6 @@
         public int Id { get; set; }
         public int? TotalMeal  { get; set; }
         public int? Expense { get; set; }
+        public string ResponsibleMember { get; set; }
     }
 }

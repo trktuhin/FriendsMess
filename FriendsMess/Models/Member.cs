@@ -12,7 +12,6 @@ namespace FriendsMess.Models
         [Required]
         public string Name { get; set; }
         public int Id { get; set; }
-        public int? TotalMeal { get; set; }
         public int? Deposit { get; set; }
         
     }

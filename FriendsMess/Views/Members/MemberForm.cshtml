@@ -1,4 +1,4 @@
-﻿@model FriendsMess.Models.Member
+﻿,m,m @model FriendsMess.Models.Member
 @{
     ViewBag.Title = "MemberForm";
 }
@@ -15,6 +15,8 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Deposit)
         @Html.TextBoxFor(m => m.Deposit, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Deposit)
+
     </div>
     
     @Html.HiddenFor(m => m.Id)

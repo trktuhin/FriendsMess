@@ -6,8 +6,9 @@
 <h2>New</h2>
 @using (Html.BeginForm("Save","Update"))
 {
-    <div>
+    <div class="form-group">
         @Html.DropDownListFor(m => m.Day, new SelectList(Model.Days, "Id", "Id"), "Select day no.", new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Day)
     </div>
     <div>
         @{
@@ -30,6 +31,10 @@
         <div class="form-group">
             @Html.LabelFor(m=>m.Expense)
             @Html.TextBoxFor(m=>m.Expense,new{@class="form-control"})
+            @Html.ValidationMessageFor(m => m.Expense)
+        </div>
+        <div>
+            @Html.DropDownListFor(m => m.ResponsibleMem, new SelectList(Model.Members, "Name", "Name"), "Select Responsible Member", new { @class = "form-control" })
         </div>
         <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Save</button>
     </div>
