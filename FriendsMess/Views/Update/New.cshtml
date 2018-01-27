@@ -1,13 +1,14 @@
 ﻿@model FriendsMess.ViewModels.MealViewModel
 @{
-    ViewBag.Title = "New";
+    ViewBag.Title = "Update meals";
 }
 
 <h2>New</h2>
 @using (Html.BeginForm("Save","Update"))
 {
     <div class="form-group">
-        @Html.DropDownListFor(m => m.Day, new SelectList(Model.Days, "Id", "Id"), "Select day no.", new {@class = "form-control"})
+        @Html.LabelFor(m=>m.Day)
+        @Html.DropDownListFor(m => m.Day, new SelectList(Model.Days, "Id", "Id"), "Select day no", new {@class = "form-control"})
         @Html.ValidationMessageFor(m => m.Day)
     </div>
     <div>
@@ -22,6 +23,7 @@
                 @{
                     Model.Meals[i].MemberId = member.Id;
                 }
+                @Html.ValidationMessageFor(m => m.Meals[i].MealNo)
                 @Html.HiddenFor(m => m.Meals[i].MemberId, new { value = member.Id })
                 @{
                     i++;

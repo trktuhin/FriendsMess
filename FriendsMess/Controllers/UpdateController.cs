@@ -2,6 +2,7 @@
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Mvc;
+using FriendsMess.Migrations;
 using FriendsMess.Models;
 using FriendsMess.ViewModels;
 
@@ -48,37 +49,28 @@ namespace FriendsMess.Controllers
         }
         
         [HttpPost]
-        public ActionResult Save(IList<Meal> meals,int day,int expense,string responsibleMem)
+        public ActionResult Save(MealViewModel mealView)
         {
             if (!ModelState.IsValid)
             {
-                var members = _context.Members.ToList();
-                var mealview = new MealViewModel
-                {
-                    Members = members,
-                    Meals = meals.ToList(),
-                    Days = _context.Days.ToList(),
-                    Day = day,
-                    Expense = expense,
-                    ResponsibleMem = responsibleMem
-                };
-
-                return View("New", mealview);
+                mealView.Days = _context.Days.ToList();
+                mealView.Members = _context.Members.ToList();
+                return View("New", mealView);
             }
             var totalMeal = 0;
-            foreach (var meal in meals )
+            foreach (var meal in mealView.Meals )
             {
                 
-                meal.DayNoId = day;
+                meal.DayNoId = mealView.Day;
                 _context.Meals.AddOrUpdate(meal);
                 if (meal.MealNo != null)
                     totalMeal += meal.MealNo.Value;
             }
-            var dayInDb = _context.Days.Single(m => m.Id == day);
+            var dayInDb = _context.Days.Single(m => m.Id == mealView.Day);
             if (dayInDb == null)
                 return HttpNotFound();
-            dayInDb.Expense = expense;
-            dayInDb.ResponsibleMember = responsibleMem;
+            dayInDb.Expense = mealView.Expense;
+            dayInDb.ResponsibleMember = mealView.ResponsibleMem;
             dayInDb.TotalMeal = totalMeal;
             _context.SaveChanges();
             return RedirectToAction("Index");
