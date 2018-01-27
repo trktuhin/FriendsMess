@@ -1,0 +1,30 @@
+﻿@model List<FriendsMess.Models.Member>
+@{
+    ViewBag.Title = "Member";
+}
+
+<h2>Members</h2>
+<div style="padding: 10px;">
+    @Html.ActionLink("New Member", "New", "Members", new { @class = "btn btn-success" })
+</div>
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Deposit</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var member in Model)
+    {
+        <tr>
+            <td>@Html.ActionLink(member.Name, "Edit", new { id = member.Id })</td>
+            <td>@member.Deposit</td>
+            <td>@Html.ActionLink("Delete", "Delete", new { id = member.Id })</td>
+        </tr>
+
+    }
+    </tbody>
+</table>
+

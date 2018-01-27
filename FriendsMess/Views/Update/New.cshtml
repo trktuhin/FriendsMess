@@ -1,0 +1,37 @@
+﻿@model FriendsMess.ViewModels.MealViewModel
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New</h2>
+@using (Html.BeginForm("Save","Update"))
+{
+    <div>
+        @Html.DropDownListFor(m => m.Day, new SelectList(Model.Days, "Id", "Id"), "Select day no.", new {@class = "form-control"})
+    </div>
+    <div>
+        @{
+            var i = 0;
+        }
+        @foreach (var member in Model.Members)
+        {
+            <div class="form-group">
+                @member.Name
+                @Html.TextBoxFor(m => m.Meals[i].MealNo, new { @class = "form-control" })
+                @{
+                    Model.Meals[i].MemberId = member.Id;
+                }
+                @Html.HiddenFor(m => m.Meals[i].MemberId, new { value = member.Id })
+                @{
+                    i++;
+                }
+            </div>
+        }
+        <div class="form-group">
+            @Html.LabelFor(m=>m.Expense)
+            @Html.TextBoxFor(m=>m.Expense,new{@class="form-control"})
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Save</button>
+    </div>
+
+}
