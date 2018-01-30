@@ -1,0 +1,38 @@
+﻿@model List<FriendsMess.Models.Meal>
+@{
+    ViewBag.Title = "Meals";
+    var totalMeal = 0;
+}
+
+<h2>@ViewBag.member</h2>
+<div>
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th>Day</th>
+            <th>Meal number</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var day in Model)
+        {
+            try
+            {
+                totalMeal += (int)day.MealNo;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("There was some problem while converting meals into integer!");
+            }
+            <tr>
+                <td>@day.DayNoId</td>
+                <td>@day.MealNo</td>
+            </tr>
+        }
+        <tr>
+            <td>Total:</td>
+            <td style="font-weight: bold">@totalMeal</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

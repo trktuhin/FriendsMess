@@ -3,22 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FriendsMess.Models;
+using FriendsMess.ViewModels;
 
 namespace FriendsMess.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
-        {
+        private ApplicationDbContext _context;
 
-            return View();
+        public HomeController()
+        {
+            _context=new ApplicationDbContext();
         }
 
-        public ActionResult About()
+        protected override void Dispose(bool disposing)
         {
-            ViewBag.Message = "Your application description page.";
+            _context.Dispose();
+        }
 
-            return View();
+        public ActionResult Index()
+        {
+            var homeViewModel = new HomeViewModel
+            {
+                Meals = _context.Meals.ToList(),
+                Members = _context.Members.ToList(),
+                Days = _context.Days.Where(m=>m.Expense!=0).ToList()
+            };
+            return View(homeViewModel);
+        }
+
+        public ActionResult Expense()
+        {
+            var days = _context.Days.Where(m => m.Expense != 0).ToList();
+
+            return View("Expense",days);
         }
 
         public ActionResult Contact()
@@ -27,5 +46,6 @@ namespace FriendsMess.Controllers
 
             return View();
         }
+        
     }
 }

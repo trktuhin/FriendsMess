@@ -1,0 +1,30 @@
+﻿@model FriendsMess.Models.OtherExpense
+@{
+    ViewBag.Title = "Others";
+}
+
+<h2>@ViewBag.status</h2>
+<div>
+    @using (Html.BeginForm("Save", "Extra"))
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Amount)
+            @Html.TextBoxFor(m => m.Amount, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Amount)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Description)
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Description)
+        </div>
+        @Html.HiddenFor(m=>m.Id)
+        <button class="btn btn-primary" type="Submit">Save</button>
+        
+    }
+</div>
+

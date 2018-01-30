@@ -1,0 +1,66 @@
+﻿@model List<FriendsMess.Models.DayNo>
+@{
+    ViewBag.Title = "Expense";
+}
+<h2>Daily Expenses</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>Day</th>
+        <th>Expense</th>
+        <th>Total Meals</th>
+        <th>Daily Meal Rate</th>
+        <th>Responsible Member</th>
+    </tr>
+    </thead>
+    <tbody>
+    @{
+        var totalExpense = 0;
+        var totalMeal = 0;
+    }
+    @foreach (var day in Model)
+    {
+        <tr>
+            <td>@day.Id</td>
+            <td>@day.Expense</td>
+            <td>@day.TotalMeal</td>
+            @{
+                
+                float mealRate;
+                try
+                {
+                    totalExpense += (int) day.Expense;
+                    totalMeal += (int) day.TotalMeal;
+                    mealRate = (float) day.Expense / (float) day.TotalMeal;
+                }
+                catch (Exception e)
+                {
+                    mealRate = 0;
+                }
+
+            }
+            <td>@mealRate</td>
+            <td>@day.ResponsibleMember</td>
+        </tr>
+    }
+    <tr>
+        @{
+            float averageMealRate;
+            try
+            {
+                averageMealRate = (float) totalExpense / (float) totalMeal;
+            }
+            catch (Exception e)
+            {
+                averageMealRate = 0;
+            }
+            
+        }
+        <td>Total:</td>
+        <td>@totalExpense</td>
+        <td>@totalMeal</td>
+        <td style="text-align: right">Average Meal Rate:</td>
+        <td style="font-weight: bold">@averageMealRate</td>
+    </tr>
+    </tbody>
+</table>

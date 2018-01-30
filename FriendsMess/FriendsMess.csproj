@@ -159,6 +159,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ExtraController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\UpdateController.cs" />
@@ -217,6 +218,18 @@
     <Compile Include="Migrations\201801270750426_removingTotalMealFromMember.Designer.cs">
       <DependentUpon>201801270750426_removingTotalMealFromMember.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801301902022_AddingOtherExpenseTable.cs" />
+    <Compile Include="Migrations\201801301902022_AddingOtherExpenseTable.Designer.cs">
+      <DependentUpon>201801301902022_AddingOtherExpenseTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801301913528_AddNameColumnInExtraExpense.cs" />
+    <Compile Include="Migrations\201801301913528_AddNameColumnInExtraExpense.Designer.cs">
+      <DependentUpon>201801301913528_AddNameColumnInExtraExpense.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801301938303_foo1.cs" />
+    <Compile Include="Migrations\201801301938303_foo1.Designer.cs">
+      <DependentUpon>201801301938303_foo1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DayNo.cs" />
@@ -225,8 +238,10 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Meal.cs" />
     <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\OtherExpense.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\MealViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -261,7 +276,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Expense.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -278,6 +293,9 @@
     <Content Include="Views\Members\Index.cshtml" />
     <Content Include="Views\Members\MemberForm.cshtml" />
     <Content Include="Views\Update\New.cshtml" />
+    <Content Include="Views\Members\ViewMeal.cshtml" />
+    <Content Include="Views\Extra\Index.cshtml" />
+    <Content Include="Views\Extra\OtherExpense.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -328,6 +346,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801270750426_removingTotalMealFromMember.resx">
       <DependentUpon>201801270750426_removingTotalMealFromMember.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801301902022_AddingOtherExpenseTable.resx">
+      <DependentUpon>201801301902022_AddingOtherExpenseTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801301913528_AddNameColumnInExtraExpense.resx">
+      <DependentUpon>201801301913528_AddNameColumnInExtraExpense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801301938303_foo1.resx">
+      <DependentUpon>201801301938303_foo1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

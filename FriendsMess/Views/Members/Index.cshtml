@@ -12,7 +12,8 @@
     <tr>
         <th>Name</th>
         <th>Deposit</th>
-        <th>Action</th>
+        <th>Meals</th>
+        <th>Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -21,6 +22,7 @@
         <tr>
             <td>@Html.ActionLink(member.Name, "Edit", new { id = member.Id })</td>
             <td>@member.Deposit</td>
+            <td>@Html.ActionLink("View Meals","ViewMeal",new{id=member.Id})</td>
             <td>@Html.ActionLink("Delete", "Delete", new { id = member.Id })</td>
         </tr>
 

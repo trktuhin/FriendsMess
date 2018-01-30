@@ -72,5 +72,16 @@ namespace FriendsMess.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult ViewMeal(int id)
+        {
+            var meals = _context.Meals.Where(m => m.MemberId == id).Where(m=>m.MealNo!=0).ToList();
+            var member = _context.Members.SingleOrDefault(m => m.Id == id);
+            if (member == null)
+                return HttpNotFound();
+            var memberName = member.Name;
+            ViewBag.member = memberName;
+            return View(meals);
+        }
     }
 }

@@ -1,0 +1,33 @@
+﻿@model List<FriendsMess.Models.OtherExpense>
+@{
+    ViewBag.Title = "Ohters";
+}
+
+<h2>Other Expenses</h2>
+<div style="padding: 10px;">
+    @Html.ActionLink("New Expense", "New", "Extra", "", new { @class = "btn btn-success" })
+</div>
+<div>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Details</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var extra in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(extra.Name,"Edit",new{id=extra.Id})</td>
+                <td>@extra.Amount</td>
+                <td>@extra.Description</td>
+                <td>@Html.ActionLink("Delete","Delete",new{id=extra.Id})</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+

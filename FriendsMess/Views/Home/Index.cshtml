@@ -1,3 +1,55 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model FriendsMess.ViewModels.HomeViewModel
+@{
+    ViewBag.Title = "Home";
 }
+@{
+    var totalExpense = 0;
+    var totalMeal = 0;
+    float mealRate = 0;
+    foreach (var day in Model.Days)
+    {
+        try
+        {
+            totalMeal += (int)day.TotalMeal;
+            totalExpense += (int) day.Expense;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("There was some error!");
+        }
+    }
+    try
+    {
+        mealRate = (float) totalExpense / (float) totalMeal;
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine("There was some error!");
+    }
+}
+<h2 style="text-align: center">Meal Rate:@mealRate</h2>
+<div>
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Deposit</th>
+            <th>Meal Expenses</th>
+            <th>Ohter Expenses</th>
+            <th>Total Due</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var member in Model.Members)
+        {
+            <tr>
+                <td>@member.Name</td>
+                <td>@member.Deposit</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

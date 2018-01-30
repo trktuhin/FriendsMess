@@ -14,6 +14,7 @@ namespace FriendsMess.Models
         public DbSet<DayNo> Days { get; set; }
         public DbSet<Member> Members { get; set; }
         public DbSet<Meal> Meals { get; set; }
+        public DbSet<OtherExpense> OtherExpenses { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection")
         {

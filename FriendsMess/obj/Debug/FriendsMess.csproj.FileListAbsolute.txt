@@ -133,3 +133,6 @@ C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\Friends
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.addingMembernameInDayNo.resources
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.generatingDayNoCollumn.resources
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.removingTotalMealFromMember.resources
+C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.AddingOtherExpenseTable.resources
+C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.AddNameColumnInExtraExpense.resources
+C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.foo1.resources
