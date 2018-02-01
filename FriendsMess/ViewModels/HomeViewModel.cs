@@ -11,5 +11,6 @@ namespace FriendsMess.ViewModels
         public IList<Meal> Meals { get; set; }
         public IList<Member> Members { get; set; }
         public IList<DayNo> Days { get; set; }
+
     }
 }

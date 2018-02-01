@@ -13,6 +13,8 @@ namespace FriendsMess.Models
         public string Name { get; set; }
         public int Id { get; set; }
         public int? Deposit { get; set; }
+
+        
         
     }
 }
