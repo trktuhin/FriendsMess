@@ -46,6 +46,40 @@ namespace FriendsMess.Controllers
 
             return View();
         }
-        
+
+        public int GetTotalMeal(int id)
+        {
+            var totalMeal = _context.Meals.Where(m => m.MemberId == id).Sum(a => a.MealNo);
+            if (totalMeal == null)
+                return 0;
+            return (int)totalMeal;
+        }
+
+        public int GetOtherExpense()
+        {
+            try
+            {
+                var otherExpense = _context.OtherExpenses.Sum(c => c.Amount);
+                return otherExpense / _context.Members.Count();
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+        }
+
+        public float GetMealRate()
+        {
+            var totalMeal = _context.Days.Sum(m => m.TotalMeal);
+            var totalExpense = _context.Days.Sum(m => m.Expense);
+            try
+            {
+                return (float)(totalExpense / totalMeal);
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+        }
     }
 }
