@@ -1,11 +1,32 @@
-﻿@using FriendsMess.Controllers
-@model FriendsMess.ViewModels.HomeViewModel
+﻿@model FriendsMess.ViewModels.HomeViewModel
 @{
     ViewBag.Title = "Home";
-    var home = new HomeController();
-    float mealRate = home.GetMealRate();    
 }
-
+@{
+    var totalExpense = 0;
+    var totalMeal = 0;
+    float mealRate = 0;
+    foreach (var day in Model.Days)
+    {
+        try
+        {
+            totalMeal += (int)day.TotalMeal;
+            totalExpense += (int) day.Expense;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("There was some error!");
+        }
+    }
+    try
+    {
+        mealRate = (float) totalExpense / (float) totalMeal;
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine("There was some error!");
+    }
+}
 <h2 style="text-align: center">Meal Rate:@mealRate</h2>
 <div>
     <table class="table table-hover table-bordered">
@@ -13,7 +34,7 @@
         <tr>
             <th>Name</th>
             <th>Deposit</th>
-            <th>Meal Cost</th>
+            <th>Meal Expenses</th>
             <th>Ohter Expenses</th>
             <th>Total Due</th>
         </tr>
@@ -21,20 +42,14 @@
         <tbody>
         @foreach (var member in Model.Members)
         {
-            
-                var totalMeal = home.GetTotalMeal(member.Id);
-                var mealExpense = home.GetMealRate() * totalMeal;
-                var otherExpense = home.GetOtherExpense();
-                var totalDue = (mealExpense + otherExpense) - member.Deposit;
-
-                <tr>
-                    <td>@member.Name</td>
-                    <td>@member.Deposit</td>
-                    <td>@mealExpense</td>
-                    <td>@otherExpense</td>
-                    <td>@totalDue</td>
-                </tr>
-            }
+            <tr>
+                <td>@member.Name</td>
+                <td>@member.Deposit</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        }
         </tbody>
     </table>
 </div>
