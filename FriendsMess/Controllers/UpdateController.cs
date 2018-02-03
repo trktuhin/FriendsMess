@@ -45,7 +45,7 @@ namespace FriendsMess.Controllers
         // GET: /Update/
         public ActionResult Index()
         {
-            return Content("welcome");
+            return RedirectToAction("Index", "Home");
         }
         
         [HttpPost]

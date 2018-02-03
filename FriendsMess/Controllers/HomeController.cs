@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -80,6 +81,34 @@ namespace FriendsMess.Controllers
             {
                 return 0;
             }
+        }
+
+        public ActionResult NewMonth()
+        {
+            var members = _context.Members.ToList();
+            foreach (var mem in members)
+            {
+                mem.Deposit = 0;
+            }
+            var others = _context.OtherExpenses.ToList();
+            foreach (var expense in others)
+            {
+                _context.OtherExpenses.Remove(expense);
+            }
+            var meals = _context.Meals.ToList();
+            foreach (var meal in meals)
+            {
+                _context.Meals.Remove(meal);
+            }
+            var days = _context.Days.ToList();
+            foreach (var day in days)
+            {
+                day.Expense = 0;
+                day.TotalMeal = 0;
+                day.ResponsibleMember = null;
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
