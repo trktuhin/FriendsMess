@@ -5,31 +5,33 @@
     var home = new HomeController();
     float mealRate = home.GetMealRate();    
 }
-
-<span>@Html.ActionLink("Start New Month", "NewMonth", "Home", new { @class = "btn btn-danger" ,style="float:right;margin-top:5px;"})
+<span>
+    <button class="btn btn-danger js-clearMonth" style="float:right;margin-top:10px;">Start New Month</button>
 </span>
 <h2 style="text-align: center; color:crimson">Meal Rate:@mealRate</h2>
-<div>
-    <table class="table table-hover table-bordered">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Deposit</th>
-            <th>Meal Cost</th>
-            <th>Ohter Expenses</th>
-            <th>Total Due</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var member in Model.Members)
-        {
-            
+@if (Model.Members.Count > 0)
+{
+    <div>
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr class="danger">
+                <th>Name</th>
+                <th>Deposit</th>
+                <th>Meal Cost</th>
+                <th>Ohter Expenses</th>
+                <th>Total Due</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var member in Model.Members)
+            {
+
                 var totalMeal = home.GetTotalMeal(member.Id);
                 var mealExpense = home.GetMealRate() * totalMeal;
                 var otherExpense = home.GetOtherExpense();
                 var totalDue = (mealExpense + otherExpense) - member.Deposit;
 
-                <tr>
+                <tr class="primay">
                     <td>@member.Name</td>
                     <td>@member.Deposit</td>
                     <td>@mealExpense</td>
@@ -37,6 +39,40 @@
                     <td>@totalDue</td>
                 </tr>
             }
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
+
+}
+else
+{
+    <div class="jumbotron">
+        <ul>
+            <li>Add some members with deposit in Member menu</li>
+            <li>Update their meals with total expense in Update Menu</li>
+            <li>Add extra expenses in Ohters Menu</li>
+            <li>Come back Home and see all dynamic calculations</li>
+        </ul>
+    </div>
+}
+@section scripts{
+    <script>
+        $(document).ready(function() {
+            $(".js-clearMonth").on("click",
+                function () {
+                    var button = $(this);
+                    bootbox.confirm("This will erase all meals and this has other consequences too. Are you sure you want to clear current month?",
+                        function (result) {
+                            if (result) {
+                                $.ajax({
+                                    url: '@Url.Action("NewMonth","Home")',
+                                    success:function() {
+                                        window.location.href = '@Url.Action("Index","Home")';
+                                    }
+                                });
+                            }
+                        });
+                });
+        });
+    </script>
+}

@@ -3,14 +3,16 @@
     ViewBag.Title = "Ohters";
 }
 
-<h2>Other Expenses</h2>
-<div style="padding: 10px;">
-    @Html.ActionLink("New Expense", "New", "Extra", "", new { @class = "btn btn-success" })
-</div>
+<span style="float:right;margin-top:10px;">
+    @Html.ActionLink("New Expense", "New", "Extra", "", new { @class = "btn btn-info" })
+</span>
+<h2 style ="text-align: center; color: darkred;">Other Expenses</h2>
+@if (Model.Count > 0)
+{
 <div>
     <table class="table table-bordered table-hover">
         <thead>
-        <tr>
+        <tr class="danger">
             <th>Name</th>
             <th>Amount</th>
             <th>Details</th>
@@ -24,10 +26,43 @@
                 <td>@Html.ActionLink(extra.Name,"Edit",new{id=extra.Id})</td>
                 <td>@extra.Amount</td>
                 <td>@extra.Description</td>
-                <td>@Html.ActionLink("Delete","Delete",new{id=extra.Id})</td>
+                @*<td>@Html.ActionLink("Delete","Delete",new{id=extra.Id})</td>*@
+                <td><button data-extra-id=@extra.Id class="btn-link js-clearExtra">Delete</button></td>
             </tr>
         }
         </tbody>
     </table>
 </div>
+}
+else
+{
+    <div style="margin-top: 10%;" class=" jumbotron">
+        <h3 style="color:red;">No extra expenses yet !</h3>
+    </div>
+}
+@section scripts{
+    <script>
+        $(document).ready(function() {
+            $(".js-clearExtra").on("click",
+                function () {
+                    var button = $(this);
+                    bootbox.confirm("Are you sure you want to delete this extra expense?",
+                        function (result) {
+                            if (result) {
+                                $.ajax({
+                                    url: '@Url.Action("Delete","Extra")',
+                                    data: { id: button.attr("data-extra-id") },
+                                    success:function() {
+                                        window.location.href = '@Url.Action("Index","Extra")';
+                                    }
+                                });
+                            }
+                        });
+                });
+        });
+    </script>
+}
+
+
+
 
