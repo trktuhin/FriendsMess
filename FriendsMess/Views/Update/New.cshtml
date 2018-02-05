@@ -2,52 +2,70 @@
 @{
     ViewBag.Title = "Update meals";
 }
+<div>
+    <h2 style="text-align: center;color: darkred">Update meals</h2>
+    @if (Model.Members.Count > 0)
+    {
+        using (Html.BeginForm("Save", "Update"))
+        {
+            
+            <div style="float: left; padding-right: 10%; margin-left: 10%;">
+                @{
+            var i = 0;
+                }
+                <table>
+                    <tr>
+                        <td style="font-weight: bold">Members</td>
+                        <td style="text-align: right;font-weight: bold">Meals</td>
+                    </tr>
+                    @foreach (var member in Model.Members)
+                    {
+                        <tr>
+                            <td>
+                                @member.Name
+                            </td>
+                            <td>
+                                @{
+                                    @Html.DropDownListFor(m => m.Meals[i].MealNo, new SelectList(new List<int>() {2, 1, 0, 3, 4, 5, 6, 7, 8, 9, 10}), new {@class = "form-control"})
+                                    Model.Meals[i].MemberId = member.Id;
+                                }
+                            </td>
+                            <td>
+                                @Html.ValidationMessageFor(m => m.Meals[i].MealNo)
+                                @Html.HiddenFor(m => m.Meals[i].MemberId, new {value = member.Id})
+                                @{
+                                    i++;
+                                }
+                            </td>
+                        </tr>
 
-<h2 style="text-align: center;color: darkred">Update meals</h2>
-@if (Model.Members.Count > 0)
-{
-    using (Html.BeginForm("Save","Update"))
-     {   
-         <div class="form-group">
-             @Html.LabelFor(m=>m.Day)
-             @Html.DropDownListFor(m => m.Day, new SelectList(Model.Days, "Id", "Id"), "Select day no", new {@class = "form-control"})
-             @Html.ValidationMessageFor(m => m.Day)
-         </div>
-         <div>
-             @{
-                 var i = 0;
-             }
-             @foreach (var member in Model.Members)
-             {
-                 <div class="form-group">
-                     @member.Name
-                     @*@Html.TextBoxFor(m => m.Meals[i].MealNo, new { @class = "form-control" })*@
-                     @{
-                         @Html.DropDownListFor(m => m.Meals[i].MealNo, new SelectList(new List<int>(){2,1,0,3,4,5,6,7,8,9,10}), new {@class = "form-control"})
-                         Model.Meals[i].MemberId = member.Id;
-                     }
-                     @Html.ValidationMessageFor(m => m.Meals[i].MealNo)
-                     @Html.HiddenFor(m => m.Meals[i].MemberId, new { value = member.Id })
-                     @{
-                         i++;
-                     }
-                 </div>
-             }
-             <div class="form-group">
-                 @Html.LabelFor(m=>m.Expense)
-                 @Html.TextBoxFor(m=>m.Expense,new{@class="form-control"})
-                 @Html.ValidationMessageFor(m => m.Expense)
-             </div>
-             <div>
-                 @Html.DropDownListFor(m => m.ResponsibleMem, new SelectList(Model.Members, "Name", "Name"), "Select Responsible Member", new { @class = "form-control" })
-             </div>
-             <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Save</button>
-         </div>
-     }
-}
-else
-{
-    <div style="margin-top: 10%;" class=" jumbotron">
-        <h3 style="color:red;">Add members first !</h3>
-    </div>
-}
+                    }
+                </table>
+            </div>
+            <div style="float: right; margin-right: 20%; padding-left: 20%;">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Day)
+                    @Html.DropDownListFor(m => m.Day, new SelectList(Model.Days, "Id", "Id"), "Select day no", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Day)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Expense)
+                    @Html.TextBoxFor(m => m.Expense, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.Expense)
+                </div>
+                <div>
+                    @Html.DropDownListFor(m => m.ResponsibleMem, new SelectList(Model.Members, "Name", "Name"), "Select Responsible Member", new {@class = "form-control"})
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Save</button>
+
+            </div>
+
+        }
+    }
+    else
+    {
+        <div style="margin-top: 10%;" class=" jumbotron">
+            <h3 style="color:red;">Add members first !</h3>
+        </div>
+    }
+</div>

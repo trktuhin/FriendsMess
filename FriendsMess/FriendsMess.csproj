@@ -296,6 +296,7 @@
     <Content Include="Views\Members\ViewMeal.cshtml" />
     <Content Include="Views\Extra\Index.cshtml" />
     <Content Include="Views\Extra\OtherExpense.cshtml" />
+    <Content Include="Views\Shared\_LayoutHome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
