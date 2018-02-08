@@ -14,7 +14,9 @@
     <thead>
     <tr class="danger">
         <th>Name</th>
-        <th>Deposit</th>
+        <th>Current Deposit</th>
+        <th>Add Deposit</th>
+        <th>Mobile Number</th>
         <th>Meals</th>
         <th>Delete</th>
     </tr>
@@ -24,7 +26,9 @@
     {
         <tr>
             <td>@Html.ActionLink(member.Name, "Edit", new { id = member.Id })</td>
-            <td>@member.Deposit</td>
+            <td>@member.Deposit.ToString("C0")</td>
+            <td>@Html.ActionLink("Add","AddDeposit", new{id =member.Id})</td>
+            <td>@member.MobileNumber</td>
             <td>@Html.ActionLink("View Meals","ViewMeal",new{id=member.Id})</td>
             <td>
                 <button data-member-id="@member.Id" class="btn-link js-delete">Delete</button>

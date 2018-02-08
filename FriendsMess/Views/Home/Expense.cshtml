@@ -41,7 +41,7 @@
                 }
 
             }
-            <td>@mealRate</td>
+            <td>@mealRate.ToString("C2")</td>
             <td>@day.ResponsibleMember</td>
         </tr>
     }
@@ -59,10 +59,10 @@
             
         }
         <td style="text-align: right">Total:</td>
-        <td style="font-weight: bold">@totalExpense</td>
+        <td style="font-weight: bold">@totalExpense.ToString("C0")</td>
         <td style="font-weight: bold">@totalMeal</td>
         <td style="text-align: right">Average Meal Rate:</td>
-        <td style="font-weight: bold">@averageMealRate</td>
+        <td style="font-weight: bold">@averageMealRate.ToString("C4")</td>
     </tr>
     </tbody>
 </table>

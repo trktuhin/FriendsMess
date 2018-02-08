@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using FriendsMess.Models;
+using FriendsMess.ViewModels;
 
 namespace FriendsMess.Controllers
 {
@@ -49,6 +50,7 @@ namespace FriendsMess.Controllers
                     return HttpNotFound();
                 memberInDb.Name = member.Name;
                 memberInDb.Deposit = member.Deposit;
+                memberInDb.MobileNumber = member.MobileNumber;
             }
             _context.SaveChanges();
             return RedirectToAction("Index");
@@ -82,6 +84,29 @@ namespace FriendsMess.Controllers
             var memberName = member.Name;
             ViewBag.member = memberName;
             return View(meals);
+        }
+
+        public ActionResult AddDeposit(int id)
+        {
+            var addDeposit = new AddDeposit
+            {
+                Id = id,
+                Amount = 0
+            };
+            return View(addDeposit);
+        }
+
+        [HttpPost]
+        public ActionResult SaveDeposit(AddDeposit obj)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("AddDeposit", obj);
+            }
+            var memberInDb = _context.Members.SingleOrDefault(m => m.Id == obj.Id);
+            memberInDb.Deposit +=obj.Amount;
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Members");
         }
     }
 }

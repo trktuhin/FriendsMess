@@ -8,7 +8,7 @@
 <span>
     <button class="btn btn-danger js-clearMonth" style="float:right;margin-top:10px;">Start New Month</button>
 </span>
-<h2 style="text-align: center; color:crimson">Meal Rate:@mealRate</h2>
+<h2 style="text-align: center; color:crimson">Meal Rate:@mealRate.ToString("C2")</h2>
 @if (Model.Members.Count > 0)
 {
     <div>
@@ -19,7 +19,7 @@
                 <th>Deposit</th>
                 <th>Meal Cost</th>
                 <th>Ohter Expenses</th>
-                <th>Total Due</th>
+                <th>Balance</th>
             </tr>
             </thead>
             <tbody>
@@ -29,14 +29,14 @@
                 var totalMeal = home.GetTotalMeal(member.Id);
                 var mealExpense = home.GetMealRate() * totalMeal;
                 var otherExpense = home.GetOtherExpense();
-                var totalDue = (mealExpense + otherExpense) - member.Deposit;
+                var balance =member.Deposit- (mealExpense + otherExpense);
 
                 <tr class="primay">
                     <td>@member.Name</td>
-                    <td>@member.Deposit</td>
-                    <td>@mealExpense</td>
-                    <td>@otherExpense</td>
-                    <td>@totalDue</td>
+                    <td>@member.Deposit.ToString("C0")</td>
+                    <td>@mealExpense.ToString("C2")</td>
+                    <td>@otherExpense.ToString("C2")</td>
+                    <td>@balance.ToString("C2")</td>
                 </tr>
             }
             </tbody>

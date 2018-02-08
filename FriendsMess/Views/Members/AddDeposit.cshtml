@@ -1,0 +1,22 @@
+﻿@model FriendsMess.ViewModels.AddDeposit
+
+@{
+    ViewBag.Title = "title";
+}
+
+<h2>Add Deposit</h2>
+<div>
+    @using (Html.BeginForm("SaveDeposit", "Members"))
+    {
+        <div>
+            <label class="form-group">
+                Amount
+            </label>
+            @Html.TextBoxFor(m=>m.Amount,new{@class="form-control"})
+            @Html.ValidationMessageFor(m=>m.Amount)
+        </div>
+        @Html.HiddenFor(m=>m.Id)
+        <button class="btn btn-success" type="submit" style="margin-top: 15px;">Save</button>
+        
+    }
+</div>

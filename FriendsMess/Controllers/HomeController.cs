@@ -75,7 +75,7 @@ namespace FriendsMess.Controllers
             var totalExpense = _context.Days.Sum(m => m.Expense);
             try
             {
-                return (float)(totalExpense / totalMeal);
+                return (float)totalExpense /(float)totalMeal;
             }
             catch (Exception e)
             {

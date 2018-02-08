@@ -12,7 +12,9 @@ namespace FriendsMess.Models
         [Required]
         public string Name { get; set; }
         public int Id { get; set; }
-        public int? Deposit { get; set; }
+        public int Deposit { get; set; }
+        [MinLength(10)]
+        public string MobileNumber { get; set; }
 
         
         

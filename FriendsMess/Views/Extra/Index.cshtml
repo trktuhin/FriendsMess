@@ -24,7 +24,7 @@
         {
             <tr>
                 <td>@Html.ActionLink(extra.Name,"Edit",new{id=extra.Id})</td>
-                <td>@extra.Amount</td>
+                <td>@extra.Amount.ToString("C0")</td>
                 <td>@extra.Description</td>
                 @*<td>@Html.ActionLink("Delete","Delete",new{id=extra.Id})</td>*@
                 <td><button data-extra-id=@extra.Id class="btn-link js-clearExtra">Delete</button></td>

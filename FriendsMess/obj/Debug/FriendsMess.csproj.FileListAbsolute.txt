@@ -136,3 +136,5 @@ C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\Friends
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.AddingOtherExpenseTable.resources
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.AddNameColumnInExtraExpense.resources
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.foo1.resources
+C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.AddingMobileNumberInMember.resources
+C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.ChangingSomeColumnAttribute.resources
