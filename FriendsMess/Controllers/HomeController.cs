@@ -10,11 +10,9 @@ namespace FriendsMess.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public static string userName;
         public HomeController()
         {
             _context=new ApplicationDbContext();
-            userName = User.Identity.GetUserName();
 
         }
 
@@ -25,7 +23,7 @@ namespace FriendsMess.Controllers
 
         public ActionResult Index()
         {
-            
+            var userName = User.Identity.GetUserName();
             var homeViewModel = new HomeViewModel
             {
                 Meals = _context.Meals.ToList(),
@@ -37,7 +35,7 @@ namespace FriendsMess.Controllers
 
         public ActionResult Expense()
         {
-
+            var userName = User.Identity.GetUserName();
             var days = _context.Days.Where(m => m.Expense != 0 && m.UserId==userName).ToList();
 
             return View("Expense",days);
@@ -60,7 +58,7 @@ namespace FriendsMess.Controllers
 
         public int GetOtherExpense()
         {
-
+            var userName = User.Identity.GetUserName();
             try
             {
                 var otherExpense = _context.OtherExpenses.Where(m=>m.UserId==userName).Sum(c => c.Amount);
@@ -74,7 +72,7 @@ namespace FriendsMess.Controllers
 
         public float GetMealRate()
         {
-
+            var userName = User.Identity.GetUserName();
             var totalMeal = _context.Days.Where(m=>m.UserId==userName).Sum(m => m.TotalMeal);
             var totalExpense = _context.Days.Where(m => m.UserId == userName).Sum(m => m.Expense);
             try
@@ -89,7 +87,7 @@ namespace FriendsMess.Controllers
 
         public ActionResult NewMonth()
         {
-
+            var userName = User.Identity.GetUserName();
             var members = _context.Members.Where(m => m.UserId == userName).ToList();
             foreach (var mem in members)
             {
