@@ -138,3 +138,12 @@ C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\Friends
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.foo1.resources
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.AddingMobileNumberInMember.resources
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.ChangingSomeColumnAttribute.resources
+C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.AddingUserIdToMember.resources
+C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.AddingUserIdToDayno.resources
+C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.AddingKeyToDayNo.resources
+C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.RemovingidentityfromDayno.resources
+C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.FinalizingDayNo.resources
+C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.AddingDayNoInDayNo.resources
+C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.AddingUserIdRequired.resources
+C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\bin\AutoMapper.dll
+C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\bin\AutoMapper.xml

@@ -11,11 +11,16 @@ namespace FriendsMess.Controllers
 {
     public class HomeController : Controller
     {
+        public  readonly List<int> days=new List<int>();
         private ApplicationDbContext _context;
 
         public HomeController()
         {
             _context=new ApplicationDbContext();
+            for (var i = 1; i < 32; i++)
+            {
+                days.Add(i);
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -110,5 +115,6 @@ namespace FriendsMess.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+        
     }
 }

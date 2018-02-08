@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using FriendsMess.Models;
 using FriendsMess.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace FriendsMess.Controllers
 {
@@ -29,28 +31,31 @@ namespace FriendsMess.Controllers
         public ActionResult New()
         {
             ViewBag.status = "New Member";
-            var member=new Member();
+            var member=new MemberViewModel();
             return View("MemberForm",member);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Save(Member member)
+        public ActionResult Save(MemberViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View("MemberForm", member);
+                return View("MemberForm", model);
             }
-            if (member.Id == 0)
+            if (model.Id == 0)
+            {
+                var member = Mapper.Map<MemberViewModel, Member>(model);
+                member.UserId = User.Identity.GetUserName();
                 _context.Members.Add(member);
+            }
             else
             {
-                var memberInDb = _context.Members.SingleOrDefault(m => m.Id == member.Id);
+                var memberInDb = _context.Members.SingleOrDefault(m => m.Id == model.Id);
                 if (memberInDb == null)
                     return HttpNotFound();
-                memberInDb.Name = member.Name;
-                memberInDb.Deposit = member.Deposit;
-                memberInDb.MobileNumber = member.MobileNumber;
+
+                Mapper.Map(model, memberInDb);
             }
             _context.SaveChanges();
             return RedirectToAction("Index");

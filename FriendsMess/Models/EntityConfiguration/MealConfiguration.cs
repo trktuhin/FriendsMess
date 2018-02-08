@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Web;
-using Microsoft.Ajax.Utilities;
+﻿using System.Data.Entity.ModelConfiguration;
 
 namespace FriendsMess.Models.EntityConfiguration
 {

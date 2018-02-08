@@ -1,16 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
+using System.Data.Entity.Validation;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
 using FriendsMess.Migrations;
 using FriendsMess.Models;
 using FriendsMess.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace FriendsMess.Controllers
 {
     public class UpdateController : Controller
     {
         private ApplicationDbContext _context;
+
 
         public UpdateController()
         {
@@ -32,11 +39,12 @@ namespace FriendsMess.Controllers
                 meals.Add(new Meal());
             }
 
+
             var mealview = new MealViewModel
             {
                 Members = members,
                 Meals = meals,
-                Days = _context.Days.ToList(),
+                Days = Days()
             };
             return View(mealview);
         }
@@ -53,7 +61,7 @@ namespace FriendsMess.Controllers
         {
             if (!ModelState.IsValid)
             {
-                mealView.Days = _context.Days.ToList();
+                mealView.Days = Days();
                 mealView.Members = _context.Members.ToList();
                 return View("New", mealView);
             }
@@ -66,14 +74,50 @@ namespace FriendsMess.Controllers
                 if (meal.MealNo != null)
                     totalMeal += meal.MealNo.Value;
             }
-            var dayInDb = _context.Days.Single(m => m.Id == mealView.Day);
+            var userName = User.Identity.GetUserName();
+            var dayInDb = _context.Days.SingleOrDefault(m => m.DayNumber == mealView.Day && m.UserId==userName);
             if (dayInDb == null)
-                return HttpNotFound();
+            {
+                var newDay = new DayNo()
+                {
+                    DayNumber = mealView.Day,
+                    Expense = mealView.Expense,
+                    TotalMeal = totalMeal,
+                    UserId = userName,
+                    ResponsibleMember = mealView.ResponsibleMem
+                };
+                try
+                {
+                    _context.Days.Add(newDay);
+                    _context.SaveChanges();
+                }
+                catch (SqlException e)
+                {
+                    Console.WriteLine(e);
+                }
+                return RedirectToAction("Index");
+            }
             dayInDb.Expense = mealView.Expense;
             dayInDb.ResponsibleMember = mealView.ResponsibleMem;
             dayInDb.TotalMeal = totalMeal;
             _context.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        private IEnumerable<SelectListItem> Days()
+        {
+            var list = new List<SelectListItem>();
+
+            for (var i = 1; i <= 31; i++)
+            {
+                list.Add(new SelectListItem()
+                {
+                    Text = i.ToString(),
+                    Value = i.ToString()
+                });
+            }
+
+            return list;
         }
     }
 }

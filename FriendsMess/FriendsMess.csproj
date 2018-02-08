@@ -39,6 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.4.1.0\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -156,6 +159,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -238,6 +242,34 @@
     <Compile Include="Migrations\201802080620574_ChangingSomeColumnAttribute.Designer.cs">
       <DependentUpon>201802080620574_ChangingSomeColumnAttribute.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802081021564_AddingUserIdToMember.cs" />
+    <Compile Include="Migrations\201802081021564_AddingUserIdToMember.Designer.cs">
+      <DependentUpon>201802081021564_AddingUserIdToMember.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802081029331_AddingUserIdToDayno.cs" />
+    <Compile Include="Migrations\201802081029331_AddingUserIdToDayno.Designer.cs">
+      <DependentUpon>201802081029331_AddingUserIdToDayno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802081034530_AddingKeyToDayNo.cs" />
+    <Compile Include="Migrations\201802081034530_AddingKeyToDayNo.Designer.cs">
+      <DependentUpon>201802081034530_AddingKeyToDayNo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802081044405_RemovingidentityfromDayno.cs" />
+    <Compile Include="Migrations\201802081044405_RemovingidentityfromDayno.Designer.cs">
+      <DependentUpon>201802081044405_RemovingidentityfromDayno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802081105173_FinalizingDayNo.cs" />
+    <Compile Include="Migrations\201802081105173_FinalizingDayNo.Designer.cs">
+      <DependentUpon>201802081105173_FinalizingDayNo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802081109471_AddingDayNoInDayNo.cs" />
+    <Compile Include="Migrations\201802081109471_AddingDayNoInDayNo.Designer.cs">
+      <DependentUpon>201802081109471_AddingDayNoInDayNo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802081115077_AddingUserIdRequired.cs" />
+    <Compile Include="Migrations\201802081115077_AddingUserIdRequired.Designer.cs">
+      <DependentUpon>201802081115077_AddingUserIdRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DayNo.cs" />
@@ -252,6 +284,7 @@
     <Compile Include="ViewModels\AddDeposit.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\MealViewModel.cs" />
+    <Compile Include="ViewModels\MemberViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -372,6 +405,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802080620574_ChangingSomeColumnAttribute.resx">
       <DependentUpon>201802080620574_ChangingSomeColumnAttribute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802081021564_AddingUserIdToMember.resx">
+      <DependentUpon>201802081021564_AddingUserIdToMember.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802081029331_AddingUserIdToDayno.resx">
+      <DependentUpon>201802081029331_AddingUserIdToDayno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802081034530_AddingKeyToDayNo.resx">
+      <DependentUpon>201802081034530_AddingKeyToDayNo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802081044405_RemovingidentityfromDayno.resx">
+      <DependentUpon>201802081044405_RemovingidentityfromDayno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802081105173_FinalizingDayNo.resx">
+      <DependentUpon>201802081105173_FinalizingDayNo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802081109471_AddingDayNoInDayNo.resx">
+      <DependentUpon>201802081109471_AddingDayNoInDayNo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802081115077_AddingUserIdRequired.resx">
+      <DependentUpon>201802081115077_AddingUserIdRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using Antlr.Runtime.Tree;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace FriendsMess.Models
 {
@@ -16,6 +11,8 @@ namespace FriendsMess.Models
         [MinLength(10)]
         public string MobileNumber { get; set; }
 
+        [Required]
+        public string UserId { get; set; }
         
         
     }
