@@ -15,5 +15,7 @@ namespace FriendsMess.Models
         public string Name { get; set; }
         [StringLength(2000)]
         public string Description { get; set; }
+
+        public string UserId { get; set; }
     }
 }

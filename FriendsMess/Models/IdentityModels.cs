@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using FriendsMess.Models.EntityConfiguration;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -25,9 +24,6 @@ namespace FriendsMess.Models
         {
             modelBuilder.Configurations.Add(new MealConfiguration());
 
-            modelBuilder.Entity<DayNo>()
-                .Property(d => d.Id)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             base.OnModelCreating(modelBuilder);
         }

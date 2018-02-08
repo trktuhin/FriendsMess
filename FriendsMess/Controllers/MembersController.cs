@@ -24,7 +24,8 @@ namespace FriendsMess.Controllers
 
         public ActionResult Index()
         {
-            var members = _context.Members.ToList();
+            var userName = User.Identity.GetUserName();
+            var members = _context.Members.Where(m=>m.UserId==userName).ToList();
             return View(members);
         }
 
@@ -64,10 +65,18 @@ namespace FriendsMess.Controllers
         public ActionResult Edit(int id)
         {
             var memberInDb = _context.Members.SingleOrDefault(m => m.Id == id);
+           
             if (memberInDb == null)
                 return HttpNotFound();
+            var memberViewModel = new MemberViewModel
+            {
+                Id = memberInDb.Id,
+                Name = memberInDb.Name,
+                Deposit = memberInDb.Deposit,
+                MobileNumber = memberInDb.MobileNumber
+            };
             ViewBag.status = "Edit Member";
-            return View("MemberForm",memberInDb);
+            return View("MemberForm",memberViewModel);
         }
 
         public ActionResult Delete(int id)

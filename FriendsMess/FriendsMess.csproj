@@ -270,6 +270,14 @@
     <Compile Include="Migrations\201802081115077_AddingUserIdRequired.Designer.cs">
       <DependentUpon>201802081115077_AddingUserIdRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802081425234_SolvingException.cs" />
+    <Compile Include="Migrations\201802081425234_SolvingException.Designer.cs">
+      <DependentUpon>201802081425234_SolvingException.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802081452598_AddUserIdToOtherExpense.cs" />
+    <Compile Include="Migrations\201802081452598_AddUserIdToOtherExpense.Designer.cs">
+      <DependentUpon>201802081452598_AddUserIdToOtherExpense.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DayNo.cs" />
@@ -426,6 +434,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802081115077_AddingUserIdRequired.resx">
       <DependentUpon>201802081115077_AddingUserIdRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802081425234_SolvingException.resx">
+      <DependentUpon>201802081425234_SolvingException.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802081452598_AddUserIdToOtherExpense.resx">
+      <DependentUpon>201802081452598_AddUserIdToOtherExpense.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

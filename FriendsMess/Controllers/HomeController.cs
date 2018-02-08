@@ -1,26 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using FriendsMess.Models;
 using FriendsMess.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace FriendsMess.Controllers
 {
     public class HomeController : Controller
     {
-        public  readonly List<int> days=new List<int>();
-        private ApplicationDbContext _context;
-
+        private readonly ApplicationDbContext _context;
+        public static string userName;
         public HomeController()
         {
             _context=new ApplicationDbContext();
-            for (var i = 1; i < 32; i++)
-            {
-                days.Add(i);
-            }
+            userName = User.Identity.GetUserName();
+
         }
 
         protected override void Dispose(bool disposing)
@@ -30,18 +25,20 @@ namespace FriendsMess.Controllers
 
         public ActionResult Index()
         {
+            
             var homeViewModel = new HomeViewModel
             {
                 Meals = _context.Meals.ToList(),
-                Members = _context.Members.ToList(),
-                Days = _context.Days.Where(m=>m.Expense!=0).ToList()
+                Members = _context.Members.Where(m=>m.UserId==userName).ToList(),
+                Days = _context.Days.Where(m=>m.Expense!=0 && m.UserId==userName).ToList()
             };
             return View(homeViewModel);
         }
 
         public ActionResult Expense()
         {
-            var days = _context.Days.Where(m => m.Expense != 0).ToList();
+
+            var days = _context.Days.Where(m => m.Expense != 0 && m.UserId==userName).ToList();
 
             return View("Expense",days);
         }
@@ -63,10 +60,11 @@ namespace FriendsMess.Controllers
 
         public int GetOtherExpense()
         {
+
             try
             {
-                var otherExpense = _context.OtherExpenses.Sum(c => c.Amount);
-                return otherExpense / _context.Members.Count();
+                var otherExpense = _context.OtherExpenses.Where(m=>m.UserId==userName).Sum(c => c.Amount);
+                return otherExpense /_context.Members.Where(m=>m.UserId==userName).Count();
             }
             catch (Exception e)
             {
@@ -76,8 +74,9 @@ namespace FriendsMess.Controllers
 
         public float GetMealRate()
         {
-            var totalMeal = _context.Days.Sum(m => m.TotalMeal);
-            var totalExpense = _context.Days.Sum(m => m.Expense);
+
+            var totalMeal = _context.Days.Where(m=>m.UserId==userName).Sum(m => m.TotalMeal);
+            var totalExpense = _context.Days.Where(m => m.UserId == userName).Sum(m => m.Expense);
             try
             {
                 return (float)totalExpense /(float)totalMeal;
@@ -90,22 +89,25 @@ namespace FriendsMess.Controllers
 
         public ActionResult NewMonth()
         {
-            var members = _context.Members.ToList();
+
+            var members = _context.Members.Where(m => m.UserId == userName).ToList();
             foreach (var mem in members)
             {
                 mem.Deposit = 0;
+                var meals = _context.Meals.Where(m => m.MemberId == mem.Id);
+                foreach (var meal in meals)
+                {
+                    _context.Meals.Remove(meal);
+                }
             }
-            var others = _context.OtherExpenses.ToList();
+            var others = _context.OtherExpenses.Where(m => m.UserId == userName).ToList();
             foreach (var expense in others)
             {
                 _context.OtherExpenses.Remove(expense);
             }
-            var meals = _context.Meals.ToList();
-            foreach (var meal in meals)
-            {
-                _context.Meals.Remove(meal);
-            }
-            var days = _context.Days.ToList();
+            //var meals = _context.Meals.ToList();
+            
+            var days = _context.Days.Where(m=>m.UserId==userName).ToList();
             foreach (var day in days)
             {
                 day.Expense = 0;

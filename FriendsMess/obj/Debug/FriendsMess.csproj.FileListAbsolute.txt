@@ -147,3 +147,5 @@ C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\Friends
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.AddingUserIdRequired.resources
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\bin\AutoMapper.dll
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\bin\AutoMapper.xml
+C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.SolvingException.resources
+C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.AddUserIdToOtherExpense.resources

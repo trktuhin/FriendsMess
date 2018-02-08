@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using FriendsMess.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FriendsMess.Controllers
 {
@@ -35,10 +36,16 @@ namespace FriendsMess.Controllers
         [HttpPost]
         public ActionResult Save(OtherExpense expense)
         {
+            var userName = User.Identity.GetUserName();
+
             if (!ModelState.IsValid)
                 return View("OtherExpense", expense);
             if (expense.Id == 0)
+            {
+                expense.UserId = userName;
                 _context.OtherExpenses.Add(expense);
+                
+            }
             else
             {
                 var expenseInDb = _context.OtherExpenses.SingleOrDefault(m => m.Id == expense.Id);
@@ -47,6 +54,7 @@ namespace FriendsMess.Controllers
                 expenseInDb.Name = expense.Name;
                 expenseInDb.Amount = expense.Amount;
                 expenseInDb.Description = expense.Description;
+                expenseInDb.UserId = userName;
             }
             _context.SaveChanges();
             return RedirectToAction("Index");

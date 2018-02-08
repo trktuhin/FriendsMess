@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Common;
-using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
-using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
-using FriendsMess.Migrations;
 using FriendsMess.Models;
 using FriendsMess.ViewModels;
 using Microsoft.AspNet.Identity;
@@ -78,7 +74,7 @@ namespace FriendsMess.Controllers
             var dayInDb = _context.Days.SingleOrDefault(m => m.DayNumber == mealView.Day && m.UserId==userName);
             if (dayInDb == null)
             {
-                var newDay = new DayNo()
+                var newDay = new DayNo
                 {
                     DayNumber = mealView.Day,
                     Expense = mealView.Expense,
