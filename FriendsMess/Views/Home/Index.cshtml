@@ -1,9 +1,10 @@
 ﻿@using FriendsMess.Controllers
+@using Microsoft.AspNet.Identity
 @model FriendsMess.ViewModels.HomeViewModel
 @{
     ViewBag.Title = "Home";
     var home = new HomeController();
-    float mealRate = home.GetMealRate();    
+    var mealRate = home.GetMealRate(User.Identity.GetUserName());    
 }
 <span>
     <button class="btn btn-danger js-clearMonth" style="float:right;margin-top:10px;">Start New Month</button>
@@ -27,8 +28,8 @@
             {
 
                 var totalMeal = home.GetTotalMeal(member.Id);
-                var mealExpense = home.GetMealRate() * totalMeal;
-                var otherExpense = home.GetOtherExpense();
+                var mealExpense = home.GetMealRate(User.Identity.GetUserName()) * totalMeal;
+                var otherExpense = home.GetOtherExpense(User.Identity.GetUserName());
                 var balance =member.Deposit- (mealExpense + otherExpense);
 
                 <tr class="primay">

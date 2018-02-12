@@ -53,16 +53,17 @@ namespace FriendsMess.Controllers
             var totalMeal = _context.Meals.Where(m => m.MemberId == id).Sum(a => a.MealNo);
             if (totalMeal == null)
                 return 0;
+
             return (int)totalMeal;
         }
 
-        public int GetOtherExpense()
+        public int GetOtherExpense(string userName)
         {
-            var userName = User.Identity.GetUserName();
+            //var userName = User.Identity.GetUserName();
             try
             {
                 var otherExpense = _context.OtherExpenses.Where(m=>m.UserId==userName).Sum(c => c.Amount);
-                return otherExpense /_context.Members.Where(m=>m.UserId==userName).Count();
+                return otherExpense /_context.Members.Count(m => m.UserId==userName);
             }
             catch (Exception e)
             {
@@ -70,9 +71,9 @@ namespace FriendsMess.Controllers
             }
         }
 
-        public float GetMealRate()
+        public float GetMealRate(string userName)
         {
-            var userName = User.Identity.GetUserName();
+            
             var totalMeal = _context.Days.Where(m=>m.UserId==userName).Sum(m => m.TotalMeal);
             var totalExpense = _context.Days.Where(m => m.UserId == userName).Sum(m => m.Expense);
             try

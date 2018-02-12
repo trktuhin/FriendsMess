@@ -27,8 +27,9 @@ namespace FriendsMess.Controllers
 
         public ActionResult New()
         {
+            var userName = User.Identity.GetUserName();
             var meals = new List<Meal>();
-            var members = _context.Members.ToList();
+            var members = _context.Members.Where(m=>m.UserId==userName).ToList();
 
             foreach (var member in members)
             {
