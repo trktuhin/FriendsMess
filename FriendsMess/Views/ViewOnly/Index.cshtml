@@ -1,0 +1,31 @@
+﻿@model FriendsMess.ViewModels.GuestUser
+    @{
+        Layout = "~/Views/Shared/_ViewOnly.cshtml";
+        ViewBag.Title = "Guest";
+    }
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Index</title>
+    </head>
+    <body>
+        <h2 style="color: aqua;text-align: center">Welcome to Friends Mess</h2>
+    
+    <div style="margin-left: 30%; padding: 5%;">
+        @using (Html.BeginForm("Home","ViewOnly"))
+        {
+            <div class="form-group">
+                @Html.LabelFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.UserName, new {@class = "form-control"})
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        }
+
+    </div>
+    </body>
+</html>

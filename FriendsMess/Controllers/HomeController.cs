@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using Rotativa;
 using FriendsMess.Models;
 using FriendsMess.ViewModels;
 using Microsoft.AspNet.Identity;
@@ -36,7 +39,7 @@ namespace FriendsMess.Controllers
         public ActionResult Expense()
         {
             var userName = User.Identity.GetUserName();
-            var days = _context.Days.Where(m => m.Expense != 0 && m.UserId==userName).ToList();
+            var days = _context.Days.Where(m => m.Expense != 0 && m.UserId==userName).OrderByDescending(m=>m.DayNumber).ToList();
 
             return View("Expense",days);
         }
@@ -116,6 +119,20 @@ namespace FriendsMess.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-        
+
+        public ActionResult ExportPdf()
+        {
+            Dictionary<string, string> cookieCollection = new Dictionary<string, string>();
+
+            foreach (var key in Request.Cookies.AllKeys)
+            {
+                cookieCollection.Add(key, Request.Cookies.Get(key).Value);
+            }
+            return new ActionAsPdf("Index","Home")
+            {
+                FileName = "Month_Summery.pdf",
+                Cookies = cookieCollection
+            };
+        }
     }
 }

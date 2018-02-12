@@ -23,7 +23,8 @@ namespace FriendsMess.Controllers
 
         public ActionResult Index()
         {
-            var extras = _context.OtherExpenses.ToList();
+            var userName = User.Identity.GetUserName();
+            var extras = _context.OtherExpenses.Where(m=>m.UserId==userName).ToList();
             return View(extras);
         }
 

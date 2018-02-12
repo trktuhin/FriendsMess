@@ -116,7 +116,6 @@ C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\bin\Microsoft.Owi
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.csprojResolveAssemblyReference.cache
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.addingDaysTable.resources
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.addingMembersTable.resources
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.problemDetect.resources
@@ -149,3 +148,5 @@ C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\bin\AutoMapper.dl
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\bin\AutoMapper.xml
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.SolvingException.resources
 C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.Migrations.AddUserIdToOtherExpense.resources
+C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\bin\Rotativa.dll
+C:\Users\robin\Desktop\Git FriendsMess\FriendsMess\FriendsMess\obj\Debug\FriendsMess.csprojResolveAssemblyReference.cache

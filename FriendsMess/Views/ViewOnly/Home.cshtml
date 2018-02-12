@@ -1,0 +1,68 @@
+﻿@using FriendsMess.Controllers
+@using Microsoft.AspNet.Identity
+@model FriendsMess.ViewModels.HomeViewModel
+@{
+    Layout = "~/Views/Shared/_ViewOnly.cshtml";
+    ViewBag.Title = "Home";
+    var homeObj = new HomeController();
+    var mealRate = homeObj.GetMealRate(User.Identity.GetUserName());
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home</title>
+</head>
+<body>
+    <span>
+        @Html.ActionLink("Download pdf", "ExportPdf", "Home", null, new { @class = "btn btn-success", style = "float:left; margin-top: 10px" })
+    </span>
+    <h2 style="text-align: center; color:crimson">Meal Rate:@mealRate.ToString("C2")</h2>
+    @if (Model.Members.Count > 0)
+    {
+        <div>
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr class="danger">
+                        <th>Name</th>
+                        <th>Deposit</th>
+                        <th>Meal Cost</th>
+                        <th>Ohter Expenses</th>
+                        <th>Balance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var member in Model.Members)
+                    {
+                        var home = new HomeController();
+
+                        var totalMeal = home.GetTotalMeal(member.Id);
+                        var mealExpense = home.GetMealRate(User.Identity.GetUserName()) * totalMeal;
+                        var otherExpense = home.GetOtherExpense(User.Identity.GetUserName());
+                        var balance = member.Deposit - (mealExpense + otherExpense);
+
+                        <tr class="primay">
+                            <td>@member.Name</td>
+                            <td>@member.Deposit.ToString("C0")</td>
+                            <td>@mealExpense.ToString("C2")</td>
+                            <td>@otherExpense.ToString("C2")</td>
+                            <td>@balance.ToString("C2")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    }
+    else
+    {
+        <div class="jumbotron">
+            Nothing to show
+        </div>
+    }
+
+
+</body>
+</html>
