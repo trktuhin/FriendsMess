@@ -1,11 +1,11 @@
-﻿@using FriendsMess.Controllers
-@using Microsoft.AspNet.Identity
+﻿@using System.Globalization
+@using FriendsMess.Controllers
 @model FriendsMess.ViewModels.HomeViewModel
 @{
     Layout = "~/Views/Shared/_ViewOnly.cshtml";
     ViewBag.Title = "Home";
-    var homeObj = new HomeController();
-    var mealRate = homeObj.GetMealRate(User.Identity.GetUserName());
+    var homeObj = new ViewOnlyController();
+    var mealRate = homeObj.GetMealRate((string)Session["GuestUser"]);
 }
 
 <!DOCTYPE html>
@@ -19,7 +19,7 @@
     <span>
         @Html.ActionLink("Download pdf", "ExportPdf", "Home", null, new { @class = "btn btn-success", style = "float:left; margin-top: 10px" })
     </span>
-    <h2 style="text-align: center; color:crimson">Meal Rate:@mealRate.ToString("C2")</h2>
+    <h2 style="text-align: center; color:white">Meal Rate:@mealRate.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</h2>
     @if (Model.Members.Count > 0)
     {
         <div>
@@ -36,19 +36,19 @@
                 <tbody>
                     @foreach (var member in Model.Members)
                     {
-                        var home = new HomeController();
+                        var home = new ViewOnlyController();
 
                         var totalMeal = home.GetTotalMeal(member.Id);
-                        var mealExpense = home.GetMealRate(User.Identity.GetUserName()) * totalMeal;
-                        var otherExpense = home.GetOtherExpense(User.Identity.GetUserName());
+                        var mealExpense = home.GetMealRate((string)Session["GuestUser"]) * totalMeal;
+                        var otherExpense = home.GetOtherExpense((string)Session["GuestUser"]);
                         var balance = member.Deposit - (mealExpense + otherExpense);
 
                         <tr class="primay">
                             <td>@member.Name</td>
-                            <td>@member.Deposit.ToString("C0")</td>
-                            <td>@mealExpense.ToString("C2")</td>
-                            <td>@otherExpense.ToString("C2")</td>
-                            <td>@balance.ToString("C2")</td>
+                            <td>@member.Deposit.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                            <td>@mealExpense.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                            <td>@otherExpense.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                            <td>@balance.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
                         </tr>
                     }
                 </tbody>

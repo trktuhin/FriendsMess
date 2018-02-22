@@ -362,9 +362,13 @@
     <Content Include="Views\Extra\OtherExpense.cshtml" />
     <Content Include="Views\Shared\_LayoutHome.cshtml" />
     <Content Include="Views\Members\AddDeposit.cshtml" />
-    <Content Include="Views\ViewOnly\Index.cshtml" />
     <Content Include="Views\Shared\_ViewOnly.cshtml" />
     <Content Include="Views\ViewOnly\Home.cshtml" />
+    <Content Include="Views\ViewOnly\Expense.cshtml" />
+    <Content Include="Views\ViewOnly\Members.cshtml" />
+    <Content Include="Views\ViewOnly\ViewMeal.cshtml" />
+    <Content Include="Views\ViewOnly\Index.cshtml" />
+    <Content Include="Views\ViewOnly\Others.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

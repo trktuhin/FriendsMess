@@ -1,0 +1,38 @@
+﻿@using System.Globalization
+@model List<FriendsMess.Models.OtherExpense>
+@{
+    ViewBag.Title = "Others";
+    Layout = "~/Views/Shared/_ViewOnly.cshtml";
+}
+<h2 style ="text-align: center; color: white;">Other Expenses</h2>
+@if (Model.Count > 0)
+{
+    <div>
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr class="danger">
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var extra in Model)
+            {
+                <tr>
+                    <td>@extra.Name</td>
+                    <td>@extra.Amount.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                    <td>@extra.Description</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div style="margin-top: 10%;" class=" jumbotron">
+        <h3 style="color:red;">No extra expenses yet !</h3>
+    </div>
+}
+

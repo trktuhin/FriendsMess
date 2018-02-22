@@ -62,7 +62,6 @@ namespace FriendsMess.Controllers
 
         public int GetOtherExpense(string userName)
         {
-            //var userName = User.Identity.GetUserName();
             try
             {
                 var otherExpense = _context.OtherExpenses.Where(m=>m.UserId==userName).Sum(c => c.Amount);

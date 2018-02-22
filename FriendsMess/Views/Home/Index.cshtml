@@ -11,7 +11,7 @@
     @Html.ActionLink("Download pdf", "ExportPdf", "Home", null, new { @class = "btn btn-success", style = "float:left; margin-top: 10px" })
     <button class="btn btn-danger js-clearMonth" style="float: right; margin-top: 10px;">Start New Month</button>
 </span>
-<h2 style="text-align: center; color:crimson">Meal Rate:@mealRate.ToString("C2",CultureInfo.CreateSpecificCulture("en-BD"))</h2>
+<h2 style="text-align: center; color:white">Meal Rate:@mealRate.ToString("C2",CultureInfo.CreateSpecificCulture("en-BD"))</h2>
 @if (Model.Members.Count > 0)
 {
     <div>

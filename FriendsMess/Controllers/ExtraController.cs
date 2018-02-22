@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using FriendsMess.Models;
-using FriendsMess.ViewModels;
 using Microsoft.AspNet.Identity;
 
 namespace FriendsMess.Controllers
