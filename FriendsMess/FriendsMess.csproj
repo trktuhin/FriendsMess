@@ -282,6 +282,10 @@
     <Compile Include="Migrations\201802081452598_AddUserIdToOtherExpense.Designer.cs">
       <DependentUpon>201802081452598_AddUserIdToOtherExpense.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802220912552_AddingAssignedMemberInDayTable.cs" />
+    <Compile Include="Migrations\201802220912552_AddingAssignedMemberInDayTable.Designer.cs">
+      <DependentUpon>201802220912552_AddingAssignedMemberInDayTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DayNo.cs" />
@@ -453,6 +457,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802081452598_AddUserIdToOtherExpense.resx">
       <DependentUpon>201802081452598_AddUserIdToOtherExpense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802220912552_AddingAssignedMemberInDayTable.resx">
+      <DependentUpon>201802220912552_AddingAssignedMemberInDayTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

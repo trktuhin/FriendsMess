@@ -1,4 +1,5 @@
-﻿@model List<FriendsMess.Models.DayNo>
+﻿@using System.Globalization
+@model List<FriendsMess.Models.DayNo>
 @{
     ViewBag.Title = "Expense";
 }
@@ -13,6 +14,7 @@
         <th>Total Meals</th>
         <th>Daily Meal Rate</th>
         <th>Responsible Member</th>
+        <th>Assigned Member</th>
     </tr>
     </thead>
     <tbody>
@@ -24,7 +26,10 @@
     {
         <tr>
             <td>@day.DayNumber</td>
-            <td>@day.Expense</td>
+            <td>@{
+                    var expense = (int) day.Expense;
+                }
+                @expense.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))
             <td>@day.TotalMeal</td>
             @{
                 
@@ -41,8 +46,9 @@
                 }
 
             }
-            <td>@mealRate.ToString("C2")</td>
+            <td>@mealRate.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
             <td>@day.ResponsibleMember</td>
+            <td>@day.AssignedMember</td>
         </tr>
     }
     <tr>
@@ -59,10 +65,10 @@
             
         }
         <td style="text-align: right">Total:</td>
-        <td style="font-weight: bold">@totalExpense.ToString("C0")</td>
+        <td style="font-weight: bold">@totalExpense.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
         <td style="font-weight: bold">@totalMeal</td>
         <td style="text-align: right">Average Meal Rate:</td>
-        <td style="font-weight: bold">@averageMealRate.ToString("C4")</td>
+        <td style="font-weight: bold">@averageMealRate.ToString("C4", CultureInfo.CreateSpecificCulture("en-BD"))</td>
     </tr>
     </tbody>
 </table>

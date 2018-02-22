@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using FriendsMess.Models;
+using FriendsMess.ViewModels;
 using Microsoft.AspNet.Identity;
 
 namespace FriendsMess.Controllers
@@ -78,6 +80,11 @@ namespace FriendsMess.Controllers
             _context.OtherExpenses.Remove(expenseInDb);
             _context.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult AssignMember()
+        {
+            return View();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@using System.Web.UI.WebControls
+﻿@using System.Globalization
 @model List<FriendsMess.Models.Member>
 @{
     ViewBag.Title = "Member";
@@ -26,7 +26,7 @@
     {
         <tr>
             <td>@Html.ActionLink(member.Name, "Edit", new { id = member.Id })</td>
-            <td>@member.Deposit.ToString("C0")</td>
+            <td>@member.Deposit.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
             <td>@Html.ActionLink("Add","AddDeposit", new{id =member.Id})</td>
             <td>@member.MobileNumber</td>
             <td>@Html.ActionLink("View Meals","ViewMeal",new{id=member.Id})</td>

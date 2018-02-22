@@ -3,20 +3,23 @@
     ViewBag.Title = "Update meals";
 }
 <div>
-    <h2 style="text-align: center;color: darkred">Update meals</h2>
+    <span style="float:right;margin-top:10px;">
+        @Html.ActionLink("Assign Members", "AssignMember", "Extra", "", new { @class = "btn btn-info" })
+    </span>
+    <h2 style="text-align: center; color: darkred">Update meals</h2>
     @if (Model.Members.Count > 0)
     {
         using (Html.BeginForm("Save", "Update"))
         {
-            
-            <div style="float: left; width:50%; margin-left: 10%; padding-bottom: 20px;">
+
+            <div style="float: left; width: 50%; margin-left: 10%; padding-bottom: 20px;">
                 @{
                     var i = 0;
                 }
                 <table>
                     <tr>
                         <td style="font-weight: bold; padding-right: 50px;">Members</td>
-                        <td style="text-align: center;font-weight: bold">Meals</td>
+                        <td style="text-align: center; font-weight: bold">Meals</td>
                     </tr>
                     @foreach (var member in Model.Members)
                     {
@@ -45,7 +48,7 @@
             <div style="float: right; margin-right: 20%; width: 20%; padding-bottom: 10px;">
                 <div class="form-group">
                     @Html.LabelFor(m => m.Day)
-                    @Html.DropDownListFor(m => m.Day, Model.Days, "Select day no", new { @class = "form-control" })
+                    @Html.DropDownListFor(m => m.Day, Model.Days, "Select day no", new {@class = "form-control"})
                     @Html.ValidationMessageFor(m => m.Day)
                 </div>
                 <div class="form-group">
@@ -66,7 +69,7 @@
     else
     {
         <div style="margin-top: 10%;" class=" jumbotron">
-            <h3 style="color:red;">Add members first !</h3>
+            <h3 style="color: red;">Add members first !</h3>
         </div>
     }
 </div>
