@@ -67,6 +67,7 @@ namespace FriendsMess.Controllers
             {
                 
                 meal.DayNoId = mealView.Day;
+                meal.UserId = User.Identity.GetUserName();
                 _context.Meals.AddOrUpdate(meal);
                 if (meal.MealNo != null)
                     totalMeal += meal.MealNo.Value;

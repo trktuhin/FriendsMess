@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
 using Rotativa;
 using FriendsMess.Models;
 using FriendsMess.ViewModels;
@@ -29,9 +28,9 @@ namespace FriendsMess.Controllers
             var userName = User.Identity.GetUserName();
             var homeViewModel = new HomeViewModel
             {
-                Meals = _context.Meals.ToList(),
-                Members = _context.Members.Where(m=>m.UserId==userName).ToList(),
-                Days = _context.Days.Where(m=>m.Expense!=0 && m.UserId==userName).ToList()
+                Meals = _context.Meals.Where(m=>m.UserId==userName).OrderBy(m=>m.DayNoId).ToList(),
+                Members = _context.Members.Where(m=>m.UserId==userName).OrderBy(m=>m.Id).ToList(),
+                Days = _context.Days.Where(m=>m.Expense!=0 && m.UserId==userName).OrderBy(m=>m.DayNumber).ToList()
             };
             return View(homeViewModel);
         }

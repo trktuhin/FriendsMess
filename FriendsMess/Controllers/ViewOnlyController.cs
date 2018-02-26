@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using FriendsMess.Models;
@@ -28,9 +29,9 @@ namespace FriendsMess.Controllers
             UserName = (string)Session["GuestUser"];
             var homeViewModel = new HomeViewModel
             {
-                Meals = _context.Meals.ToList(),
-                Members = _context.Members.Where(m => m.UserId == UserName).ToList(),
-                Days = _context.Days.Where(m => m.Expense != 0 && m.UserId == UserName).ToList()
+                Meals = _context.Meals.Where(m => m.UserId == UserName).OrderBy(m => m.DayNoId).ToList(),
+                Members = _context.Members.Where(m => m.UserId == UserName).OrderBy(m => m.Id).ToList(),
+                Days = _context.Days.Where(m => m.Expense != 0 && m.UserId == UserName).OrderBy(m => m.DayNumber).ToList()
             };
             return View("Home",homeViewModel);
         }
@@ -47,9 +48,9 @@ namespace FriendsMess.Controllers
             UserName = (string)Session["GuestUser"];
             var homeViewModel = new HomeViewModel
             {
-                Meals = _context.Meals.ToList(),
-                Members = _context.Members.Where(m => m.UserId == UserName).ToList(),
-                Days = _context.Days.Where(m => m.Expense != 0 && m.UserId == UserName).ToList()
+                Meals = _context.Meals.Where(m => m.UserId == UserName).OrderBy(m => m.DayNoId).ToList(),
+                Members = _context.Members.Where(m => m.UserId == UserName).OrderBy(m => m.Id).ToList(),
+                Days = _context.Days.Where(m => m.Expense != 0 && m.UserId == UserName).OrderBy(m => m.DayNumber).ToList()
             };
             return View(homeViewModel);
         }
@@ -101,10 +102,17 @@ namespace FriendsMess.Controllers
 
         public ActionResult ExportPdf()
         {
-            
+
+            Dictionary<string, string> cookieCollection = new Dictionary<string, string>();
+
+            foreach (var key in Request.Cookies.AllKeys)
+            {
+                cookieCollection.Add(key, Request.Cookies.Get(key).Value);
+            }
             return new ActionAsPdf("Index", "ViewOnly")
             {
-                FileName = "Month_Summery.pdf"
+                FileName = "Month_Summery.pdf",
+                Cookies = cookieCollection
             };
         }
 

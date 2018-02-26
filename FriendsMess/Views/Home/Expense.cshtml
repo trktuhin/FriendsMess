@@ -9,12 +9,11 @@
 <table class="table table-bordered table-hover">
     <thead>
     <tr class="danger">
-        <th>Day</th>
+        <th>Date</th>
         <th>Expense</th>
         <th>Total Meals</th>
         <th>Daily Meal Rate</th>
         <th>Responsible Member</th>
-        <th>Assigned Member</th>
     </tr>
     </thead>
     <tbody>
@@ -37,7 +36,7 @@
                 try
                 {
                     totalExpense += (int) day.Expense;
-                    totalMeal += (int) day.TotalMeal;
+                    totalMeal += (int)day.TotalMeal;
                     mealRate = (float) day.Expense / (float) day.TotalMeal;
                 }
                 catch (Exception e)
@@ -48,7 +47,6 @@
             }
             <td>@mealRate.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
             <td>@day.ResponsibleMember</td>
-            <td>@day.AssignedMember</td>
         </tr>
     }
     <tr>

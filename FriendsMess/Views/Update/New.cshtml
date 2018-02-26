@@ -3,9 +3,7 @@
     ViewBag.Title = "Update meals";
 }
 <div>
-    <span style="float:right;margin-top:10px;">
-        @Html.ActionLink("Assign Members", "AssignMember", "Extra", "", new { @class = "btn btn-info" })
-    </span>
+    
     <h2 style="text-align: center; color:white">Update meals</h2>
     @if (Model.Members.Count > 0)
     {
@@ -18,8 +16,8 @@
                 }
                 <table>
                     <tr>
-                        <td style="font-weight: bold; padding-right: 50px;">Members</td>
-                        <td style="text-align: center; font-weight: bold">Meals</td>
+                        <td style="font-weight: bold; padding-right: 50px;color: white">Members</td>
+                        <td style="text-align: center; font-weight: bold;color: white">Meals</td>
                     </tr>
                     @foreach (var member in Model.Members)
                     {
