@@ -3,26 +3,31 @@
     ViewBag.Title = "Update meals";
 }
 <div>
-    
+    <div class="">
+        @Html.ValidationSummary(true, "Please fix these errors", new { @class = "error" })
+    </div>
     <h2 style="text-align: center; color:white">Update meals</h2>
     @if (Model.Members.Count > 0)
     {
         using (Html.BeginForm("Save", "Update"))
         {
 
-            <div style="float: left; width: 50%; margin-left: 10%; padding-bottom: 20px;">
+            <div style="float: left; width: 50%; margin-left: 6%; padding-bottom: 20px; margin-right:2% ">
                 @{
                     var i = 0;
                 }
-                <table>
+                <table id="update" class="table">
+                    <thead>
                     <tr>
-                        <td style="font-weight: bold; padding-right: 50px;color: white">Members</td>
-                        <td style="text-align: center; font-weight: bold;color: white">Meals</td>
+                        <th >Members</th>
+                        <th >Meals</th>
                     </tr>
+                    </thead>
+                    <tbody>
                     @foreach (var member in Model.Members)
                     {
                         <tr>
-                            <td style="padding-right: 5px;">
+                            <td >
                                 @member.Name
                             </td>
                             <td>
@@ -31,18 +36,20 @@
                                     Model.Meals[i].MemberId = member.Id;
                                 }
                             </td>
-                            <td>
-                                @Html.ValidationMessageFor(m => m.Meals[i].MealNo)
-                                @Html.HiddenFor(m => m.Meals[i].MemberId, new {value = member.Id})
-                                @{
-                                    i++;
-                                }
-                            </td>
+                            
+                            @Html.HiddenFor(m => m.Meals[i].MemberId, new {value = member.Id})
+                            @{
+                                i++;
+                            }
+                            
                         </tr>
 
                     }
+                    </tbody>
+                    
                 </table>
             </div>
+        
             <div style="float: right; margin-right: 20%; width: 20%; padding-bottom: 10px;">
                 <div class="form-group">
                     @Html.LabelFor(m => m.Day)
@@ -61,7 +68,7 @@
                 <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Save</button>
 
             </div>
-
+            <div class="clearfix"></div>
         }
     }
     else
@@ -71,3 +78,15 @@
         </div>
     }
 </div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#update").DataTable({
+                ordering: false,
+                paging:false
+        });
+        });
+    </script>
+}

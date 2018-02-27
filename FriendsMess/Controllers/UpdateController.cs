@@ -56,12 +56,45 @@ namespace FriendsMess.Controllers
         [HttpPost]
         public ActionResult Save(MealViewModel mealView)
         {
+            if (mealView.Meals == null)
+            {
+                ModelState.AddModelError("", "You must clear search field");
+            }
+            else
+            {
+                var uName = User.Identity.GetUserName();
+                var mealsCount = mealView.Meals.Count;
+                var memberCount = _context.Members.Count(m => m.UserId == uName);
+                if (mealsCount != memberCount)
+                {
+                    ModelState.AddModelError("", "You must clear search field");
+                }
+            }
+
+
             if (!ModelState.IsValid)
             {
                 mealView.Days = Days();
                 mealView.Members = _context.Members.ToList();
-                return View("New", mealView);
+                var name = User.Identity.GetUserName();
+                var meals = new List<Meal>();
+                var members = _context.Members.Where(m => m.UserId == name).ToList();
+
+                foreach (var member in members)
+                {
+                    meals.Add(new Meal());
+                }
+
+
+                var mealview = new MealViewModel
+                {
+                    Members = members,
+                    Meals = meals,
+                    Days = Days()
+                };
+                return View("New", mealview);
             }
+           
             var totalMeal = 0;
             foreach (var meal in mealView.Meals )
             {

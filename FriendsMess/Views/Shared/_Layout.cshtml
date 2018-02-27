@@ -21,7 +21,7 @@
                 @Html.ActionLink("Friends Mess", "Index", "Home", null, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav" >
+                <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Members", "Index", "Members")</li>
                     <li>@Html.ActionLink("Expenses", "Expense", "Home")</li>
@@ -33,6 +33,7 @@
             </div>
         </div>
     </div>
+    <div class="clearfix"></div>
     <div class="container body-content">
         @RenderBody()
         <hr />

@@ -6,6 +6,11 @@
 body table tr td {
     color: black;
 }
+.cleardown:after {
+    content: "";
+    display: table;
+    clear: both;
+}
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -30,7 +35,7 @@ textarea {
 }
 
 input.input-validation-error {
-    border: 1px solid #b94a48;
+    border: 1px solid yellow;
 }
 
 input[type="checkbox"].input-validation-error {
@@ -39,8 +44,11 @@ input[type="checkbox"].input-validation-error {
 
 .validation-summary-errors {
     color: #b94a48;
+    text-align: center;
+    color: yellow;
 }
 
 .validation-summary-valid {
     display: none;
 }
+

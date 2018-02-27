@@ -24,12 +24,12 @@
     <tbody>
     @foreach (var member in Model)
     {
-        <tr>
+        <tr style="background-color:gainsboro">
             <td>@Html.ActionLink(member.Name, "Edit", new { id = member.Id })</td>
             <td>@member.Deposit.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
-            <td>@Html.ActionLink("Add","AddDeposit", new{id =member.Id})</td>
+            <td>@Html.ActionLink("Add", "AddDeposit", new { id = member.Id })</td>
             <td>@member.MobileNumber</td>
-            <td>@Html.ActionLink("View Meals","ViewMeal",new{id=member.Id})</td>
+            <td>@Html.ActionLink("View Meals", "ViewMeal", new { id = member.Id })</td>
             <td>
                 <button data-member-id="@member.Id" class="btn-link js-delete">Delete</button>
             </td>
@@ -48,7 +48,8 @@ else
 }
 @section scripts{
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
+            $("#member").DataTable();
             $("#member .js-delete").on("click",
                 function () {
                     var button = $(this);

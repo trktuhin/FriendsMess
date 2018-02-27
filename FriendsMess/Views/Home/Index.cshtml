@@ -5,77 +5,77 @@
 @{
     ViewBag.Title = "Home";
     var home = new HomeController();
-    var mealRate = home.GetMealRate(User.Identity.GetUserName());    
+    var mealRate = home.GetMealRate(User.Identity.GetUserName());
 }
 <span>
     @Html.ActionLink("Download pdf", "ExportPdf", "Home", null, new { @class = "btn btn-success", style = "float:left; margin-top: 10px" })
     <button class="btn btn-danger js-clearMonth" style="float: right; margin-top: 10px;">Start New Month</button>
 </span>
-<h2 style="text-align: center; color:white">Meal Rate:@mealRate.ToString("C2",CultureInfo.CreateSpecificCulture("en-BD"))</h2>
+<h2 style="text-align: center; color:white">Meal Rate:@mealRate.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</h2>
 @if (Model.Members.Count > 0)
 {
     <div>
-        <table class="table table-hover table-bordered">
+        <table id="HomeTbl" class="table table-hover table-bordered">
             <thead>
-            <tr class="danger">
-                <th>Name</th>
-                <th>Deposit</th>
-                <th>Total Meal</th>
-                <th>Meal Cost</th>
-                <th>Ohter Expenses</th>
-                <th>Balance</th>
-            </tr>
+                <tr class="danger">
+                    <th>Name</th>
+                    <th>Deposit</th>
+                    <th>Total Meal</th>
+                    <th>Meal Cost</th>
+                    <th>Ohter Expenses</th>
+                    <th>Balance</th>
+                </tr>
             </thead>
             <tbody>
-            @foreach (var member in Model.Members)
-            {
+                @foreach (var member in Model.Members)
+                {
 
-                var totalMeal = home.GetTotalMeal(member.Id);
-                var mealExpense = home.GetMealRate(User.Identity.GetUserName()) * totalMeal;
-                var otherExpense = home.GetOtherExpense(User.Identity.GetUserName());
-                var balance =member.Deposit- (mealExpense + otherExpense);
+                    var totalMeal = home.GetTotalMeal(member.Id);
+                    var mealExpense = home.GetMealRate(User.Identity.GetUserName()) * totalMeal;
+                    var otherExpense = home.GetOtherExpense(User.Identity.GetUserName());
+                    var balance = member.Deposit - (mealExpense + otherExpense);
 
-                <tr class="primay">
-                    <td>@member.Name</td>
-                    <td>@member.Deposit.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
-                    <td>@totalMeal</td>
-                    <td>@mealExpense.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
-                    <td>@otherExpense.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
-                    <td>@balance.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
-                </tr>
-            }
+                    <tr style="background-color:gainsboro">
+                        <td>@member.Name</td>
+                        <td>@member.Deposit.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                        <td>@totalMeal</td>
+                        <td>@mealExpense.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                        <td>@otherExpense.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                        <td>@balance.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                    </tr>
+                }
             </tbody>
         </table>
-        <br/>
+        <br />
         <h2 style="text-align: center; color:white">Detailed Meals</h2>
         <table class="table table-bordered table-hover">
             <thead>
-            <tr class="danger">
-                <th>Date</th>
-                @foreach (var mem in Model.Members)
-                {
-                    <th>@mem.Name</th>
-                }
-            </tr>
+                <tr class="danger">
+                    <th>Date</th>
+                    @foreach (var mem in Model.Members)
+                    {
+                        <th>@mem.Name</th>
+                    }
+                </tr>
             </thead>
             <tbody>
-            @{
-                int j = 0;
-                int m = 0;
-                var totalDay = Model.Days.Count;
-                var totalMember = Model.Members.Count;
-                for (int i = 0; i < totalDay; i++)
-                {
-                    <tr>
-                        <td>@Model.Days[j++].DayNumber</td>
-                        @for (int k=0; k<totalMember; k++)
-                        {
-                        <td>@Model.Meals[m++].MealNo</td>
-                        }
-                    </tr>
-                    
+                @{
+                    int j = 0;
+                    int m = 0;
+                    var totalDay = Model.Days.Count;
+                    var totalMember = Model.Members.Count;
+                    for (int i = 0; i < totalDay; i++)
+                    {
+                        <tr style="background-color:gainsboro">
+                            <td>@Model.Days[j++].DayNumber</td>
+                            @for (int k = 0; k < totalMember; k++)
+                            {
+                                <td>@Model.Meals[m++].MealNo</td>
+                            }
+                        </tr>
+
+                    }
                 }
-            }
             </tbody>
         </table>
     </div>
@@ -94,7 +94,7 @@ else
 }
 @section scripts{
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $(".js-clearMonth").on("click",
                 function () {
                     var button = $(this);
@@ -103,7 +103,7 @@ else
                             if (result) {
                                 $.ajax({
                                     url: '@Url.Action("NewMonth","Home")',
-                                    success:function() {
+                                    success: function () {
                                         window.location.href = '@Url.Action("Index","Home")';
                                     }
                                 });
