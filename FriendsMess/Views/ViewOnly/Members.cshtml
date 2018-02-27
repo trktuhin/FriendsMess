@@ -20,12 +20,12 @@
         <tbody>
         @foreach (var member in Model)
         {
-            <tr>
+            <tr style="background-color:gainsboro">
                 <td>@member.Name</td>
                 <td>@member.Deposit.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
                 <td>@member.MobileNumber</td>
                 <td>@Html.ActionLink("View Meals", "ViewMeal", new { id = member.Id }, new { style = "color:darkred;" })</td>
-                
+
             </tr>
 
         }
@@ -38,4 +38,12 @@ else
     <div style="margin-top: 10%;" class="jumbotron">
         <h3 style="color:red;">No Members yet !</h3>
     </div>
+}
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#member").DataTable();
+        });
+    </script>
 }

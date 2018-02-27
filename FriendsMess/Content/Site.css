@@ -27,7 +27,7 @@ textarea {
 
 /* styles for validation helpers */
 .field-validation-error {
-    color: #b94a48;
+    color: yellowgreen;
 }
 
 .field-validation-valid {
@@ -35,7 +35,7 @@ textarea {
 }
 
 input.input-validation-error {
-    border: 1px solid yellow;
+    border: 1px solid red;
 }
 
 input[type="checkbox"].input-validation-error {
@@ -44,8 +44,8 @@ input[type="checkbox"].input-validation-error {
 
 .validation-summary-errors {
     color: #b94a48;
-    text-align: center;
-    color: yellow;
+    text-align: right;
+    color: yellowgreen;
 }
 
 .validation-summary-valid {

@@ -7,8 +7,9 @@
 <h2 style ="text-align: center; color: white;">Other Expenses</h2>
 @if (Model.Count > 0)
 {
+    var totalOther = 0;
     <div>
-        <table class="table table-bordered table-hover">
+        <table id="OthersTbl" class="table table-bordered table-hover">
             <thead>
             <tr class="danger">
                 <th>Name</th>
@@ -19,12 +20,27 @@
             <tbody>
             @foreach (var extra in Model)
             {
-                <tr>
+                <tr style="background-color:gainsboro">
                     <td>@extra.Name</td>
                     <td>@extra.Amount.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
                     <td>@extra.Description</td>
+                    @{
+                        try
+                        {
+                            totalOther += extra.Amount;
+                        }
+                        catch (Exception e)
+                        {
+
+                        }
+                    }
                 </tr>
             }
+            <tr style="background-color:greenyellow">
+                <td style="text-align: right">Total:</td>
+                <td style="font-weight: bold">@totalOther.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                <td></td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -35,4 +51,11 @@ else
         <h3 style="color:red;">No extra expenses yet !</h3>
     </div>
 }
-
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#OthersTbl").DataTable();
+        });
+    </script>
+}

@@ -7,7 +7,7 @@
 <h2 style="text-align: center; color: white;">Daily Expenses</h2>
 @if (Model.Count > 0)
 {
-    <table class="table table-bordered table-hover">
+    <table id="expenseTbl" class="table table-bordered table-hover">
         <thead>
             <tr class="danger">
                 <th>Day</th>
@@ -24,15 +24,15 @@
             }
             @foreach (var day in Model)
             {
-                <tr>
+                <tr style="background-color:gainsboro">
                     <td>@day.DayNumber</td>
                     <td>
                         @{
                 var expense = (int)day.Expense;
-                    }
-                    @expense.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))
-                <td>@day.TotalMeal</td>
-                @{
+                        }
+                        @expense.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))
+                    <td>@day.TotalMeal</td>
+                    @{
 
                 float mealRate;
                 try
@@ -46,12 +46,12 @@
                     mealRate = 0;
                 }
 
-                }
-                <td>@mealRate.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
-                <td>@day.ResponsibleMember</td>
-            </tr>
+                    }
+                    <td>@mealRate.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                    <td>@day.ResponsibleMember</td>
+                </tr>
             }
-            <tr>
+            <tr style="background-color:greenyellow">
                 @{
             float averageMealRate;
             try
@@ -80,4 +80,16 @@ else
 
     </div>
 }
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#expenseTbl").DataTable({
+
+                searching: false
+            });
+        });
+    </script>
+}
+
 

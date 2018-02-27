@@ -3,7 +3,7 @@
     ViewBag.Title = "Update meals";
 }
 <div>
-    <div class="">
+    <div style="float: right">
         @Html.ValidationSummary(true, "Please fix these errors", new { @class = "error" })
     </div>
     <h2 style="text-align: center; color:white">Update meals</h2>
@@ -27,7 +27,7 @@
                     @foreach (var member in Model.Members)
                     {
                         <tr>
-                            <td >
+                            <td style="color:cornsilk">
                                 @member.Name
                             </td>
                             <td>
@@ -65,7 +65,7 @@
                     <label><b>Responsible Member</b></label>
                     @Html.DropDownListFor(m => m.ResponsibleMem, new SelectList(Model.Members, "Name", "Name"), "Select Responsible Member", new {@class = "form-control"})
                 </div>
-                <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Save</button>
+                <button type="submit" class="btn btn-primary" style="margin-top: 10px; position: fixed;">Save</button>
 
             </div>
             <div class="clearfix"></div>
