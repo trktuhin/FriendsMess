@@ -1,0 +1,71 @@
+﻿@using System.Globalization
+@model List<FriendsMess.Models.Member>
+@{
+    ViewBag.Title = "Member";
+}
+
+<span style="float:right;margin-top:10px;">
+    @Html.ActionLink("New Member", "New", "Members", null, new { @class = "btn btn-primary" })
+</span>
+<h2 style="text-align: center; color: white;">Members</h2>
+@if (Model.Count > 0)
+{
+<table id="member" class="table table-bordered table-hover">
+    <thead>
+    <tr class="danger">
+        <th>Name</th>
+        <th>Current Deposit</th>
+        <th>Add Deposit</th>
+        <th>Mobile Number</th>
+        <th>Meals</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var member in Model)
+    {
+        <tr style="background-color:gainsboro">
+            <td>@Html.ActionLink(member.Name, "Edit", new { id = member.Id })</td>
+            <td>@member.Deposit.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+            <td>@Html.ActionLink("Add", "AddDeposit", new { id = member.Id })</td>
+            <td>@member.MobileNumber</td>
+            <td>@Html.ActionLink("View Meals", "ViewMeal", new { id = member.Id })</td>
+            <td>
+                <button data-member-id="@member.Id" class="btn-link js-delete">Delete</button>
+            </td>
+        </tr>
+
+    }
+    </tbody>
+</table>
+    
+}
+else
+{
+    <div style="margin-top: 10%;" class="jumbotron">
+        <h3 style="color:red;">No Members yet !</h3>
+    </div>
+}
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#member").DataTable();
+            $("#member .js-delete").on("click",
+                function () {
+                    var button = $(this);
+                    bootbox.confirm("Are you sure you want to delete this member?",
+                        function (result) {
+                            if (result) {
+                                $.ajax({
+                                    url: '@Url.Action("Delete","Members")',
+                                    data: { id: button.attr("data-member-id") },
+                                    success:function() {
+                                        window.location.href = '@Url.Action("Index","Members")';
+                                    }
+                            });
+                            }
+                        });
+                });
+        });
+    </script>
+}

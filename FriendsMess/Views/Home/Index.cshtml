@@ -41,7 +41,18 @@
                         <td>@totalMeal</td>
                         <td>@mealExpense.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
                         <td>@otherExpense.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
-                        <td>@balance.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                        @{
+                            if (balance < 0)
+                            {
+                                balance = balance * -1;
+                                <td style="color: red">Due:@balance.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                            }
+                            else
+                            {
+                                <td>@balance.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+
+                            }
+}
                     </tr>
                 }
             </tbody>
@@ -110,6 +121,9 @@ else
                             }
                         });
                 });
+            $("#HomeTbl").DataTable({
+                paging:false
+            });
         });
     </script>
 }

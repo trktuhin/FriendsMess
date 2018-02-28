@@ -1,0 +1,49 @@
+﻿@using System.Globalization
+@model List<FriendsMess.Models.Member>
+@{
+    ViewBag.Title = "Members";
+    Layout = "~/Views/Shared/_ViewOnly.cshtml";
+}
+
+<h2 style="text-align: center; color: white;">Members</h2>
+@if (Model.Count > 0)
+{
+    <table id="member" class="table table-bordered table-hover">
+        <thead>
+        <tr class="danger">
+            <th>Name</th>
+            <th>Current Deposit</th>
+            <th>Mobile Number</th>
+            <th>Meals</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var member in Model)
+        {
+            <tr style="background-color:gainsboro">
+                <td>@member.Name</td>
+                <td>@member.Deposit.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                <td>@member.MobileNumber</td>
+                <td>@Html.ActionLink("View Meals", "ViewMeal", new { id = member.Id }, new { style = "color:darkred;" })</td>
+
+            </tr>
+
+        }
+        </tbody>
+    </table>
+    
+}
+else
+{
+    <div style="margin-top: 10%;" class="jumbotron">
+        <h3 style="color:red;">No Members yet !</h3>
+    </div>
+}
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#member").DataTable();
+        });
+    </script>
+}

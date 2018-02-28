@@ -1,0 +1,31 @@
+﻿@model FriendsMess.ViewModels.MemberViewModel
+@{
+    ViewBag.Title = "MemberForm";
+}
+
+<h2>@ViewBag.status</h2>
+
+@using (Html.BeginForm("Save", "Members"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Deposit)
+        @Html.TextBoxFor(m => m.Deposit, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Deposit)
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.MobileNumber)
+        @Html.TextBoxFor(m => m.MobileNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.MobileNumber)
+
+    </div>
+    
+    @Html.HiddenFor(m => m.Id)
+    @Html.AntiForgeryToken()
+    <button class="btn btn-primary" type="Submit">Save</button>
+}

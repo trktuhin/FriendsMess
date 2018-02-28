@@ -16,9 +16,7 @@
     <title>Home</title>
 </head>
 <body>
-    <span>
-        @Html.ActionLink("Download pdf", "ExportPdf", "Home", null, new { @class = "btn btn-success", style = "float:left; margin-top: 10px" })
-    </span>
+    
     <h2 style="text-align: center; color:white">Meal Rate:@mealRate.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</h2>
     @if (Model.Members.Count > 0)
     {
@@ -50,7 +48,18 @@
                             <td>@totalMeal</td>
                             <td>@mealExpense.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
                             <td>@otherExpense.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
-                            <td>@balance.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                            @{
+                                if (balance < 0)
+                                {
+                                    balance = balance * -1;
+                                    <td style="color: red">Due:@balance.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                                }
+                                else
+                                {
+                                    <td>@balance.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+
+                                }
+                            }
                         </tr>
                     }
                 </tbody>

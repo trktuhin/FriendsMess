@@ -1,0 +1,112 @@
+﻿@using System.Globalization
+@using FriendsMess.Controllers
+@model FriendsMess.ViewModels.HomeViewModel
+@{
+    Layout = "~/Views/Shared/_ViewOnly.cshtml";
+    ViewBag.Title = "Home";
+    var homeObj = new ViewOnlyController();
+    var mealRate = homeObj.GetMealRate((string)Session["GuestUser"]);
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home</title>
+</head>
+<body>
+    <span>
+        @Html.ActionLink("Download pdf", "ExportPdf", "Home", null, new { @class = "btn btn-success", style = "float:left; margin-top: 10px" })
+    </span>
+    <h2 style="text-align: center; color:white">Meal Rate:@mealRate.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</h2>
+    @if (Model.Members.Count > 0)
+    {
+        <div>
+            <table id="HomeTbl" class="table table-hover table-bordered">
+                <thead>
+                    <tr class="danger">
+                        <th>Name</th>
+                        <th>Deposit</th>
+                        <th>Total Meal</th>
+                        <th>Meal Cost</th>
+                        <th>Ohter Expenses</th>
+                        <th>Balance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var member in Model.Members)
+                    {
+                        var home = new ViewOnlyController();
+
+                        var totalMeal = home.GetTotalMeal(member.Id);
+                        var mealExpense = home.GetMealRate((string)Session["GuestUser"]) * totalMeal;
+                        var otherExpense = home.GetOtherExpense((string)Session["GuestUser"]);
+                        var balance = member.Deposit - (mealExpense + otherExpense);
+
+                        <tr style="background-color:gainsboro">
+                            <td>@member.Name</td>
+                            <td>@member.Deposit.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                            <td>@totalMeal</td>
+                            <td>@mealExpense.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                            <td>@otherExpense.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                            <td>@balance.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br/>
+            <h2 style="text-align: center; color:white">Detailed Meals</h2>
+            <table class="table table-bordered table-hover">
+            <thead>
+            <tr class="danger">
+                <th>Date</th>
+                @foreach (var mem in Model.Members)
+                {
+                    <th>@mem.Name</th>
+                }
+            </tr>
+            </thead>
+            <tbody>
+            @{
+                int j = 0;
+                int m = 0;
+                var totalDay = Model.Days.Count;
+                var totalMember = Model.Members.Count;
+                for (int i = 0; i < totalDay; i++)
+                {
+                    <tr style="background-color:gainsboro">
+                        <td>@Model.Days[j++].DayNumber</td>
+                        @for (int k = 0; k < totalMember; k++)
+                        {
+                            <td>@Model.Meals[m++].MealNo</td>
+                        }
+                    </tr>
+
+                }
+            }
+            </tbody>
+         </table>
+        </div>
+
+    }
+    else
+    {
+        <div class="jumbotron">
+            Nothing to show
+        </div>
+    }
+
+
+</body>
+</html>
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#HomeTbl").DataTable({
+                paging:false
+            });
+        });
+    </script>
+}
