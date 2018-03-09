@@ -33,11 +33,11 @@
                     var totalMeal = home.GetTotalMeal(member.Id);
                     var mealExpense = home.GetMealRate(User.Identity.GetUserName()) * totalMeal;
                     var otherExpense = home.GetOtherExpense(User.Identity.GetUserName());
-                    var balance = member.Deposit - (mealExpense + otherExpense);
+                    var balance = member.Deposits.SingleOrDefault(mon=>mon.MonthNo==3).Amount - (mealExpense + otherExpense);
 
                     <tr style="background-color:gainsboro">
                         <td>@member.Name</td>
-                        <td>@member.Deposit.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                        <td>@member.Deposits.SingleOrDefault(depo=>depo.MonthNo==3).Amount.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
                         <td>@totalMeal</td>
                         <td>@mealExpense.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
                         <td>@otherExpense.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
@@ -78,7 +78,7 @@
                     for (int i = 0; i < totalDay; i++)
                     {
                         <tr style="background-color:gainsboro">
-                            <td>@Model.Days[j++].DayNumber</td>
+                            <td>@Model.Days[j++].DayNumber.ToShortDateString()</td>
                             @for (int k = 0; k < totalMember; k++)
                             {
                                 <td>@Model.Meals[m++].MealNo</td>

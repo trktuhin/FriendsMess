@@ -24,7 +24,7 @@
     @foreach (var day in Model)
     {
         <tr style="background-color:gainsboro">
-            <td>@day.DayNumber</td>
+            <td>@day.DayNumber.ToShortDateString()</td>
             <td>
                 @{
         var expense = (int)day.Expense;

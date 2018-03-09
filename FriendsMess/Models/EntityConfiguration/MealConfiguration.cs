@@ -6,7 +6,7 @@ namespace FriendsMess.Models.EntityConfiguration
     {
         public MealConfiguration()
         {
-            HasKey(m => new {m.DayNoId, m.MemberId});
+            HasKey(m => new {m.MemberId,m.DayNoId});
         }
     }
 }

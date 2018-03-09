@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using FriendsMess.Models;
 using Microsoft.AspNet.Identity;
@@ -44,6 +45,7 @@ namespace FriendsMess.Controllers
             if (expense.Id == 0)
             {
                 expense.UserId = userName;
+                expense.MonthNo = Convert.ToInt32(DateTime.Now.Month.ToString());
                 _context.OtherExpenses.Add(expense);
                 
             }

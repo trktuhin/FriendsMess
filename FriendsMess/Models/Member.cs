@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FriendsMess.Models
 {
@@ -7,7 +9,9 @@ namespace FriendsMess.Models
         [Required]
         public string Name { get; set; }
         public int Id { get; set; }
-        public int Deposit { get; set; }
+
+        public IList<Deposit> Deposits { get; set; }
+
         [MinLength(10)]
         public string MobileNumber { get; set; }
 

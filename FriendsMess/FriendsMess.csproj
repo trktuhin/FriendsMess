@@ -294,9 +294,26 @@
     <Compile Include="Migrations\201802261234460_AddingUserIdInMealTableToNullable.Designer.cs">
       <DependentUpon>201802261234460_AddingUserIdInMealTableToNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803090954489_ChangingDateType.cs" />
+    <Compile Include="Migrations\201803090954489_ChangingDateType.Designer.cs">
+      <DependentUpon>201803090954489_ChangingDateType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803091103087_MakingDayNOIdKeyAgain.cs" />
+    <Compile Include="Migrations\201803091103087_MakingDayNOIdKeyAgain.Designer.cs">
+      <DependentUpon>201803091103087_MakingDayNOIdKeyAgain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803091455334_CreatingDepositTable.cs" />
+    <Compile Include="Migrations\201803091455334_CreatingDepositTable.Designer.cs">
+      <DependentUpon>201803091455334_CreatingDepositTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803091526159_AddingMonthNoToOthers.cs" />
+    <Compile Include="Migrations\201803091526159_AddingMonthNoToOthers.Designer.cs">
+      <DependentUpon>201803091526159_AddingMonthNoToOthers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DayNo.cs" />
+    <Compile Include="Models\Deposit.cs" />
     <Compile Include="Models\EntityConfiguration\MealConfiguration.cs" />
     <Compile Include="Models\GreaterThanZero.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -367,6 +384,47 @@
     <Content Include="Content\DataTables\images\xls_hover.png" />
     <Content Include="Content\DataTables\swf\copy_csv_xls.swf" />
     <Content Include="Content\DataTables\swf\copy_csv_xls_pdf.swf" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -382,7 +440,6 @@
     <Content Include="Content\DataTables\css\dataTables.jqueryui.scss" />
     <None Include="Properties\PublishProfiles\friendsmess - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\friendsmess - Web Deploy.pubxml" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\DataTables\dataTables.autoFill.js" />
     <Content Include="Scripts\DataTables\dataTables.autoFill.min.js" />
     <Content Include="Scripts\DataTables\dataTables.bootstrap.js" />
@@ -404,9 +461,13 @@
     <Content Include="Scripts\DataTables\dataTables.tableTools.min.js" />
     <Content Include="Scripts\DataTables\jquery.dataTables.js" />
     <Content Include="Scripts\DataTables\jquery.dataTables.min.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\jquery-1.12.4.js" />
+    <Content Include="Scripts\jquery-1.12.4.min.js" />
+    <Content Include="Scripts\jquery-1.12.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -429,7 +490,6 @@
     <Content Include="Views\Home\Expense.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
@@ -556,6 +616,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802261234460_AddingUserIdInMealTableToNullable.resx">
       <DependentUpon>201802261234460_AddingUserIdInMealTableToNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803090954489_ChangingDateType.resx">
+      <DependentUpon>201803090954489_ChangingDateType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803091103087_MakingDayNOIdKeyAgain.resx">
+      <DependentUpon>201803091103087_MakingDayNOIdKeyAgain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803091455334_CreatingDepositTable.resx">
+      <DependentUpon>201803091455334_CreatingDepositTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803091526159_AddingMonthNoToOthers.resx">
+      <DependentUpon>201803091526159_AddingMonthNoToOthers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

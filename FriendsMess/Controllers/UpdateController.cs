@@ -99,7 +99,7 @@ namespace FriendsMess.Controllers
             foreach (var meal in mealView.Meals )
             {
                 
-                meal.DayNoId = mealView.Day;
+                meal.DayNoId = mealView.Day.Value;
                 meal.UserId = User.Identity.GetUserName();
                 _context.Meals.AddOrUpdate(meal);
                 if (meal.MealNo != null)
@@ -111,7 +111,7 @@ namespace FriendsMess.Controllers
             {
                 var newDay = new DayNo
                 {
-                    DayNumber = mealView.Day,
+                    DayNumber = mealView.Day.Value,
                     Expense = mealView.Expense,
                     TotalMeal = totalMeal,
                     UserId = userName,

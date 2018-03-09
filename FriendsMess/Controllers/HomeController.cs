@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using Rotativa;
@@ -29,7 +30,7 @@ namespace FriendsMess.Controllers
             var homeViewModel = new HomeViewModel
             {
                 Meals = _context.Meals.Where(m=>m.UserId==userName).OrderBy(m=>m.DayNoId).ToList(),
-                Members = _context.Members.Where(m=>m.UserId==userName).OrderBy(m=>m.Id).ToList(),
+                Members = _context.Members.Where(m=>m.UserId==userName).OrderBy(m=>m.Id).Include(m=>m.Deposits).ToList(),
                 Days = _context.Days.Where(m=>m.Expense!=0 && m.UserId==userName).OrderBy(m=>m.DayNumber).ToList()
             };
             return View(homeViewModel);
@@ -38,7 +39,7 @@ namespace FriendsMess.Controllers
         public ActionResult Expense()
         {
             var userName = User.Identity.GetUserName();
-            var days = _context.Days.Where(m => m.Expense != 0 && m.UserId==userName).OrderByDescending(m=>m.DayNumber).ToList();
+            var days = _context.Days.Where(m => m.Expense != 0 && m.UserId==userName && m.DayNumber.Month==3).OrderByDescending(m=>m.DayNumber).ToList();
 
             return View("Expense",days);
         }
@@ -63,7 +64,7 @@ namespace FriendsMess.Controllers
         {
             try
             {
-                var otherExpense = _context.OtherExpenses.Where(m=>m.UserId==userName).Sum(c => c.Amount);
+                var otherExpense = _context.OtherExpenses.Where(m=>m.UserId==userName && m.MonthNo==3).Sum(c => c.Amount);
                 return otherExpense /_context.Members.Count(m => m.UserId==userName);
             }
             catch (Exception e)
@@ -90,10 +91,10 @@ namespace FriendsMess.Controllers
         public ActionResult NewMonth()
         {
             var userName = User.Identity.GetUserName();
-            var members = _context.Members.Where(m => m.UserId == userName).ToList();
+            var members = _context.Members.Where(m => m.UserId == userName).Include(m=>m.Deposits).ToList();
             foreach (var mem in members)
             {
-                mem.Deposit = 0;
+                mem.Deposits.SingleOrDefault(m=>m.MonthNo==3).Amount = 0;
                 var meals = _context.Meals.Where(m => m.MemberId == mem.Id);
                 foreach (var meal in meals)
                 {

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FriendsMess.Models
@@ -9,7 +10,9 @@ namespace FriendsMess.Models
         [Key]
         public int Id { get; set; }
 
-        public int DayNumber { get; set; }
+        [Display(Name = "Date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]  
+        public DateTime DayNumber { get; set; }
 
 
         public int? TotalMeal  { get; set; }

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using FriendsMess.Models;
@@ -25,7 +27,7 @@ namespace FriendsMess.Controllers
         public ActionResult Index()
         {
             var userName = User.Identity.GetUserName();
-            var members = _context.Members.Where(m=>m.UserId==userName).ToList();
+            var members = _context.Members.Where(m=>m.UserId==userName).Include(m=>m.Deposits).ToList();
             return View(members);
         }
 
@@ -47,8 +49,14 @@ namespace FriendsMess.Controllers
             if (model.Id == 0)
             {
                 var member = Mapper.Map<MemberViewModel, Member>(model);
+                var deposit = new Deposit()
+                {
+                    Amount = model.Deposit,
+                    MonthNo = Convert.ToInt32(DateTime.Now.Month.ToString())
+                };
                 member.UserId = User.Identity.GetUserName();
                 _context.Members.Add(member);
+                _context.Deposits.Add(deposit);
             }
             else
             {
@@ -72,7 +80,7 @@ namespace FriendsMess.Controllers
             {
                 Id = memberInDb.Id,
                 Name = memberInDb.Name,
-                Deposit = memberInDb.Deposit,
+                Deposit = memberInDb.Deposits.SingleOrDefault(m=>m.MonthNo==3).Amount,
                 MobileNumber = memberInDb.MobileNumber
             };
             ViewBag.status = "Edit Member";
@@ -117,8 +125,10 @@ namespace FriendsMess.Controllers
             {
                 return View("AddDeposit", obj);
             }
-            var memberInDb = _context.Members.SingleOrDefault(m => m.Id == obj.Id);
-            memberInDb.Deposit +=obj.Amount;
+            var deposit = _context.Deposits.SingleOrDefault(m => m.MemberId == obj.Id);
+            deposit.Amount += obj.Amount;
+            //var memberInDb = _context.Members.SingleOrDefault(m => m.Id == obj.Id);
+            //memberInDb.Deposit +=obj.Amount;
             _context.SaveChanges();
             return RedirectToAction("Index", "Members");
         }

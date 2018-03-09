@@ -27,7 +27,7 @@
                 Console.WriteLine("There was some problem while converting meals into integer!");
             }
             <tr style="background-color:gainsboro">
-                <td>@day.DayNoId</td>
+                <td>@day.DayNoId.ToLongDateString()</td>
                 <td>@day.MealNo</td>
             </tr>
         }

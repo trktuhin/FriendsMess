@@ -87,3 +87,7 @@ C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migratio
 C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.csproj.GenerateResource.Cache
 C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.dll
 C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.pdb
+C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.ChangingDateType.resources
+C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.MakingDayNOIdKeyAgain.resources
+C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.CreatingDepositTable.resources
+C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.AddingMonthNoToOthers.resources
