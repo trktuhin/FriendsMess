@@ -64,6 +64,10 @@ namespace FriendsMess.Controllers
                 if (memberInDb == null)
                     return HttpNotFound();
 
+                var deposit = _context.Deposits.SingleOrDefault(m => m.MonthNo == 3 && m.MemberId==model.Id);
+                if (deposit != null)
+                    deposit.Amount = model.Deposit;
+                    
                 Mapper.Map(model, memberInDb);
             }
             _context.SaveChanges();
@@ -72,7 +76,7 @@ namespace FriendsMess.Controllers
 
         public ActionResult Edit(int id)
         {
-            var memberInDb = _context.Members.SingleOrDefault(m => m.Id == id);
+            var memberInDb = _context.Members.Include(m=>m.Deposits).SingleOrDefault(m => m.Id == id);
            
             if (memberInDb == null)
                 return HttpNotFound();
@@ -80,7 +84,7 @@ namespace FriendsMess.Controllers
             {
                 Id = memberInDb.Id,
                 Name = memberInDb.Name,
-                Deposit = memberInDb.Deposits.SingleOrDefault(m=>m.MonthNo==3).Amount,
+                Deposit = memberInDb.Deposits.SingleOrDefault(m => m.MonthNo == 3).Amount,
                 MobileNumber = memberInDb.MobileNumber
             };
             ViewBag.status = "Edit Member";

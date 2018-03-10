@@ -53,7 +53,7 @@ namespace FriendsMess.Controllers
 
         public int GetTotalMeal(int id)
         {
-            var totalMeal = _context.Meals.Where(m => m.MemberId == id).Sum(a => a.MealNo);
+            var totalMeal = _context.Meals.Where(m => m.MemberId == id && m.DayNoId.Month==3).Sum(a => a.MealNo);
             if (totalMeal == null)
                 return 0;
 
@@ -94,21 +94,29 @@ namespace FriendsMess.Controllers
             var members = _context.Members.Where(m => m.UserId == userName).Include(m=>m.Deposits).ToList();
             foreach (var mem in members)
             {
-                mem.Deposits.SingleOrDefault(m=>m.MonthNo==3).Amount = 0;
-                var meals = _context.Meals.Where(m => m.MemberId == mem.Id);
-                foreach (var meal in meals)
+                try
                 {
-                    _context.Meals.Remove(meal);
+                    mem.Deposits.SingleOrDefault(m => m.MonthNo == 3).Amount = 0;
+                    var meals = _context.Meals.Where(m => m.MemberId == mem.Id);
+                    foreach (var meal in meals)
+                    {
+                        _context.Meals.Remove(meal);
+                    }
                 }
+                catch (Exception e)
+                {
+                    Console.Write("Error");
+                }
+                
             }
-            var others = _context.OtherExpenses.Where(m => m.UserId == userName).ToList();
+            var others = _context.OtherExpenses.Where(m => m.UserId == userName && m.MonthNo==3).ToList();
             foreach (var expense in others)
             {
                 _context.OtherExpenses.Remove(expense);
             }
             //var meals = _context.Meals.ToList();
             
-            var days = _context.Days.Where(m=>m.UserId==userName).ToList();
+            var days = _context.Days.Where(m=>m.UserId==userName && m.DayNumber.Month==3).ToList();
             foreach (var day in days)
             {
                 day.Expense = 0;

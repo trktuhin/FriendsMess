@@ -12,7 +12,7 @@
 {
 <table id="member" class="table table-bordered table-hover">
     <thead>
-    <tr class="danger">
+    <tr class="text-success">
         <th>Name</th>
         <th>Current Deposit</th>
         <th>Add Deposit</th>
@@ -24,14 +24,24 @@
     <tbody>
     @foreach (var member in Model)
     {
-        <tr style="background-color:gainsboro">
-            <td>@Html.ActionLink(member.Name, "Edit", new { id = member.Id })</td>
-            <td>@member.Deposits.SingleOrDefault(m=>m.MonthNo==3).Amount.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
-            <td>@Html.ActionLink("Add", "AddDeposit", new { id = member.Id })</td>
+        int currentDeposit;
+        <tr class="text-danger">
+            <td><span><img src="~/Images/robin.jpg" style="border-radius:50%; padding: 10px;" width="50px;" height="50px;" /></span>@Html.ActionLink(member.Name, "Edit", new { id = member.Id })</td>
+            @try
+            {
+                currentDeposit = member.Deposits.SingleOrDefault(m => m.MonthNo == 3).Amount;
+
+            }
+            catch (Exception e)
+            {
+                currentDeposit = 0;
+            }
+            <td>@currentDeposit.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+            <td>@Html.ActionLink("Add", "AddDeposit", new {id = member.Id})</td>
             <td>@member.MobileNumber</td>
-            <td>@Html.ActionLink("View Meals", "ViewMeal", new { id = member.Id })</td>
+            <td>@Html.ActionLink("View Meals", "ViewMeal", new {id = member.Id})</td>
             <td>
-                <button data-member-id="@member.Id" class="btn-link js-delete">Delete</button>
+                <button data-member-id="@member.Id" class="btn btn-danger js-delete">Delete</button>
             </td>
         </tr>
 

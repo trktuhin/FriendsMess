@@ -8,7 +8,7 @@
 {
 <table class="table table-bordered table-hover" id="expenseTbl">
     <thead>
-    <tr class="danger">
+    <tr>
         <th>Date</th>
         <th>Expense</th>
         <th>Total Meals</th>
@@ -23,7 +23,7 @@
     }
     @foreach (var day in Model)
     {
-        <tr style="background-color:gainsboro">
+        <tr class="text-warning">
             <td>@day.DayNumber.ToShortDateString()</td>
             <td>
                 @{
@@ -50,7 +50,7 @@
         <td>@day.ResponsibleMember</td>
     </tr>
     }
-        <tr style="background-color:greenyellow">
+        <tr>
             @{
     float averageMealRate;
     try

@@ -1,11 +1,29 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-size: 120%;
+    font-family: 'Roboto Condensed', sans-serif;
+    background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url(../Images/meal.jpg) no-repeat 0px 0px fixed;
+    background-size: cover;
+    color: #FFFFFF;
 }
 
-body table tr td {
-    color: black;
+.bannerImage{
+    
 }
+body table tr td a {
+    color: white;
+}
+
+body table tr td a:hover {
+    color:aqua;
+}
+
+.bootbox-confirm div div{
+    background-color:darkred;
+}
+
+
 .cleardown:after {
     content: "";
     display: table;

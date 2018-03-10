@@ -8,9 +8,9 @@
 @if (Model.Count > 0)
 {
 <div>
-    <table class="table table-hover table-bordered">
+    <table id="DetailedMeal" class="table table-hover table-bordered">
         <thead>
-        <tr class="danger">
+        <tr class="text-info">
             <th>Day</th>
             <th>Meal number</th>
         </tr>
@@ -26,12 +26,12 @@
             {
                 Console.WriteLine("There was some problem while converting meals into integer!");
             }
-            <tr style="background-color:gainsboro">
+            <tr class="text-warning">
                 <td>@day.DayNoId.ToLongDateString()</td>
                 <td>@day.MealNo</td>
             </tr>
         }
-            <tr style="background-color:greenyellow">
+            <tr>
                 <td style="text-align: right">Total:</td>
                 <td style="font-weight: bold">@totalMeal</td>
             </tr>
@@ -45,4 +45,11 @@ else
     <div style="margin-top: 10%;" class=" jumbotron">
         <h3 style="color:red;">No meals yet !</h3>
     </div>
+}
+@section scripts{
+    <script>
+        //$(document).ready(function() {
+        //    $("#DetailedMeal").DataTable();
+        //});
+    </script>
 }

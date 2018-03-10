@@ -1486,7 +1486,7 @@ th {
 
 .table-hover > tbody > tr:hover > td,
 .table-hover > tbody > tr:hover > th {
-  background-color: #f5f5f5;
+  background-color:midnightblue;
 }
 
 table col[class*="col-"] {
@@ -4501,12 +4501,13 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse {
-  background-color: #222222;
-  border-color: #080808;
+  background-color: #444444;
+  /*border-color: #31b0d5;*/
+
 }
 
 .navbar-inverse .navbar-brand {
-  color: #999999;
+  color:#a6e1ec;
 }
 
 .navbar-inverse .navbar-brand:hover,
@@ -4520,13 +4521,13 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse .navbar-nav > li > a {
-  color: #999999;
+  color: #c9302c;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
   color: #ffffff;
-  background-color: transparent;
+  background-color:#c7254e;
 }
 
 .navbar-inverse .navbar-nav > .active > a,
