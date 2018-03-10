@@ -56,7 +56,7 @@
                             if (balance < 0)
                             {
                                 balance = balance * -1;
-                                <td style="color: red">Due:@balance.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                                <td style="color:#ee82ee">Due:@balance.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
                             }
                             else
                             {
@@ -105,9 +105,9 @@
 }
 else
 {
-    <div class="jumbotron">
+    <div class="jumbotron" style="margin-top: 7%;background: brown">
         <ul>
-            <li>Add some members with deposit in Member menu</li>
+            <li>Add some members with deposit in Members menu</li>
             <li>Update their meals with total expense in Update Menu</li>
             <li>Add extra expenses in Ohters Menu</li>
             <li>Come back Home and see all dynamic calculations</li>
