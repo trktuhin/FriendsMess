@@ -310,6 +310,10 @@
     <Compile Include="Migrations\201803091526159_AddingMonthNoToOthers.Designer.cs">
       <DependentUpon>201803091526159_AddingMonthNoToOthers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803111519547_AddingImagePathToMember.cs" />
+    <Compile Include="Migrations\201803111519547_AddingImagePathToMember.Designer.cs">
+      <DependentUpon>201803111519547_AddingImagePathToMember.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DayNo.cs" />
@@ -516,6 +520,7 @@
     <Content Include="Views\ViewOnly\ViewMeal.cshtml" />
     <Content Include="Views\ViewOnly\Index.cshtml" />
     <Content Include="Views\ViewOnly\Others.cshtml" />
+    <Content Include="Views\Members\AddPicture.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -629,6 +634,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803091526159_AddingMonthNoToOthers.resx">
       <DependentUpon>201803091526159_AddingMonthNoToOthers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803111519547_AddingImagePathToMember.resx">
+      <DependentUpon>201803111519547_AddingImagePathToMember.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

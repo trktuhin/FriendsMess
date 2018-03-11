@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using FriendsMess.Models;
@@ -93,9 +94,15 @@ namespace FriendsMess.Controllers
 
         public ActionResult Delete(int id)
         {
+            var userName = User.Identity.GetUserName();
             var memberInDb = _context.Members.SingleOrDefault(m => m.Id == id);
+            
             if (memberInDb == null)
                 return HttpNotFound();
+
+            if (userName != memberInDb.UserId)
+                return HttpNotFound();
+
             _context.Members.Remove(memberInDb);
             _context.SaveChanges();
             return RedirectToAction("Index");
@@ -135,6 +142,39 @@ namespace FriendsMess.Controllers
             //memberInDb.Deposit +=obj.Amount;
             _context.SaveChanges();
             return RedirectToAction("Index", "Members");
+        }
+
+        public ActionResult AddPicture(int id)
+        {
+            Session["PictureId"] = id;
+            return View();
+        }
+
+        public ActionResult SaveImage(HttpPostedFileBase file)
+        {
+            if (file!= null)
+            {
+                file.SaveAs(Server.MapPath("~/Images/")+file.FileName);
+                int memId = (int)Session["PictureId"];
+                var memberInDb = _context.Members.SingleOrDefault(m => m.Id == memId);
+                if (memberInDb != null)
+                {
+                    memberInDb.ImagePath =file.FileName;
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            return HttpNotFound();
+        }
+
+        public ActionResult DeletePicture(int id)
+        {
+            var memberInDb = _context.Members.SingleOrDefault(m => m.Id == id);
+            if (memberInDb == null)
+                return HttpNotFound();
+            memberInDb.ImagePath = "";
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

@@ -4,7 +4,15 @@
 }
 
 <h2>@ViewBag.status</h2>
-
+    
+@if (ViewBag.status == "Edit Member")
+{
+    <div style="float: right">
+        @Html.ActionLink("Add Picture", "AddPicture", "Members", new{id=Model.Id}, new { @class = "btn btn-primary" })
+        <br/><br/>
+        @Html.ActionLink("Dlete Picture", "DeletePicture", "Members", new { id = Model.Id }, new { @class = "btn btn-danger" })
+    </div>
+}
 @using (Html.BeginForm("Save", "Members"))
 {
     <div class="form-group">

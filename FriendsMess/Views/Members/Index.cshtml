@@ -26,7 +26,7 @@
     {
         int currentDeposit;
         <tr class="text-danger">
-            <td><span><img src="~/Images/robin.jpg" style="border-radius:50%; padding: 10px;" width="50px;" height="50px;" /></span>@Html.ActionLink(member.Name, "Edit", new { id = member.Id })</td>
+            <td><span><img src="~/Images/@member.ImagePath" onError="this.onerror = null; this.src = '/Images/meal.jpg';" style=" border-radius:50%; padding 10px;" width="50px;" height="50px;" /></span>    @Html.ActionLink(member.Name, "Edit", new { id = member.Id })</td>
             @try
             {
                 currentDeposit = member.Deposits.SingleOrDefault(m => m.MonthNo == 3).Amount;
@@ -59,6 +59,7 @@ else
 @section scripts{
     <script>
         $(document).ready(function () {
+
             $("#member").DataTable();
             $("#member .js-delete").on("click",
                 function () {

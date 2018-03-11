@@ -1,0 +1,22 @@
+﻿@model FriendsMess.Models.Member
+@{
+    ViewBag.Title = "AddPicture";
+    
+}
+
+<h2>Add Picture</h2>
+
+@using (Html.BeginForm("SaveImage", "Members", null, FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
+    <legend class="text-info">Image</legend>
+    <div>
+        @Html.LabelFor(m=>m.ImagePath)
+    </div>
+    <div>
+        <input id="ImagePath" type="file" name="file" class="form-control"/>
+        <br/>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </div>
+}
+

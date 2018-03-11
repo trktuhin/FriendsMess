@@ -60,12 +60,12 @@ namespace FriendsMess.Controllers
             return (int)totalMeal;
         }
 
-        public int GetOtherExpense(string userName)
+        public float GetOtherExpense(string userName)
         {
             try
             {
-                var otherExpense = _context.OtherExpenses.Where(m=>m.UserId==userName && m.MonthNo==3).Sum(c => c.Amount);
-                return otherExpense /_context.Members.Count(m => m.UserId==userName);
+                float otherExpense = _context.OtherExpenses.Where(m=>m.UserId==userName && m.MonthNo==3).Sum(c => c.Amount);
+                return otherExpense /(float)_context.Members.Count(m => m.UserId==userName);
             }
             catch (Exception e)
             {

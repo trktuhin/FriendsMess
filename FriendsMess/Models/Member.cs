@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace FriendsMess.Models
@@ -17,7 +16,9 @@ namespace FriendsMess.Models
 
         [Required]
         public string UserId { get; set; }
-        
+
+        [Display(Name = "Select Member's Image")]
+        public string ImagePath { get; set; }
         
     }
 }

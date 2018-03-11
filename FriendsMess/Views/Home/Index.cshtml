@@ -32,7 +32,7 @@
 
                     var totalMeal = home.GetTotalMeal(member.Id);
                     var mealExpense = home.GetMealRate(User.Identity.GetUserName()) * totalMeal;
-                    var otherExpense = home.GetOtherExpense(User.Identity.GetUserName());
+                    float otherExpense = home.GetOtherExpense(User.Identity.GetUserName());
                     float balance;
                     int currentDeposit;
                     try
@@ -47,7 +47,7 @@
                     }
 
                     <tr>
-                        <td><span><img src="~/Images/robin.jpg" style="border-radius:50%; padding: 10px;" width="50px;" height="50px;" /></span>@member.Name</td>
+                        <td><span><img src="~/Images/@member.ImagePath" onerror="this.onerror = null; this.src = '/Images/meal.jpg';" style=" border-radius:50%; padding 10px;" width="50px;" height="50px;" /></span>   @member.Name</td>
                         <td>@currentDeposit.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
                         <td>@totalMeal</td>
                         <td>@mealExpense.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
