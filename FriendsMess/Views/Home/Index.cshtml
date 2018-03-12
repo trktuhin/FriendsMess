@@ -1,15 +1,17 @@
 ﻿@using System.Globalization
 @using FriendsMess.Controllers
 @using Microsoft.AspNet.Identity
-@model FriendsMess.ViewModels.HomeViewModel
+@model FriendsMess.ViewModels.IndexViewModel
 @{
     ViewBag.Title = "Home";
     var home = new HomeController();
-    var mealRate = home.GetMealRate(User.Identity.GetUserName());
+    
+    var monthNo = (int) Session["MonthNo"];
+    var mealRate = home.GetMealRate(User.Identity.GetUserName(),monthNo);
 }
 <span>
     @Html.ActionLink("Download pdf", "ExportPdf", "Home", null, new { @class = "btn btn-success", style = "float:left; margin-top: 10px" })
-    <button class="btn btn-danger js-clearMonth" style="float: right; margin-top: 10px;">Start New Month</button>
+    <button class="btn btn-danger js-clearMonth" style="float: right; margin-top: 10px;">Clear Current Month</button>
 </span>
 <h2 style="text-align: center; color:white">Meal Rate:@mealRate.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</h2>
 @if (Model.Members.Count > 0)
@@ -30,15 +32,15 @@
                 @foreach (var member in Model.Members)
                 {
 
-                    var totalMeal = home.GetTotalMeal(member.Id);
-                    var mealExpense = home.GetMealRate(User.Identity.GetUserName()) * totalMeal;
-                    float otherExpense = home.GetOtherExpense(User.Identity.GetUserName());
+                    var totalMeal = home.GetTotalMeal(member.Id,monthNo);
+                    var mealExpense = home.GetMealRate(User.Identity.GetUserName(),monthNo) * totalMeal;
+                    float otherExpense = home.GetOtherExpense(User.Identity.GetUserName(),monthNo);
                     float balance;
                     int currentDeposit;
                     try
                     {
-                        balance = member.Deposits.SingleOrDefault(mon => mon.MonthNo == 3).Amount - (mealExpense + otherExpense);
-                        currentDeposit = member.Deposits.SingleOrDefault(depo => depo.MonthNo == 3).Amount;
+                        balance = member.Deposits.SingleOrDefault(mon => mon.MonthNo ==monthNo).Amount - (mealExpense + otherExpense);
+                        currentDeposit = member.Deposits.SingleOrDefault(depo => depo.MonthNo ==monthNo).Amount;
                     }
                     catch (Exception e)
                     {
@@ -47,7 +49,7 @@
                     }
 
                     <tr>
-                        <td><span><img src="~/Images/@member.ImagePath" onerror="this.onerror = null; this.src = '/Images/meal.jpg';" style=" border-radius:50%; padding 10px;" width="50px;" height="50px;" /></span>   @member.Name</td>
+                        <td><span><img src="~/Images/@member.ImagePath" onerror="this.onerror = null; this.src = '/Images/meal.jpg';" style=" border-radius:50%;border:1.8px solid #00fa9a " width="50px" height="50px" /></span>   @member.Name</td>
                         <td>@currentDeposit.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
                         <td>@totalMeal</td>
                         <td>@mealExpense.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
@@ -69,37 +71,7 @@
             </tbody>
         </table>
         <br />
-        @*<h2 style="text-align: center; color:white">Detailed Meals</h2>
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr class="danger">
-                    <th>Date</th>
-                    @foreach (var mem in Model.Members)
-                    {
-                        <th>@mem.Name</th>
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    int j = 0;
-                    int m = 0;
-                    var totalDay = Model.Days.Count;
-                    var totalMember = Model.Members.Count;
-                    for (int i = 0; i < totalDay; i++)
-                    {
-                        <tr style="background-color:gainsboro">
-                            <td>@Model.Days[j++].DayNumber.ToShortDateString()</td>
-                            @for (int k = 0; k < totalMember; k++)
-                            {
-                                <td>@Model.Meals[m++].MealNo</td>
-                            }
-                        </tr>
-
-                    }
-                }
-            </tbody>
-        </table>*@
+        
     </div>
 
 }

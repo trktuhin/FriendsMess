@@ -61,11 +61,12 @@ namespace FriendsMess.Controllers
             }
             else
             {
+                var monthNo = (int)Session["MonthNo"];
                 var memberInDb = _context.Members.SingleOrDefault(m => m.Id == model.Id);
                 if (memberInDb == null)
                     return HttpNotFound();
 
-                var deposit = _context.Deposits.SingleOrDefault(m => m.MonthNo == 3 && m.MemberId==model.Id);
+                var deposit = _context.Deposits.SingleOrDefault(m => m.MonthNo == monthNo && m.MemberId==model.Id);
                 if (deposit != null)
                     deposit.Amount = model.Deposit;
                     
@@ -81,11 +82,16 @@ namespace FriendsMess.Controllers
            
             if (memberInDb == null)
                 return HttpNotFound();
+            //if (memberInDb.Deposits.SingleOrDefault(m => m.MonthNo == (int) Session["MonthNo"]).Amount == null)
+            //{
+                
+            //}
+            var monthNo = (int) Session["MonthNo"];
             var memberViewModel = new MemberViewModel
             {
                 Id = memberInDb.Id,
                 Name = memberInDb.Name,
-                Deposit = memberInDb.Deposits.SingleOrDefault(m => m.MonthNo == 3).Amount,
+                Deposit = memberInDb.Deposits.SingleOrDefault(m => m.MonthNo == monthNo).Amount,
                 MobileNumber = memberInDb.MobileNumber
             };
             ViewBag.status = "Edit Member";
@@ -110,7 +116,8 @@ namespace FriendsMess.Controllers
 
         public ActionResult ViewMeal(int id)
         {
-            var meals = _context.Meals.Where(m => m.MemberId == id).Where(m=>m.MealNo!=0).ToList();
+            var monthNo = (int) Session["MonthNo"];
+            var meals = _context.Meals.Where(m => m.MemberId == id && m.MealNo != 0 && m.DayNoId.Month == monthNo).ToList();
             var member = _context.Members.SingleOrDefault(m => m.Id == id);
             if (member == null)
                 return HttpNotFound();
@@ -150,6 +157,7 @@ namespace FriendsMess.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult SaveImage(HttpPostedFileBase file)
         {
             if (file!= null)

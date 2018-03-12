@@ -25,7 +25,8 @@ namespace FriendsMess.Controllers
         public ActionResult Index()
         {
             var userName = User.Identity.GetUserName();
-            var extras = _context.OtherExpenses.Where(m=>m.UserId==userName).ToList();
+            var monthNo = (int) Session["MonthNo"];
+            var extras = _context.OtherExpenses.Where(m=>m.UserId==userName && m.MonthNo==monthNo).ToList();
             return View(extras);
         }
 
