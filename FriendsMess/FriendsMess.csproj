@@ -314,8 +314,17 @@
     <Compile Include="Migrations\201803111519547_AddingImagePathToMember.Designer.cs">
       <DependentUpon>201803111519547_AddingImagePathToMember.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803131034239_AddingContactList.cs" />
+    <Compile Include="Migrations\201803131034239_AddingContactList.Designer.cs">
+      <DependentUpon>201803131034239_AddingContactList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803131050039_AddingImageUrlToContactList.cs" />
+    <Compile Include="Migrations\201803131050039_AddingImageUrlToContactList.Designer.cs">
+      <DependentUpon>201803131050039_AddingImageUrlToContactList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ContactList.cs" />
     <Compile Include="Models\DayNo.cs" />
     <Compile Include="Models\Deposit.cs" />
     <Compile Include="Models\EntityConfiguration\MealConfiguration.cs" />
@@ -436,10 +445,6 @@
     <Content Include="Images\meal.jpg" />
     <Content Include="Images\robin.jpg" />
     <Content Include="imgage.ico" />
-    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
-    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
-    <Content Include="Rotativa\wkhtmltoimage.exe" />
-    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="App_Browsers\qt.browser" />
@@ -522,6 +527,8 @@
     <Content Include="Views\ViewOnly\Index.cshtml" />
     <Content Include="Views\ViewOnly\Others.cshtml" />
     <Content Include="Views\Members\AddPicture.cshtml" />
+    <Content Include="Views\Home\ContactForm.cshtml" />
+    <Content Include="Views\Home\AddPicture.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -638,6 +645,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803111519547_AddingImagePathToMember.resx">
       <DependentUpon>201803111519547_AddingImagePathToMember.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803131034239_AddingContactList.resx">
+      <DependentUpon>201803131034239_AddingContactList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803131050039_AddingImageUrlToContactList.resx">
+      <DependentUpon>201803131050039_AddingImageUrlToContactList.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

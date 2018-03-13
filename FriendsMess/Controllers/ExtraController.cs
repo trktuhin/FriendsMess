@@ -46,7 +46,7 @@ namespace FriendsMess.Controllers
             if (expense.Id == 0)
             {
                 expense.UserId = userName;
-                expense.MonthNo = Convert.ToInt32(DateTime.Now.Month.ToString());
+                expense.MonthNo = (int)Session["MonthNo"];
                 _context.OtherExpenses.Add(expense);
                 
             }
@@ -58,13 +58,12 @@ namespace FriendsMess.Controllers
                 expenseInDb.Name = expense.Name;
                 expenseInDb.Amount = expense.Amount;
                 expenseInDb.Description = expense.Description;
-                expenseInDb.UserId = userName;
             }
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id,int monthNo)
         {
             var expenseInDb = _context.OtherExpenses.SingleOrDefault(m => m.Id == id);
             if (expenseInDb == null)

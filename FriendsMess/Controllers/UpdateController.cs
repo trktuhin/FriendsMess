@@ -40,8 +40,7 @@ namespace FriendsMess.Controllers
             var mealview = new MealViewModel
             {
                 Members = members,
-                Meals = meals,
-                Days = Days()
+                Meals = meals
             };
             return View(mealview);
         }
@@ -74,7 +73,7 @@ namespace FriendsMess.Controllers
 
             if (!ModelState.IsValid)
             {
-                mealView.Days = Days();
+                //mealView.Days = Days();
                 mealView.Members = _context.Members.ToList();
                 var name = User.Identity.GetUserName();
                 var meals = new List<Meal>();
@@ -89,8 +88,7 @@ namespace FriendsMess.Controllers
                 var mealview = new MealViewModel
                 {
                     Members = members,
-                    Meals = meals,
-                    Days = Days()
+                    Meals = meals
                 };
                 return View("New", mealview);
             }
@@ -135,20 +133,20 @@ namespace FriendsMess.Controllers
             return RedirectToAction("Index");
         }
 
-        private IEnumerable<SelectListItem> Days()
-        {
-            var list = new List<SelectListItem>();
+        //private IEnumerable<SelectListItem> Days()
+        //{
+        //    var list = new List<SelectListItem>();
 
-            for (var i = 1; i <= 31; i++)
-            {
-                list.Add(new SelectListItem()
-                {
-                    Text = i.ToString(),
-                    Value = i.ToString()
-                });
-            }
+        //    for (var i = 1; i <= 31; i++)
+        //    {
+        //        list.Add(new SelectListItem()
+        //        {
+        //            Text = i.ToString(),
+        //            Value = i.ToString()
+        //        });
+        //    }
 
-            return list;
-        }
+        //    return list;
+        //}
     }
 }

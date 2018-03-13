@@ -43,6 +43,8 @@ namespace FriendsMess.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Save(MemberViewModel model)
         {
+            var monthNo = (int)Session["MonthNo"];
+
             if (!ModelState.IsValid)
             {
                 return View("MemberForm", model);
@@ -53,7 +55,8 @@ namespace FriendsMess.Controllers
                 var deposit = new Deposit()
                 {
                     Amount = model.Deposit,
-                    MonthNo = Convert.ToInt32(DateTime.Now.Month.ToString())
+                    MonthNo = monthNo,
+                    MemberId = model.Id
                 };
                 member.UserId = User.Identity.GetUserName();
                 _context.Members.Add(member);
@@ -61,14 +64,25 @@ namespace FriendsMess.Controllers
             }
             else
             {
-                var monthNo = (int)Session["MonthNo"];
                 var memberInDb = _context.Members.SingleOrDefault(m => m.Id == model.Id);
                 if (memberInDb == null)
                     return HttpNotFound();
 
                 var deposit = _context.Deposits.SingleOrDefault(m => m.MonthNo == monthNo && m.MemberId==model.Id);
-                if (deposit != null)
+                if (deposit == null)
+                {
+                    var newDeposit = new Deposit()
+                    {
+                        Amount = model.Deposit,
+                        MonthNo = monthNo,
+                        MemberId = model.Id
+                    };
+                    _context.Deposits.Add(newDeposit);
+                }
+                else
                     deposit.Amount = model.Deposit;
+                
+               
                     
                 Mapper.Map(model, memberInDb);
             }
@@ -76,22 +90,22 @@ namespace FriendsMess.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id,int monthNo)
         {
             var memberInDb = _context.Members.Include(m=>m.Deposits).SingleOrDefault(m => m.Id == id);
            
             if (memberInDb == null)
                 return HttpNotFound();
-            //if (memberInDb.Deposits.SingleOrDefault(m => m.MonthNo == (int) Session["MonthNo"]).Amount == null)
-            //{
-                
-            //}
-            var monthNo = (int) Session["MonthNo"];
+            var memDeposit = memberInDb.Deposits.SingleOrDefault(m => m.MonthNo == monthNo);
+            
+            var monthDeposit = memDeposit == null ? 0 : memberInDb.Deposits.SingleOrDefault(m => m.MonthNo == monthNo).Amount;
+
+
             var memberViewModel = new MemberViewModel
             {
                 Id = memberInDb.Id,
                 Name = memberInDb.Name,
-                Deposit = memberInDb.Deposits.SingleOrDefault(m => m.MonthNo == monthNo).Amount,
+                Deposit =monthDeposit,
                 MobileNumber = memberInDb.MobileNumber
             };
             ViewBag.status = "Edit Member";
@@ -143,8 +157,20 @@ namespace FriendsMess.Controllers
             {
                 return View("AddDeposit", obj);
             }
-            var deposit = _context.Deposits.SingleOrDefault(m => m.MemberId == obj.Id);
-            deposit.Amount += obj.Amount;
+            var monthNo = (int) Session["MonthNo"];
+            var deposit = _context.Deposits.SingleOrDefault(m => m.MemberId == obj.Id && m.MonthNo==monthNo);
+            if(deposit!=null)
+                deposit.Amount += obj.Amount;
+            else
+            {
+                var nDeposit = new Deposit()
+                {
+                    Amount = obj.Amount,
+                    MonthNo = monthNo,
+                    MemberId = obj.Id
+                };
+                _context.Deposits.Add(nDeposit);
+            }
             //var memberInDb = _context.Members.SingleOrDefault(m => m.Id == obj.Id);
             //memberInDb.Deposit +=obj.Amount;
             _context.SaveChanges();

@@ -1,0 +1,22 @@
+﻿@model FriendsMess.Models.ContactList
+@{
+    ViewBag.Title = "AddPicture";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add Picture</h2>
+
+@using (Html.BeginForm("SaveImage", "Home", null, FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
+    <legend class="text-info">Image</legend>
+    <div>
+        @Html.LabelFor(m => m.ImageUrl)
+    </div>
+    <div>
+        <input id="ImagePath" type="file" name="file" class="form-control" />
+        <br />
+        <button type="submit" class="btn btn-success">Submit</button>
+    </div>
+}
+

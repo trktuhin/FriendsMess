@@ -92,3 +92,5 @@ C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migratio
 C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.CreatingDepositTable.resources
 C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.AddingMonthNoToOthers.resources
 C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.AddingImagePathToMember.resources
+C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.AddingContactList.resources
+C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.AddingImageUrlToContactList.resources

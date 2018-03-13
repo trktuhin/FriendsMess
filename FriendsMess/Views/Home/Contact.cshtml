@@ -1,19 +1,77 @@
-﻿@{
+﻿@model List<FriendsMess.Models.ContactList>
+@{
     ViewBag.Title = "Contact";
 }
+<span style="float:right;margin-top:10px;">
+    @Html.ActionLink("New Contact", "AddContact", "Home", null, new { @class = "btn btn-primary" })
+</span>
+<h2 style="text-align: center">Important Contacts</h2>
+@if (Model.Count > 0)
+{
+    <div class="jumbotron" style="margin-top: 0%; background-color: crimson">
+        <hr/>
+        @foreach (var con in Model)
+        {
+            <div style="float: left;">
+                <img src="~/Images/@con.ImageUrl" onerror="this.onerror = null; this.src = '/Images/meal.jpg';" style="border-radius: 50%; padding: 10px;" width="150px;" height="150px;" />
+            </div>
+            <div>
+                @con.Name <b>(@con.Role)</b>
+                <div style="float: right">
+                    @Html.ActionLink("Edit", "EditContact", "Home", new { id = con.Id }, new { @class = "btn btn-warning" })
+                    <button data-member-id="@con.Id" class="btn btn-default js-delete">Delete</button>
+                     @*@Html.ActionLink("Delete", "DeleteContact", "Home", new { id = con.Id }, new { @class = "btn btn-default" })*@
+                </div>
+                @if (con.Email != null)
+                {
+                    <p><span class="glyphicon glyphicon-envelope"></span> @con.Email
+                    </p>
+                }
+                @if (con.PhoneNumber != null)
+                {
+                    <p><span class="glyphicon glyphicon-earphone"></span> @con.PhoneNumber
+                    </p>
+                }
+                @if (con.Location != null)
+                {
+                    <p>Dhaka, Bangladesh</p>
+                }
+            </div>
+            <div class="clearfix"></div>
+            <hr />
 
-<div class="jumbotron" style="margin-top: 5%;background-color:crimson">
-    <hr/>
-    <div style="float: left;">
-        <img src="~/Images/robin.jpg" style="border-radius:50%; padding: 10px;" width="150px;" height="150px;" />
+        }
+        
+
     </div>
-    <div>
-        <h2 style="color: white">Md. Robin Khan</h2>
-        <p><span class="glyphicon glyphicon-envelope"></span> robin35-908@diu.edu.bd</p>
-        <p><span class="glyphicon glyphicon-earphone"></span> +08801111111111</p>
-        <p>Dhaka, Bangladesh</p>
+}
+else
+{
+    <div style="margin-top: 7%;background: brown" class="jumbotron">
+        <h3>No Contacts yet !</h3>
     </div>
-    
-    <br/>
-    <hr/>
-</div>
+}
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $(".js-delete").on("click",
+                function () {
+                    var button = $(this);
+                    bootbox.confirm("Are you sure you want to delete this contact?",
+                        function (result) {
+                            if (result) {
+                                $.ajax({
+                                    url: '@Url.Action("DeleteContact","Home")',
+                                    data: { id: button.attr("data-member-id") },
+                                    success: function () {
+                                        window.location.href = '@Url.Action("Contact","Home")';
+                                    }
+                                });
+                            }
+                        });
+                });
+        });
+    </script>
+}

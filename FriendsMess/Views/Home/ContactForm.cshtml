@@ -1,0 +1,59 @@
+﻿@model FriendsMess.Models.ContactList
+@{
+    ViewBag.Title = "Contact Form";
+}
+
+<div style="float: right">
+    @Html.ValidationSummary(true, "Please fix these errors", new { @class = "error" })
+</div>
+
+<h2>@ViewBag.status</h2>
+@if (ViewBag.status == "Edit Contact")
+{
+    <div style="float: right">
+        @Html.ActionLink("Add Picture", "AddPicture", "Home", new { id = Model.Id }, new { @class = "btn btn-primary" })
+        <br /><br />
+        @Html.ActionLink("Dlete Picture", "DeletePicture", "Home", new { id = Model.Id }, new { @class = "btn btn-danger" })
+    </div>
+}
+
+@using (Html.BeginForm("Save", "Home"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Role)
+        @Html.TextBoxFor(m => m.Role, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Role)
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Email)
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.PhoneNumber)
+        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.PhoneNumber)
+
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.Location)
+        @Html.TextBoxFor(m => m.Location, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Location)
+
+    </div>
+
+    @Html.HiddenFor(m => m.Id)
+    @Html.AntiForgeryToken()
+    <button class="btn btn-primary" type="Submit">Save</button>
+}
+
+
+

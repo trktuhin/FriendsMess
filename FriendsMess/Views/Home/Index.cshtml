@@ -9,8 +9,19 @@
     var monthNo = (int) Session["MonthNo"];
     var mealRate = home.GetMealRate(User.Identity.GetUserName(),monthNo);
 }
+
+<div style="margin-top: 20px;float: left">
+    @using (Html.BeginForm("MonthSelector","Home"))
+    {
+        
+        var list = (List<SelectListItem>)ViewBag.list;      
+         
+        @Html.DropDownList("month", list, new { @class = "form-control", id="MonSel"})
+        @*<div style="float:left"><button type="submit" class="btn btn-default" style="margin-top: 5px;float: left">Go</button> </div>*@
+        
+    }
+</div>
 <span>
-    @Html.ActionLink("Download pdf", "ExportPdf", "Home", null, new { @class = "btn btn-success", style = "float:left; margin-top: 10px" })
     <button class="btn btn-danger js-clearMonth" style="float: right; margin-top: 10px;">Clear Current Month</button>
 </span>
 <h2 style="text-align: center; color:white">Meal Rate:@mealRate.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</h2>
@@ -39,13 +50,15 @@
                     int currentDeposit;
                     try
                     {
-                        balance = member.Deposits.SingleOrDefault(mon => mon.MonthNo ==monthNo).Amount - (mealExpense + otherExpense);
                         currentDeposit = member.Deposits.SingleOrDefault(depo => depo.MonthNo ==monthNo).Amount;
+                        balance = member.Deposits.SingleOrDefault(mon => mon.MonthNo == monthNo).Amount - (mealExpense + otherExpense);
+                        
                     }
                     catch (Exception e)
                     {
-                        balance = 0;
                         currentDeposit = 0;
+                        balance = currentDeposit - (mealExpense + otherExpense);
+                        
                     }
 
                     <tr>
@@ -89,6 +102,18 @@ else
 @section scripts{
     <script>
         $(document).ready(function () {
+            $("#MonSel").change(function () {
+                console.log("Dukse1");
+                var value = $("#MonSel").val();
+                @*'@Url.Action("MonthSelector","Home",new {month = value})'*@
+                $.ajax({
+                    url: "/home/MonthSelector/?month="+value,
+                    success: function () {
+                        window.location.href = '@Url.Action("Index","Home")';
+                    }
+                });
+            });
+
             $(".js-clearMonth").on("click",
                 function () {
                     var button = $(this);
@@ -108,5 +133,5 @@ else
                 paging:false
             });
         });
-    </script>
+</script>
 }

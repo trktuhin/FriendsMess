@@ -1,7 +1,9 @@
 ﻿@using System.Globalization
+@using FriendsMess.Migrations
 @model List<FriendsMess.Models.Member>
 @{
     ViewBag.Title = "Member";
+    var monthNo = Session["MonthNo"];
 }
 
 <span style="float:right;margin-top:10px;">
@@ -26,7 +28,8 @@
     {
         int currentDeposit;
         <tr>
-            <td><span><img src="~/Images/@member.ImagePath" onError="this.onerror = null; this.src = '/Images/meal.jpg';" style=" border-radius:50%; border:1.8px solid #00fa9a" width="50px;" height="50px;" /></span>    @Html.ActionLink(member.Name, "Edit", new { id = member.Id })</td>
+            <td><span><img src="~/Images/@member.ImagePath" onError="this.onerror = null; this.src = '/Images/meal.jpg';" style=" border-radius:50%; border:1.8px solid #00fa9a" width="50px;" height="50px;" /></span>
+             @Html.ActionLink(member.Name, "Edit", new { id = member.Id,monthNo })</td>
             @try
             {
                 currentDeposit = member.Deposits.SingleOrDefault(m => m.MonthNo == (int)Session["MonthNo"]).Amount;

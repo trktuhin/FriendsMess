@@ -24,7 +24,5 @@ namespace FriendsMess.ViewModels
 
 
         public string ResponsibleMem { get; set; }
-
-        public IEnumerable<SelectListItem> Days { get; set; }
     }
 }
