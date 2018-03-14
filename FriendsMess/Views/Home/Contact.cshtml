@@ -3,9 +3,9 @@
     ViewBag.Title = "Contact";
 }
 <span style="float:right;margin-top:10px;">
-    @Html.ActionLink("New Contact", "AddContact", "Home", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Contact", "AddContact", "Home", null, new { @class = "btn btn-default glyphicon glyphicon-plus" })
 </span>
-<h2 style="text-align: center">Important Contacts</h2>
+<h2 style="text-align: center;margin-top: 10px;">Important Contacts</h2>
 @if (Model.Count > 0)
 {
     <div class="jumbotron" style="margin-top: 0%; background-color: crimson">

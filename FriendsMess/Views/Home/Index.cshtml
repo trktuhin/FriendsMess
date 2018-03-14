@@ -7,30 +7,53 @@
     var home = new HomeController();
     
     var monthNo = (int) Session["MonthNo"];
-    var mealRate = home.GetMealRate(User.Identity.GetUserName(),monthNo);
+    var yearNo = (int) Session["YearNo"];
+    var mealRate = home.GetMealRate(User.Identity.GetUserName(),monthNo,yearNo);
 }
 
-<div style="margin-top: 20px;float: left">
+<div style="margin-top: 10px;float: left">
     @using (Html.BeginForm("MonthSelector","Home"))
     {
         
         var list = (List<SelectListItem>)ViewBag.list;      
          
         @Html.DropDownList("month", list, new { @class = "form-control", id="MonSel"})
-        @*<div style="float:left"><button type="submit" class="btn btn-default" style="margin-top: 5px;float: left">Go</button> </div>*@
         
     }
 </div>
+<div style="margin-top: 10px; float: left; margin-left: 5px;">
+    @using (Html.BeginForm("YearSelector", "Home"))
+    {
+
+        <select id="YearSel" class="form-control">
+            <option value="0">Select Year</option>
+            <option value="2007">2007</option>
+            <option value="2008">2008</option>
+            <option value="2009">2009</option>
+            <option value="2010">2010</option>
+            <option value="2011">2011</option>
+            <option value="2012">2012</option>
+            <option value="2013">2013</option>
+            <option value="2014">2014</option>
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+        </select>
+    }
+</div>
 <span>
-    <button class="btn btn-danger js-clearMonth" style="float: right; margin-top: 10px;">Clear Current Month</button>
+    <button class="btn btn-danger js-clearMonth" style="float: right; margin-top: 10px;"><span class="glyphicon glyphicon-remove"></span> Month</button>
 </span>
-<h2 style="text-align: center; color:white">Meal Rate:@mealRate.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</h2>
+
+<h3 style="float: left; margin-left: 15px; color:#ffa500; margin-top: 10px;">Meal Rate: @mealRate.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))  (@Session["MonthNo"]/@Session["YearNo"])</h3>
 @if (Model.Members.Count > 0)
 {
+    <div class="clearfix"></div>
     <div>
-        <table id="HomeTbl" class="table table-hover table-bordered">
+        <table id="HomeTbl" class="table table-hover">
             <thead>
-                <tr class="text-info">
+                <tr style="background-color: #2f4f4f" class="text-warning">
                     <th>Name</th>
                     <th>Deposit</th>
                     <th>Total Meal</th>
@@ -43,28 +66,28 @@
                 @foreach (var member in Model.Members)
                 {
 
-                    var totalMeal = home.GetTotalMeal(member.Id,monthNo);
-                    var mealExpense = home.GetMealRate(User.Identity.GetUserName(),monthNo) * totalMeal;
-                    float otherExpense = home.GetOtherExpense(User.Identity.GetUserName(),monthNo);
+                    var totalMeal = home.GetTotalMeal(member.Id,monthNo,yearNo);
+                    var mealExpense = home.GetMealRate(User.Identity.GetUserName(),monthNo,yearNo) * totalMeal;
+                    float otherExpense = home.GetOtherExpense(User.Identity.GetUserName(),monthNo,yearNo);
                     float balance;
                     int currentDeposit;
                     try
                     {
-                        currentDeposit = member.Deposits.SingleOrDefault(depo => depo.MonthNo ==monthNo).Amount;
-                        balance = member.Deposits.SingleOrDefault(mon => mon.MonthNo == monthNo).Amount - (mealExpense + otherExpense);
+                        currentDeposit = member.Deposits.SingleOrDefault(depo => depo.MonthNo ==monthNo && depo.YearNo==yearNo).Amount;
+                        balance = member.Deposits.SingleOrDefault(mon => mon.MonthNo == monthNo && mon.YearNo==yearNo).Amount - (mealExpense + otherExpense);
                         
                     }
                     catch (Exception e)
                     {
                         currentDeposit = 0;
-                        balance = currentDeposit - (mealExpense + otherExpense);
+                        balance = 0 - (mealExpense + otherExpense);
                         
                     }
 
                     <tr>
                         <td><span><img src="~/Images/@member.ImagePath" onerror="this.onerror = null; this.src = '/Images/meal.jpg';" style=" border-radius:50%;border:1.8px solid #00fa9a " width="50px" height="50px" /></span>   @member.Name</td>
                         <td>@currentDeposit.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
-                        <td>@totalMeal</td>
+                        <td><span class="glyphicon glyphicon-cutlery"> </span>  @totalMeal</td>
                         <td>@mealExpense.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
                         <td>@otherExpense.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
                         @{
@@ -101,13 +124,25 @@ else
 }
 @section scripts{
     <script>
-        $(document).ready(function () {
-            $("#MonSel").change(function () {
+    $(document).ready(function () {
+        $("#MonSel").change(function () {
+            console.log("Dukse1");
+            var value = $("#MonSel").val();
+            @*'@Url.Action("MonthSelector","Home",new {month = value})'*@
+            $.ajax({
+                url: "/home/MonthSelector/?month="+value,
+                success: function () {
+                    window.location.href = '@Url.Action("Index","Home")';
+                    }
+                });
+            });
+
+            $("#YearSel").change(function () {
                 console.log("Dukse1");
-                var value = $("#MonSel").val();
+                var val = $("#YearSel").val();
                 @*'@Url.Action("MonthSelector","Home",new {month = value})'*@
                 $.ajax({
-                    url: "/home/MonthSelector/?month="+value,
+                    url: "/home/YearSelector/?year="+val,
                     success: function () {
                         window.location.href = '@Url.Action("Index","Home")';
                     }
@@ -117,21 +152,21 @@ else
             $(".js-clearMonth").on("click",
                 function () {
                     var button = $(this);
-                    bootbox.confirm("This will erase all meals and this has other consequences too. Are you sure you want to clear current month?",
+                    bootbox.confirm("This will erase all meals of this current month and this has other consequences too. Are you sure you want to clear current month?",
                         function (result) {
                             if (result) {
                                 $.ajax({
                                     url: '@Url.Action("NewMonth","Home")',
-                                    success: function () {
-                                        window.location.href = '@Url.Action("Index","Home")';
-                                    }
-                                });
-                            }
-                        });
-                });
-            $("#HomeTbl").DataTable({
-                paging:false
+                                success: function () {
+                                    window.location.href = '@Url.Action("Index","Home")';
+                                }
+                            });
+                        }
+                    });
             });
+        $("#HomeTbl").DataTable({
+            paging:false
         });
+    });
 </script>
 }

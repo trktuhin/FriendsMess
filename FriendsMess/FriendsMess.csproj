@@ -322,6 +322,18 @@
     <Compile Include="Migrations\201803131050039_AddingImageUrlToContactList.Designer.cs">
       <DependentUpon>201803131050039_AddingImageUrlToContactList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803140625352_RemovingAssignedMember.cs" />
+    <Compile Include="Migrations\201803140625352_RemovingAssignedMember.Designer.cs">
+      <DependentUpon>201803140625352_RemovingAssignedMember.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803141025513_AddingYearNoToDeposit.cs" />
+    <Compile Include="Migrations\201803141025513_AddingYearNoToDeposit.Designer.cs">
+      <DependentUpon>201803141025513_AddingYearNoToDeposit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803141036432_AddingYearNoToOtherExpense.cs" />
+    <Compile Include="Migrations\201803141036432_AddingYearNoToOtherExpense.Designer.cs">
+      <DependentUpon>201803141036432_AddingYearNoToOtherExpense.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ContactList.cs" />
@@ -651,6 +663,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803131050039_AddingImageUrlToContactList.resx">
       <DependentUpon>201803131050039_AddingImageUrlToContactList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803140625352_RemovingAssignedMember.resx">
+      <DependentUpon>201803140625352_RemovingAssignedMember.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803141025513_AddingYearNoToDeposit.resx">
+      <DependentUpon>201803141025513_AddingYearNoToDeposit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803141036432_AddingYearNoToOtherExpense.resx">
+      <DependentUpon>201803141036432_AddingYearNoToOtherExpense.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

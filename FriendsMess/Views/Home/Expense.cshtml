@@ -3,12 +3,12 @@
 @{
     ViewBag.Title = "Expense";
 }
-<h2 style="text-align: center; color:white;">Daily Expenses</h2>
+<h2 style="text-align: center;margin-top: 10px;">Daily Expenses</h2>
 @if (Model.Count > 0)
 {
-<table class="table table-bordered table-hover" id="expenseTbl">
+<table class="table table-hover" id="expenseTbl">
     <thead>
-    <tr>
+    <tr style="background-color: #696969;color: #b0e0e6">
         <th>Date</th>
         <th>Expense</th>
         <th>Total Meals</th>
@@ -23,14 +23,14 @@
     }
     @foreach (var day in Model)
     {
-        <tr class="text-warning">
+        <tr>
             <td>@day.DayNumber.ToShortDateString()</td>
             <td>
                 @{
         var expense = (int)day.Expense;
             }
             @expense.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))
-        <td>@day.TotalMeal</td>
+        <td><span class="glyphicon glyphicon-cutlery"></span> @day.TotalMeal</td>
         @{
 
         float mealRate;
@@ -65,7 +65,7 @@
             }
             <td style="text-align: right">Total:</td>
             <td style="font-weight: bold">@totalExpense.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
-            <td style="font-weight: bold">@totalMeal</td>
+            <td style="font-weight: bold"><span class="glyphicon glyphicon-cutlery"></span> @totalMeal</td>
             <td style="text-align: right">Average Meal Rate:</td>
             <td style="font-weight: bold">@averageMealRate.ToString("C4", CultureInfo.CreateSpecificCulture("en-BD"))</td>
         </tr>

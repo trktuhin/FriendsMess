@@ -5,16 +5,16 @@
 }
 
 <span style="float:right;margin-top:10px;">
-    @Html.ActionLink("New Expense", "New", "Extra", "", new { @class = "btn btn-info" })
+    @Html.ActionLink("Expense", "New", "Extra", "", new { @class = "btn btn-default glyphicon glyphicon-plus" })
 </span>
-<h2 style ="text-align: center; color: white;">Other Expenses</h2>
+<h2 style ="text-align: center;margin-top: 10px;">Other Expenses</h2>
 @if (Model.Count > 0)
 {
     var totalOther = 0;
 <div>
-    <table id="OthersTbl" class="table table-bordered table-hover">
+    <table id="OthersTbl" class="table table-hover">
         <thead>
-        <tr class="text-danger">
+        <tr style="background-color: #483d8b;color: #00ced1">
             <th>Name</th>
             <th>Amount</th>
             <th>Details</th>
@@ -24,14 +24,11 @@
         <tbody>
         @foreach (var extra in Model)
         {
-            <tr class="text-info">
-                <td>@Html.ActionLink(extra.Name, "Edit", new { id = extra.Id })</td>
+            <tr>
+                <td>@Html.ActionLink(extra.Name, "Edit", new { id = extra.Id})</td>
                 <td>@extra.Amount.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
                 <td>@extra.Description</td>
-                @*
-                <td>@Html.ActionLink("Delete","Delete",new{id=extra.Id})</td>*@
-                @{
-            try
+            @try
             {
                 totalOther += extra.Amount;
             }
@@ -39,8 +36,8 @@
             {
 
             }
-                }
-                <td><button data-extra-id=@extra.Id class="btn btn-danger js-clearExtra">Delete</button></td>
+           
+                <td><button data-extra-id=@extra.Id class="btn btn-danger js-clearExtra glyphicon glyphicon-trash"></button></td>
             </tr>
         }
             <tr >
@@ -61,11 +58,7 @@ else
 }
 @section scripts{
     <script>
-        //$(document).ready(function() {
-        //    $("#OthersTbl").DataTable({
-        //        paging: true,
-                
-        //});
+        
         $(".js-clearExtra").on("click",
             function() {
                 var button = $(this);

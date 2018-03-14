@@ -4,22 +4,23 @@
 @{
     ViewBag.Title = "Member";
     var monthNo = Session["MonthNo"];
+    var yearNo = Session["YearNo"];
 }
 
 <span style="float:right;margin-top:10px;">
-    @Html.ActionLink("New Member", "New", "Members", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Member", "New", "Members", null, new { @class = "btn btn-default glyphicon glyphicon-plus" })
 </span>
-<h2 style="text-align: center; color: white;">Members</h2>
+<h2 style="text-align: center; color: white; margin-top: 10px;">Members</h2>
 @if (Model.Count > 0)
 {
-<table id="member" class="table table-bordered table-hover">
+<table id="member" class="table table-hover">
     <thead>
-    <tr class="text-success">
+    <tr style="background-color: #6a5acd;color: #e6e6fa ">
         <th>Name</th>
         <th>Current Deposit</th>
         <th>Add Deposit</th>
-        <th>Mobile Number</th>
-        <th>Meals</th>
+        <th>Contact No</th>
+        <th>View Meals</th>
         <th>Delete</th>
     </tr>
     </thead>
@@ -29,10 +30,10 @@
         int currentDeposit;
         <tr>
             <td><span><img src="~/Images/@member.ImagePath" onError="this.onerror = null; this.src = '/Images/meal.jpg';" style=" border-radius:50%; border:1.8px solid #00fa9a" width="50px;" height="50px;" /></span>
-             @Html.ActionLink(member.Name, "Edit", new { id = member.Id,monthNo })</td>
+             @Html.ActionLink(member.Name, "Edit", new { id = member.Id,monthNo,yearNo })</td>
             @try
             {
-                currentDeposit = member.Deposits.SingleOrDefault(m => m.MonthNo == (int)Session["MonthNo"]).Amount;
+                currentDeposit = member.Deposits.SingleOrDefault(m => m.MonthNo == (int)monthNo && m.YearNo==(int)yearNo).Amount;
 
             }
             catch (Exception e)
@@ -40,11 +41,11 @@
                 currentDeposit = 0;
             }
             <td>@currentDeposit.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
-            <td>@Html.ActionLink("Add", "AddDeposit", new {id = member.Id})</td>
+            <td>@Html.ActionLink("Deposit", "AddDeposit","Members", new { id = member.Id }, new { @class = "btn btn-default glyphicon glyphicon-plus" })</td>
             <td>@member.MobileNumber</td>
-            <td>@Html.ActionLink("View Meals", "ViewMeal", new {id = member.Id})</td>
+            <td>@Html.ActionLink(" Meals", "ViewMeal", new { id = member.Id }, new { @class = "btn btn-primary glyphicon glyphicon-eye-open" })</td>
             <td>
-                <button data-member-id="@member.Id" class="btn btn-danger js-delete">Delete</button>
+                <button data-member-id="@member.Id" class="btn btn-danger js-delete glyphicon glyphicon-remove"></button>
             </td>
         </tr>
 

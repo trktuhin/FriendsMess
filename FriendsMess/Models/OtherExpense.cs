@@ -14,6 +14,8 @@ namespace FriendsMess.Models
 
         public int MonthNo { get; set; }
 
+        public int YearNo { get; set; }
+
         public string UserId { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using FriendsMess.Models;
 using Microsoft.AspNet.Identity;
@@ -26,7 +25,8 @@ namespace FriendsMess.Controllers
         {
             var userName = User.Identity.GetUserName();
             var monthNo = (int) Session["MonthNo"];
-            var extras = _context.OtherExpenses.Where(m=>m.UserId==userName && m.MonthNo==monthNo).ToList();
+            var yearNo = (int) Session["YearNo"];
+            var extras = _context.OtherExpenses.Where(m=>m.UserId==userName && m.MonthNo==monthNo && m.YearNo==yearNo).ToList();
             return View(extras);
         }
 
@@ -40,13 +40,16 @@ namespace FriendsMess.Controllers
         public ActionResult Save(OtherExpense expense)
         {
             var userName = User.Identity.GetUserName();
+            var monthNo = (int)Session["MonthNo"];
+            var yearNo = (int)Session["YearNo"];
 
             if (!ModelState.IsValid)
                 return View("OtherExpense", expense);
             if (expense.Id == 0)
             {
                 expense.UserId = userName;
-                expense.MonthNo = (int)Session["MonthNo"];
+                expense.MonthNo = monthNo;
+                expense.YearNo = yearNo;
                 _context.OtherExpenses.Add(expense);
                 
             }
@@ -63,7 +66,7 @@ namespace FriendsMess.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Edit(int id,int monthNo)
+        public ActionResult Edit(int id)
         {
             var expenseInDb = _context.OtherExpenses.SingleOrDefault(m => m.Id == id);
             if (expenseInDb == null)
@@ -82,9 +85,5 @@ namespace FriendsMess.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult AssignMember()
-        {
-            return View();
-        }
     }
 }

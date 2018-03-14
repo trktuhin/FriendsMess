@@ -8,9 +8,9 @@
 @if (Model.Count > 0)
 {
 <div>
-    <table id="DetailedMeal" class="table table-hover table-bordered">
+    <table id="DetailedMeal" class="table table-hover">
         <thead>
-        <tr class="text-info">
+        <tr style="background-color: #2f4f4f;color: burlywood">
             <th>Day</th>
             <th>Meal number</th>
         </tr>
@@ -26,14 +26,14 @@
             {
                 Console.WriteLine("There was some problem while converting meals into integer!");
             }
-            <tr class="text-warning">
+            <tr>
                 <td>@day.DayNoId.ToLongDateString()</td>
-                <td>@day.MealNo</td>
+                <td><span class="glyphicon glyphicon-cutlery"></span> @day.MealNo </td>
             </tr>
         }
             <tr>
                 <td style="text-align: right">Total:</td>
-                <td style="font-weight: bold">@totalMeal</td>
+                <td style="font-weight: bold"><span class="glyphicon glyphicon-cutlery"></span> @totalMeal</td>
             </tr>
         </tbody>
     </table>

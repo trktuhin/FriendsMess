@@ -22,8 +22,6 @@ namespace FriendsMess.Models
 
         public string ResponsibleMember { get; set; }
 
-        public string AssignedMember { get; set; }
-
         [Required]
         public string UserId { get; set; }
         

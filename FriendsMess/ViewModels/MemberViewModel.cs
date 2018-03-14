@@ -9,6 +9,7 @@ namespace FriendsMess.ViewModels
         public int Id { get; set; }
         public int Deposit { get; set; }
         [MinLength(10)]
+        [Display(Name = "Mobile Number")]
         public string MobileNumber { get; set; }
     }
 }

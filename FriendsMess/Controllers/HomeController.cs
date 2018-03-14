@@ -60,8 +60,9 @@ namespace FriendsMess.Controllers
         public ActionResult Expense()
         {
             var monthNo = (int)Session["MonthNo"];
+            var yearNo = (int)Session["YearNo"];
             var userName = User.Identity.GetUserName();
-            var days = _context.Days.Where(m => m.Expense != 0 && m.UserId == userName && m.DayNumber.Month == monthNo).OrderByDescending(m => m.DayNumber).ToList();
+            var days = _context.Days.Where(m => m.Expense != 0 && m.UserId == userName && m.DayNumber.Month == monthNo && m.DayNumber.Year==yearNo).OrderByDescending(m => m.DayNumber).ToList();
 
             return View("Expense",days);
         }
@@ -75,20 +76,20 @@ namespace FriendsMess.Controllers
             return View(contactLists);
         }
 
-        public int GetTotalMeal(int id,int monthNo)
+        public int GetTotalMeal(int id,int monthNo, int yearNo)
         {
-            var totalMeal = _context.Meals.Where(m => m.MemberId == id && m.DayNoId.Month == monthNo).Sum(a => a.MealNo);
+            var totalMeal = _context.Meals.Where(m => m.MemberId == id && m.DayNoId.Month == monthNo && m.DayNoId.Year==yearNo).Sum(a => a.MealNo);
             if (totalMeal == null)
                 return 0;
 
             return (int)totalMeal;
         }
 
-        public float GetOtherExpense(string userName,int monthNo)
+        public float GetOtherExpense(string userName,int monthNo,int yearNo)
         {
             try
             {
-                float otherExpense = _context.OtherExpenses.Where(m => m.UserId == userName && m.MonthNo == monthNo).Sum(c => c.Amount);
+                float otherExpense = _context.OtherExpenses.Where(m => m.UserId == userName && m.MonthNo == monthNo && m.YearNo==yearNo).Sum(c => c.Amount);
                 return otherExpense /(float)_context.Members.Count(m => m.UserId==userName);
             }
             catch (Exception e)
@@ -97,10 +98,10 @@ namespace FriendsMess.Controllers
             }
         }
 
-        public float GetMealRate(string userName,int monthNo)
+        public float GetMealRate(string userName,int monthNo,int yearNo)
         {
-            var totalMeal = _context.Days.Where(m=>m.UserId==userName && m.DayNumber.Month==monthNo).Sum(m => m.TotalMeal);
-            var totalExpense = _context.Days.Where(m => m.UserId == userName && m.DayNumber.Month == monthNo).Sum(m => m.Expense);
+            var totalMeal = _context.Days.Where(m=>m.UserId==userName && m.DayNumber.Month==monthNo && m.DayNumber.Year==yearNo).Sum(m => m.TotalMeal);
+            var totalExpense = _context.Days.Where(m => m.UserId == userName && m.DayNumber.Month == monthNo && m.DayNumber.Year == yearNo).Sum(m => m.Expense);
             try
             {
                 return (float)totalExpense /(float)totalMeal;
@@ -114,6 +115,7 @@ namespace FriendsMess.Controllers
         public ActionResult NewMonth()
         {
             var monthNo = (int)Session["MonthNo"];
+            var yearNo = (int)Session["YearNo"];
             var userName = User.Identity.GetUserName();
             var members = _context.Members.Where(m => m.UserId == userName).Include(m=>m.Deposits).ToList();
             foreach (var mem in members)
@@ -121,12 +123,12 @@ namespace FriendsMess.Controllers
                 try
                 {
                     
-                    mem.Deposits.SingleOrDefault(m => m.MonthNo == monthNo).Amount = 0;
-                    var meals = _context.Meals.Where(m => m.MemberId == mem.Id);
-                    foreach (var meal in meals)
-                    {
-                        _context.Meals.Remove(meal);
-                    }
+                    mem.Deposits.SingleOrDefault(m => m.MonthNo == monthNo && m.YearNo==yearNo).Amount = 0;
+                    //var meals = _context.Meals.Where(m => m.MemberId == mem.Id);
+                    //foreach (var meal in meals)
+                    //{
+                    //    _context.Meals.Remove(meal);
+                    //}
                 }
                 catch (Exception e)
                 {
@@ -134,20 +136,24 @@ namespace FriendsMess.Controllers
                 }
                 
             }
-            var others = _context.OtherExpenses.Where(m => m.UserId == userName && m.MonthNo==monthNo).ToList();
+            var others = _context.OtherExpenses.Where(m => m.UserId == userName && m.MonthNo==monthNo && m.YearNo==yearNo).ToList();
             foreach (var expense in others)
             {
                 _context.OtherExpenses.Remove(expense);
             }
             //var meals = _context.Meals.ToList();
             
-            var days = _context.Days.Where(m=>m.UserId==userName && m.DayNumber.Month==monthNo).ToList();
+            var days = _context.Days.Where(m=>m.UserId==userName && m.DayNumber.Month==monthNo && m.DayNumber.Year==yearNo).ToList();
             foreach (var day in days)
             {
-                day.Expense = 0;
-                day.TotalMeal = 0;
-                day.ResponsibleMember = null;
+                _context.Days.Remove(day);
             }
+            var mealList = _context.Meals.Where(m => m.DayNoId.Month == monthNo && m.DayNoId.Year==yearNo).ToList();
+            foreach (var meal in mealList)
+            {
+                _context.Meals.Remove(meal);
+            }
+
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -263,6 +269,13 @@ namespace FriendsMess.Controllers
         public ActionResult MonthSelector(int month)
         {
             Session["MonthNo"] = month;
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult YearSelector(int year)
+        {
+            Session["YearNo"] = year;
 
             return RedirectToAction("Index", "Home");
         }

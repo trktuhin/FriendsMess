@@ -46,6 +46,7 @@ namespace FriendsMess.Controllers
                 if (user != null)
                 {
                     Session["MonthNo"] = DateTime.Now.Month;
+                    Session["YearNo"] = DateTime.Now.Year;
                     await SignInAsync(user, model.RememberMe);
                     return RedirectToLocal(returnUrl);
                 }

@@ -44,6 +44,7 @@ namespace FriendsMess.Controllers
         public ActionResult Save(MemberViewModel model)
         {
             var monthNo = (int)Session["MonthNo"];
+            var yearNo = (int)Session["YearNo"];
 
             if (!ModelState.IsValid)
             {
@@ -75,6 +76,7 @@ namespace FriendsMess.Controllers
                     {
                         Amount = model.Deposit,
                         MonthNo = monthNo,
+                        YearNo = yearNo,
                         MemberId = model.Id
                     };
                     _context.Deposits.Add(newDeposit);
@@ -90,15 +92,15 @@ namespace FriendsMess.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Edit(int id,int monthNo)
+        public ActionResult Edit(int id,int monthNo,int yearNo)
         {
             var memberInDb = _context.Members.Include(m=>m.Deposits).SingleOrDefault(m => m.Id == id);
            
             if (memberInDb == null)
                 return HttpNotFound();
-            var memDeposit = memberInDb.Deposits.SingleOrDefault(m => m.MonthNo == monthNo);
+            var memDeposit = memberInDb.Deposits.SingleOrDefault(m => m.MonthNo == monthNo && m.YearNo==yearNo);
             
-            var monthDeposit = memDeposit == null ? 0 : memberInDb.Deposits.SingleOrDefault(m => m.MonthNo == monthNo).Amount;
+            var monthDeposit = memDeposit == null ? 0 : memberInDb.Deposits.SingleOrDefault(m => m.MonthNo == monthNo && m.YearNo==yearNo).Amount;
 
 
             var memberViewModel = new MemberViewModel
@@ -131,12 +133,12 @@ namespace FriendsMess.Controllers
         public ActionResult ViewMeal(int id)
         {
             var monthNo = (int) Session["MonthNo"];
-            var meals = _context.Meals.Where(m => m.MemberId == id && m.MealNo != 0 && m.DayNoId.Month == monthNo).ToList();
+            var yearNo = (int) Session["YearNo"];
+            var meals = _context.Meals.Where(m => m.MemberId == id && m.MealNo != 0 && m.DayNoId.Month == monthNo && m.DayNoId.Year==yearNo).ToList();
             var member = _context.Members.SingleOrDefault(m => m.Id == id);
             if (member == null)
                 return HttpNotFound();
-            var memberName = member.Name;
-            ViewBag.member = memberName;
+            ViewBag.member = member.Name;
             return View(meals);
         }
 
@@ -158,7 +160,8 @@ namespace FriendsMess.Controllers
                 return View("AddDeposit", obj);
             }
             var monthNo = (int) Session["MonthNo"];
-            var deposit = _context.Deposits.SingleOrDefault(m => m.MemberId == obj.Id && m.MonthNo==monthNo);
+            var yearNo = (int) Session["YearNo"];
+            var deposit = _context.Deposits.SingleOrDefault(m => m.MemberId == obj.Id && m.MonthNo==monthNo && m.YearNo==yearNo);
             if(deposit!=null)
                 deposit.Amount += obj.Amount;
             else
@@ -167,6 +170,7 @@ namespace FriendsMess.Controllers
                 {
                     Amount = obj.Amount,
                     MonthNo = monthNo,
+                    YearNo = yearNo,
                     MemberId = obj.Id
                 };
                 _context.Deposits.Add(nDeposit);

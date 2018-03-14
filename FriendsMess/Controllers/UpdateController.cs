@@ -133,20 +133,5 @@ namespace FriendsMess.Controllers
             return RedirectToAction("Index");
         }
 
-        //private IEnumerable<SelectListItem> Days()
-        //{
-        //    var list = new List<SelectListItem>();
-
-        //    for (var i = 1; i <= 31; i++)
-        //    {
-        //        list.Add(new SelectListItem()
-        //        {
-        //            Text = i.ToString(),
-        //            Value = i.ToString()
-        //        });
-        //    }
-
-        //    return list;
-        //}
     }
 }
