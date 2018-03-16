@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 using FriendsMess.Models;
 using Microsoft.AspNet.Identity;
@@ -85,5 +87,26 @@ namespace FriendsMess.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult ShowDates()
+        {
+            var uName = User.Identity.GetUserName();
+            var monthNo = (int) Session["MonthNo"];
+            var yearNo = (int) Session["YearNo"];
+            var days = _context.AssignedDates.Where(m => m.UserId == uName && m.AssignedDay.Month == monthNo && m.AssignedDay.Year==yearNo).Include(m=>m.Member).ToList();
+            return View(days);
+        }
+
+        public ActionResult DeleteDate(int id)
+        {
+            var monthNo = (int) Session["MonthNo"];
+            var yearNo = (int) Session["YearNo"];
+            var uName = User.Identity.GetUserName();
+            var dayInDb = _context.AssignedDates.SingleOrDefault(m => m.AssignedDay.Month==monthNo && m.AssignedDay.Day==id && m.AssignedDay.Year==yearNo && m.UserId == uName);
+            if (dayInDb == null)
+                return HttpNotFound();
+            _context.AssignedDates.Remove(dayInDb);
+            _context.SaveChanges();
+            return RedirectToAction("ShowDates", "Extra");
+        }
     }
 }

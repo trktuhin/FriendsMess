@@ -11,5 +11,7 @@ namespace FriendsMess.ViewModels
         [MinLength(10)]
         [Display(Name = "Mobile Number")]
         public string MobileNumber { get; set; }
+        [Display(Name = "Select Member's Image")]
+        public string ImagePath { get; set; }
     }
 }

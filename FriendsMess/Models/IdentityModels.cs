@@ -17,6 +17,7 @@ namespace FriendsMess.Models
         public DbSet<OtherExpense> OtherExpenses { get; set; }
         public DbSet<Deposit> Deposits { get; set; }
         public DbSet<ContactList> ContactLists { get; set; }
+        public DbSet<AssignedDate> AssignedDates { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection")
         {

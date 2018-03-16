@@ -124,11 +124,6 @@ namespace FriendsMess.Controllers
                 {
                     
                     mem.Deposits.SingleOrDefault(m => m.MonthNo == monthNo && m.YearNo==yearNo).Amount = 0;
-                    //var meals = _context.Meals.Where(m => m.MemberId == mem.Id);
-                    //foreach (var meal in meals)
-                    //{
-                    //    _context.Meals.Remove(meal);
-                    //}
                 }
                 catch (Exception e)
                 {
@@ -158,20 +153,7 @@ namespace FriendsMess.Controllers
             return RedirectToAction("Index");
         }
 
-        //public ActionResult ExportPdf()
-        //{
-        //    Dictionary<string, string> cookieCollection = new Dictionary<string, string>();
-
-        //    foreach (var key in Request.Cookies.AllKeys)
-        //    {
-        //        cookieCollection.Add(key, Request.Cookies.Get(key).Value);
-        //    }
-        //    return new ActionAsPdf("Index","Home")
-        //    {
-        //        FileName = "Month_Summery.pdf",
-        //        Cookies = cookieCollection
-        //    };
-        //}
+        
         public ActionResult AddContact()
         {
             ViewBag.status = "Add Contact";

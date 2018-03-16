@@ -2,6 +2,7 @@
 @model List<FriendsMess.Models.OtherExpense>
 @{
     ViewBag.Title = "Ohters";
+    int i = 1;
 }
 
 <span style="float:right;margin-top:10px;">
@@ -14,7 +15,8 @@
 <div>
     <table id="OthersTbl" class="table table-hover">
         <thead>
-        <tr style="background-color: #483d8b;color: #00ced1">
+        <tr style="background-color: #483d8b; color: #00ced1">
+            <th>No</th>
             <th>Name</th>
             <th>Amount</th>
             <th>Details</th>
@@ -25,26 +27,31 @@
         @foreach (var extra in Model)
         {
             <tr>
-                <td>@Html.ActionLink(extra.Name, "Edit", new { id = extra.Id})</td>
+                <td>@i</td>
+                <td>@Html.ActionLink(extra.Name, "Edit", new {id = extra.Id})</td>
                 <td>@extra.Amount.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
                 <td>@extra.Description</td>
-            @try
-            {
-                totalOther += extra.Amount;
-            }
-            catch (Exception e)
-            {
+                @try
+                {
+                    totalOther += extra.Amount;
+                }
+                catch (Exception e)
+                {
 
-            }
-           
+                }
+                
                 <td><button data-extra-id=@extra.Id class="btn btn-danger js-clearExtra glyphicon glyphicon-trash"></button></td>
+                @{
+            i++;
+                }
             </tr>
         }
-            <tr >
-                <td style="text-align: right">Total:</td>
-                <td style="font-weight: bold">@totalOther.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
-                <td></td>
-                <td></td>
+        <tr >
+            <td></td>
+            <td style="text-align: right">Total:</td>
+            <td style="font-weight: bold">@totalOther.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+            <td></td>
+            <td></td>
         </tr>
         </tbody>
     </table>
@@ -58,7 +65,9 @@ else
 }
 @section scripts{
     <script>
-        
+        //$(document).ready(function() {
+        //    $("#OthersTbl").DataTable();
+        //});
         $(".js-clearExtra").on("click",
             function() {
                 var button = $(this);

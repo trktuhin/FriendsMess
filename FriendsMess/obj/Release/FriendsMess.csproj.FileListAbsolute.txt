@@ -97,3 +97,6 @@ C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migratio
 C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.RemovingAssignedMember.resources
 C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.AddingYearNoToDeposit.resources
 C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.AddingYearNoToOtherExpense.resources
+C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.AddAssignedDateTable.resources
+C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.AddingUserIdToAssignedDate.resources
+C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.CreatingCompositeKeyOfAssignedDate.resources

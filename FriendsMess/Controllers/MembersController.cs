@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
+using FriendsMess.Migrations;
 using FriendsMess.Models;
 using FriendsMess.ViewModels;
 using Microsoft.AspNet.Identity;
@@ -57,6 +60,7 @@ namespace FriendsMess.Controllers
                 {
                     Amount = model.Deposit,
                     MonthNo = monthNo,
+                    YearNo = yearNo,
                     MemberId = model.Id
                 };
                 member.UserId = User.Identity.GetUserName();
@@ -69,7 +73,7 @@ namespace FriendsMess.Controllers
                 if (memberInDb == null)
                     return HttpNotFound();
 
-                var deposit = _context.Deposits.SingleOrDefault(m => m.MonthNo == monthNo && m.MemberId==model.Id);
+                var deposit = _context.Deposits.SingleOrDefault(m => m.MonthNo == monthNo && m.YearNo==yearNo && m.MemberId==model.Id);
                 if (deposit == null)
                 {
                     var newDeposit = new Deposit()
@@ -108,7 +112,9 @@ namespace FriendsMess.Controllers
                 Id = memberInDb.Id,
                 Name = memberInDb.Name,
                 Deposit =monthDeposit,
-                MobileNumber = memberInDb.MobileNumber
+                MobileNumber = memberInDb.MobileNumber,
+                ImagePath = memberInDb.ImagePath
+
             };
             ViewBag.status = "Edit Member";
             return View("MemberForm",memberViewModel);
@@ -213,6 +219,63 @@ namespace FriendsMess.Controllers
             memberInDb.ImagePath = "";
             _context.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult AddAssignDay(int id)
+        {
+            var dayList = new List<DateTime?>();
+
+            for (var i = 0; i < 5; i++)
+            {
+                dayList.Add(new DateTime?());
+            }
+            var assDay = new AssignViewModel
+            {
+                MemberId = id,
+                AssignDay = dayList
+            };
+            return View(assDay);
+        }
+
+        [HttpPost]
+        public ActionResult SaveAssignDay(AssignViewModel day)
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    return View("AddAssignDay", day);
+            //}
+
+            foreach (var xy in day.AssignDay)
+            {
+                if (xy != null)
+                {
+                    var newDay = new AssignedDate()
+                    {
+                        MemberId = day.MemberId,
+                        AssignedDay = xy.Value,
+                        UserId = User.Identity.GetUserName()
+                    };
+                    _context.AssignedDates.AddOrUpdate(newDay);
+
+                }
+            }
+            
+            
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult ShowAssignDays(int id)
+        {
+            var memberInDb = _context.Members.SingleOrDefault(m => m.Id == id);
+            if (memberInDb == null)
+                return HttpNotFound();
+
+            var monthNo = (int) Session["MonthNo"];
+            var yearNo = (int) Session["YearNo"];
+            var days = _context.AssignedDates.Where(m => m.MemberId == id && m.AssignedDay.Month == monthNo && m.AssignedDay.Year==yearNo).Include(m=>m.Member).ToList();
+
+            return View(days);
         }
     }
 }

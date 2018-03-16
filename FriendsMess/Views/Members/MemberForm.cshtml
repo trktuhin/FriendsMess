@@ -3,15 +3,21 @@
     ViewBag.Title = "MemberForm";
 }
 
-<h2>@ViewBag.status  <span class="glyphicon glyphicon-user"></span></h2>
+<h2 style="text-align: center; margin-top: 10px;">@ViewBag.status</h2>
     
 @if (ViewBag.status == "Edit Member")
 {
     <div style="float: right">
-        @Html.ActionLink("Add Picture", "AddPicture", "Members", new{id=Model.Id}, new { @class = "btn btn-primary" })
+        @Html.ActionLink("change Picture", "AddPicture", "Members", new{id=Model.Id}, new { @class = "btn btn-primary" })
         <br/><br/>
         @Html.ActionLink("Dlete Picture", "DeletePicture", "Members", new { id = Model.Id }, new { @class = "btn btn-danger" })
+        <br /><br />
+        @Html.ActionLink("Day", "AddAssignDay", "Members", new { id = Model.Id }, new { @class = "btn btn-default glyphicon glyphicon-plus" })
+        <br/><br/>
+        @Html.ActionLink(" Days", "ShowAssignDays", "Members", new { id = Model.Id }, new { @class = "btn btn-warning glyphicon glyphicon-eye-open",style="color:black" })
     </div>
+
+    <div style="margin-bottom: 10px;"><img src="~/Images/@Model.ImagePath" onerror="this.onerror = null; this.src = '/Images/meal.jpg';" style=" border-radius:2%; border:1.8px solid white" width="150px;" height="150px;" /></div>
 }
 @using (Html.BeginForm("Save", "Members"))
 {

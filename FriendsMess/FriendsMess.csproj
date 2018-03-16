@@ -334,8 +334,21 @@
     <Compile Include="Migrations\201803141036432_AddingYearNoToOtherExpense.Designer.cs">
       <DependentUpon>201803141036432_AddingYearNoToOtherExpense.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803150624558_AddAssignedDateTable.cs" />
+    <Compile Include="Migrations\201803150624558_AddAssignedDateTable.Designer.cs">
+      <DependentUpon>201803150624558_AddAssignedDateTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803150739383_AddingUserIdToAssignedDate.cs" />
+    <Compile Include="Migrations\201803150739383_AddingUserIdToAssignedDate.Designer.cs">
+      <DependentUpon>201803150739383_AddingUserIdToAssignedDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803160436254_CreatingCompositeKeyOfAssignedDate.cs" />
+    <Compile Include="Migrations\201803160436254_CreatingCompositeKeyOfAssignedDate.Designer.cs">
+      <DependentUpon>201803160436254_CreatingCompositeKeyOfAssignedDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AssignedDate.cs" />
     <Compile Include="Models\ContactList.cs" />
     <Compile Include="Models\DayNo.cs" />
     <Compile Include="Models\Deposit.cs" />
@@ -348,6 +361,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AddDeposit.cs" />
+    <Compile Include="ViewModels\AssignViewModel.cs" />
     <Compile Include="ViewModels\GuestUser.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\IndexViewModel.cs" />
@@ -455,7 +469,6 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\meal.jpg" />
-    <Content Include="Images\robin.jpg" />
     <Content Include="imgage.ico" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -541,6 +554,9 @@
     <Content Include="Views\Members\AddPicture.cshtml" />
     <Content Include="Views\Home\ContactForm.cshtml" />
     <Content Include="Views\Home\AddPicture.cshtml" />
+    <Content Include="Views\Members\AddAssignDay.cshtml" />
+    <Content Include="Views\Members\ShowAssignDays.cshtml" />
+    <Content Include="Views\Extra\ShowDates.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -672,6 +688,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803141036432_AddingYearNoToOtherExpense.resx">
       <DependentUpon>201803141036432_AddingYearNoToOtherExpense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803150624558_AddAssignedDateTable.resx">
+      <DependentUpon>201803150624558_AddAssignedDateTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803150739383_AddingUserIdToAssignedDate.resx">
+      <DependentUpon>201803150739383_AddingUserIdToAssignedDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803160436254_CreatingCompositeKeyOfAssignedDate.resx">
+      <DependentUpon>201803160436254_CreatingCompositeKeyOfAssignedDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

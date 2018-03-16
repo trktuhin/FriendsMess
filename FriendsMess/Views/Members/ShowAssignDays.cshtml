@@ -1,0 +1,54 @@
+﻿@model List<FriendsMess.Models.AssignedDate>
+@{
+    ViewBag.Title = "ShowAssignDays";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Assigned Days</h2>
+@if (Model.Count > 0)
+{
+    int i = 1;    
+    <div>
+        <table id="AssignedDates" class="table table-hover">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Date</th>
+                <th>Name</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            @foreach (var day in Model)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@day.AssignedDay.ToShortDateString()</td>
+                    <td>@day.Member.Name</td>
+                    @{
+                        i++;
+                    }
+                </tr>
+                
+            }
+            </tbody>
+
+        </table>
+    </div>
+}
+
+else
+{
+    <div style="margin-top: 7%;background: brown" class="jumbotron">
+        <h3>No date assigned yet !</h3>
+    </div>
+}
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#AssignedDates").DataTable();
+        });
+    </script>
+}

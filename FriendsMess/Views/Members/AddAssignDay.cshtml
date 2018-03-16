@@ -1,0 +1,51 @@
+﻿@model FriendsMess.ViewModels.AssignViewModel
+@{
+    ViewBag.Title = "AddAssignDay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int j = 1;
+}
+
+<h2 style="text-align: center; margin-top: 10px;">Add Days</h2>
+@using (Html.BeginForm("SaveAssignDay", "Members"))
+{
+    <div>
+        @for (var i = 0; i < 5; i++)
+        {
+             <div>
+                @{
+                    <p>Day @j :</p>
+                    @Html.EditorFor(m => m.AssignDay[i], new {htmlAttributes = new {@class = "form-control", placeholder = "Select date", @readonly = "true", style = "background:transparent;color:white"}})
+                    @Html.ValidationMessageFor(m => m.AssignDay[i])
+                }
+                 <br/>
+                 @{
+                     j++;
+                 }
+            </div>
+        }
+        <div>
+            @Html.HiddenFor(m => m.MemberId)
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Submit</button>
+        </div>
+    </div>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('input[type=datetime]').datepicker({
+                dateFormat: "dd/M/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-11:+0"
+            });
+        });
+    </script>
+
+}
+
