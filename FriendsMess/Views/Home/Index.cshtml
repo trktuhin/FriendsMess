@@ -6,8 +6,8 @@
     ViewBag.Title = "Home";
     var home = new HomeController();
     
-    var monthNo = (int) Session["MonthNo"];
-    var yearNo = (int) Session["YearNo"];
+    var monthNo = (int)Session["MonthNo"];
+    var yearNo = (int)Session["YearNo"];
     var mealRate = home.GetMealRate(User.Identity.GetUserName(),monthNo,yearNo);
 }
 
@@ -74,8 +74,7 @@
                     try
                     {
                         currentDeposit = member.Deposits.SingleOrDefault(depo => depo.MonthNo ==monthNo && depo.YearNo==yearNo).Amount;
-                        balance = member.Deposits.SingleOrDefault(mon => mon.MonthNo == monthNo && mon.YearNo==yearNo).Amount - (mealExpense + otherExpense);
-                        
+                        balance = currentDeposit - (mealExpense + otherExpense);
                     }
                     catch (Exception e)
                     {
@@ -114,12 +113,7 @@
 else
 {
     <div class="jumbotron" style="margin-top: 7%;background: brown">
-        <ul>
-            <li>Add some members with deposit in Members menu</li>
-            <li>Update their meals with total expense in Update Menu</li>
-            <li>Add extra expenses in Ohters Menu</li>
-            <li>Come back Home and see all dynamic calculations</li>
-        </ul>
+        <h1>There is no update yet for this month of @Session["YearNo"] !</h1>
     </div>
 }
 @section scripts{

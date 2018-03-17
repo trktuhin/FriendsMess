@@ -346,6 +346,14 @@
     <Compile Include="Migrations\201803160436254_CreatingCompositeKeyOfAssignedDate.Designer.cs">
       <DependentUpon>201803160436254_CreatingCompositeKeyOfAssignedDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803170357257_AddingIsDeletedToMember.cs" />
+    <Compile Include="Migrations\201803170357257_AddingIsDeletedToMember.Designer.cs">
+      <DependentUpon>201803170357257_AddingIsDeletedToMember.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803170916394_RemovingIdColumnFromDepositMakingThreeKey.cs" />
+    <Compile Include="Migrations\201803170916394_RemovingIdColumnFromDepositMakingThreeKey.Designer.cs">
+      <DependentUpon>201803170916394_RemovingIdColumnFromDepositMakingThreeKey.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AssignedDate.cs" />
@@ -697,6 +705,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803160436254_CreatingCompositeKeyOfAssignedDate.resx">
       <DependentUpon>201803160436254_CreatingCompositeKeyOfAssignedDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803170357257_AddingIsDeletedToMember.resx">
+      <DependentUpon>201803170357257_AddingIsDeletedToMember.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803170916394_RemovingIdColumnFromDepositMakingThreeKey.resx">
+      <DependentUpon>201803170916394_RemovingIdColumnFromDepositMakingThreeKey.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

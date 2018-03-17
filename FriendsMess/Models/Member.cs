@@ -19,6 +19,8 @@ namespace FriendsMess.Models
 
         [Display(Name = "Select Member's Image")]
         public string ImagePath { get; set; }
+
+        public bool IsDeleted { get; set; }
         
     }
 }

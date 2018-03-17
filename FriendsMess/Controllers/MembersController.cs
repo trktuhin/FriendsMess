@@ -31,7 +31,7 @@ namespace FriendsMess.Controllers
         public ActionResult Index()
         {
             var userName = User.Identity.GetUserName();
-            var members = _context.Members.Where(m=>m.UserId==userName).Include(m=>m.Deposits).ToList();
+            var members = _context.Members.Where(m=>m.UserId==userName && m.IsDeleted==false).Include(m=>m.Deposits).ToList();
             return View(members);
         }
 
@@ -131,7 +131,7 @@ namespace FriendsMess.Controllers
             if (userName != memberInDb.UserId)
                 return HttpNotFound();
 
-            _context.Members.Remove(memberInDb);
+            memberInDb.IsDeleted = true;
             _context.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -29,7 +29,7 @@ namespace FriendsMess.Controllers
         {
             var userName = User.Identity.GetUserName();
             var meals = new List<Meal>();
-            var members = _context.Members.Where(m=>m.UserId==userName).ToList();
+            var members = _context.Members.Where(m=>m.UserId==userName && m.IsDeleted==false).ToList();
 
             foreach (var member in members)
             {
@@ -63,7 +63,7 @@ namespace FriendsMess.Controllers
             {
                 var uName = User.Identity.GetUserName();
                 var mealsCount = mealView.Meals.Count;
-                var memberCount = _context.Members.Count(m => m.UserId == uName);
+                var memberCount = _context.Members.Count(m => m.UserId == uName && m.IsDeleted==false);
                 if (mealsCount != memberCount)
                 {
                     ModelState.AddModelError("", "You must clear search field");
@@ -93,17 +93,27 @@ namespace FriendsMess.Controllers
                 return View("New", mealview);
             }
            
+            var userName = User.Identity.GetUserName();
             var totalMeal = 0;
             foreach (var meal in mealView.Meals )
             {
                 
                 meal.DayNoId = mealView.Day.Value;
                 meal.UserId = User.Identity.GetUserName();
-                _context.Meals.AddOrUpdate(meal);
+
+                var mealInDb = _context.Meals.SingleOrDefault(m =>
+                    m.UserId == userName && m.DayNoId == meal.DayNoId && m.MemberId == meal.MemberId);
+                if (mealInDb == null)
+                    _context.Meals.Add(meal);
+                else
+                {
+                    _context.Meals.AddOrUpdate(meal);
+                }
+
                 if (meal.MealNo != null)
                     totalMeal += meal.MealNo.Value;
             }
-            var userName = User.Identity.GetUserName();
+            
             var dayInDb = _context.Days.SingleOrDefault(m => m.DayNumber == mealView.Day && m.UserId==userName);
             if (dayInDb == null)
             {

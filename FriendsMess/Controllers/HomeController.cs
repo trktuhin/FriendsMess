@@ -6,7 +6,9 @@ using System.Web;
 using System.Web.Mvc;
 using FriendsMess.Models;
 using FriendsMess.ViewModels;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
+using Member = FriendsMess.Models.Member;
 
 namespace FriendsMess.Controllers
 {
@@ -27,10 +29,26 @@ namespace FriendsMess.Controllers
         public ActionResult Index()
         {
             var monthNo = (int) Session["MonthNo"];
+            var yearNo = (int) Session["YearNo"];
             var userName = User.Identity.GetUserName();
+            var meals = _context.Meals
+                .Where(m=>m.UserId==userName && m.DayNoId.Month==monthNo && m.DayNoId.Year==yearNo)
+                .Select(m=>m.MemberId)
+                .Distinct()
+                .ToList();
+
+
+            var memList=new List<Member>();
+
+            foreach (var id in meals)
+            {
+                var mem = _context.Members.SingleOrDefault(m => m.Id ==id);
+                memList.Add(mem);
+            }
+
             var indexView = new IndexViewModel()
             {
-                Members = _context.Members.Where(m=>m.UserId==userName).OrderBy(m=>m.Id).Include(m=>m.Deposits).ToList()
+                Members = memList
             };
 
 
@@ -89,8 +107,13 @@ namespace FriendsMess.Controllers
         {
             try
             {
+                var meals = _context.Meals
+                    .Where(m => m.UserId == userName && m.DayNoId.Month == monthNo && m.DayNoId.Year == yearNo)
+                    .Select(m => m.MemberId)
+                    .Distinct()
+                    .ToList();
                 float otherExpense = _context.OtherExpenses.Where(m => m.UserId == userName && m.MonthNo == monthNo && m.YearNo==yearNo).Sum(c => c.Amount);
-                return otherExpense /(float)_context.Members.Count(m => m.UserId==userName);
+                return otherExpense /(float)meals.Count;
             }
             catch (Exception e)
             {
@@ -143,7 +166,7 @@ namespace FriendsMess.Controllers
             {
                 _context.Days.Remove(day);
             }
-            var mealList = _context.Meals.Where(m => m.DayNoId.Month == monthNo && m.DayNoId.Year==yearNo).ToList();
+            var mealList = _context.Meals.Where(m => m.DayNoId.Month == monthNo && m.DayNoId.Year==yearNo && m.UserId==userName).ToList();
             foreach (var meal in mealList)
             {
                 _context.Meals.Remove(meal);

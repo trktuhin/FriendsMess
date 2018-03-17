@@ -100,3 +100,5 @@ C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migratio
 C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.AddAssignedDateTable.resources
 C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.AddingUserIdToAssignedDate.resources
 C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.CreatingCompositeKeyOfAssignedDate.resources
+C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.AddingIsDeletedToMember.resources
+C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.RemovingIdColumnFromDepositMakingThreeKey.resources
