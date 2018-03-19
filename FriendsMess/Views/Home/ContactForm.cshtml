@@ -7,7 +7,7 @@
     @Html.ValidationSummary(true, "Please fix these errors", new { @class = "error" })
 </div>
 
-<h2>@ViewBag.status</h2>
+<h2 style="text-align: center">@ViewBag.status</h2>
 @if (ViewBag.status == "Edit Contact")
 {
     <div style="float: right">
@@ -21,31 +21,31 @@
 {
     <div class="form-group">
         @Html.LabelFor(m => m.Name)
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control md-textbox",placeholder="Enter contact name" })
         @Html.ValidationMessageFor(m => m.Name)
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Role)
-        @Html.TextBoxFor(m => m.Role, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Role, new { @class = "form-control md-textbox", placeholder = "Enter the role" })
         @Html.ValidationMessageFor(m => m.Role)
 
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Email)
-        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control md-textbox", placeholder = "Enter email address" })
         @Html.ValidationMessageFor(m => m.Email)
 
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.PhoneNumber)
-        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control md-textbox", placeholder = "Enter mobile number" })
         @Html.ValidationMessageFor(m => m.PhoneNumber)
 
     </div>
     
     <div class="form-group">
-        @Html.LabelFor(m => m.Location)
-        @Html.TextBoxFor(m => m.Location, new { @class = "form-control" })
+        @*@Html.LabelFor(m => m.Location)*@
+        @Html.TextBoxFor(m => m.Location, new { @class = "form-control md-textbox", placeholder = "Enter location/address" })
         @Html.ValidationMessageFor(m => m.Location)
 
     </div>

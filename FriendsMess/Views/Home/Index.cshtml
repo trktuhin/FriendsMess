@@ -17,15 +17,15 @@
         
         var list = (List<SelectListItem>)ViewBag.list;      
          
-        @Html.DropDownList("month", list, new { @class = "form-control", id="MonSel"})
+        @Html.DropDownList("month", list, new { @class = "form-control md-textbox", id = "MonSel" })
         
     }
 </div>
-<div style="margin-top: 10px; float: left; margin-left: 5px;">
+<div style="margin-top: 10px; float: left; margin-left: 15px;">
     @using (Html.BeginForm("YearSelector", "Home"))
     {
 
-        <select id="YearSel" class="form-control">
+        <select id="YearSel" class="form-control md-textbox">
             <option value="0">Select Year</option>
             <option value="2007">2007</option>
             <option value="2008">2008</option>
@@ -122,7 +122,6 @@ else
         $("#MonSel").change(function () {
             console.log("Dukse1");
             var value = $("#MonSel").val();
-            @*'@Url.Action("MonthSelector","Home",new {month = value})'*@
             $.ajax({
                 url: "/home/MonthSelector/?month="+value,
                 success: function () {
@@ -134,7 +133,6 @@ else
             $("#YearSel").change(function () {
                 console.log("Dukse1");
                 var val = $("#YearSel").val();
-                @*'@Url.Action("MonthSelector","Home",new {month = value})'*@
                 $.ajax({
                     url: "/home/YearSelector/?year="+val,
                     success: function () {

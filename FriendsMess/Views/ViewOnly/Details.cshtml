@@ -1,0 +1,15 @@
+﻿@using System.Globalization
+@model FriendsMess.ViewModels.MemberViewModel
+@{
+    ViewBag.Title = "MemberForm";
+    Layout = "~/Views/Shared/_ViewOnly.cshtml";
+}
+
+<h2 style="text-align: center; margin-top: 10px;">@ViewBag.status</h2>
+
+<div style="margin-bottom: 10px;"><img src="~/Images/@Model.ImagePath" 
+                                       onerror="this.onerror = null; this.src = '/Images/meal.jpg';" style=" border-radius:2%;
+                                 border:1.8px solid white" width="200px;" height="200px;" /></div>
+<h4>@Model.Name</h4>
+<h4>Current Deposit: @Model.Deposit.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</h4>
+<h4>Contact No: @Model.MobileNumber</h4>

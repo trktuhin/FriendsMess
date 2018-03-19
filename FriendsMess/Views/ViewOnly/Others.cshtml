@@ -3,15 +3,17 @@
 @{
     ViewBag.Title = "Others";
     Layout = "~/Views/Shared/_ViewOnly.cshtml";
+    int i = 1;
 }
-<h2 style ="text-align: center; color: white;">Other Expenses</h2>
+<h2 style ="text-align: center;margin-top: 10px;">Other Expenses</h2>
 @if (Model.Count > 0)
 {
     var totalOther = 0;
     <div>
-        <table id="OthersTbl" class="table table-bordered table-hover">
+        <table id="OthersTbl" class="table table-hover">
             <thead>
-            <tr class="danger">
+            <tr style="background-color: #483d8b; color: #00ced1">
+                <th>No</th>
                 <th>Name</th>
                 <th>Amount</th>
                 <th>Details</th>
@@ -20,23 +22,26 @@
             <tbody>
             @foreach (var extra in Model)
             {
-                <tr style="background-color:gainsboro">
+                <tr>
+                    <td>@i</td>
                     <td>@extra.Name</td>
                     <td>@extra.Amount.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
                     <td>@extra.Description</td>
-                    @{
-                        try
-                        {
-                            totalOther += extra.Amount;
-                        }
-                        catch (Exception e)
-                        {
+                    @try
+                    {
+                        totalOther += extra.Amount;
+                    }
+                    catch (Exception e)
+                    {
 
-                        }
+                    }
+                    @{
+                        i++;
                     }
                 </tr>
             }
-            <tr style="background-color:greenyellow">
+            <tr >
+                <td></td>
                 <td style="text-align: right">Total:</td>
                 <td style="font-weight: bold">@totalOther.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
                 <td></td>
@@ -47,15 +52,7 @@
 }
 else
 {
-    <div style="margin-top: 10%;" class=" jumbotron">
-        <h3 style="color:red;">No extra expenses yet !</h3>
+    <div style="margin-top: 7%; background: brown" class=" jumbotron">
+        <h3>No extra expenses yet !</h3>
     </div>
-}
-@section scripts
-{
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $("#OthersTbl").DataTable();
-        });
-    </script>
 }

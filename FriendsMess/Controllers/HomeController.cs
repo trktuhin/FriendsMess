@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.Mvc;
 using FriendsMess.Models;
 using FriendsMess.ViewModels;
-using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Member = FriendsMess.Models.Member;
 
@@ -42,7 +41,7 @@ namespace FriendsMess.Controllers
 
             foreach (var id in meals)
             {
-                var mem = _context.Members.SingleOrDefault(m => m.Id ==id);
+                var mem = _context.Members.Include(m=>m.Deposits).SingleOrDefault(m => m.Id ==id);
                 memList.Add(mem);
             }
 
@@ -284,5 +283,6 @@ namespace FriendsMess.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
     }
 }

@@ -1,29 +1,59 @@
 ﻿@using System.Globalization
 @using FriendsMess.Controllers
-@model FriendsMess.ViewModels.HomeViewModel
+@using Microsoft.AspNet.Identity
+@model FriendsMess.ViewModels.IndexViewModel
 @{
     Layout = "~/Views/Shared/_ViewOnly.cshtml";
     ViewBag.Title = "Home";
+
+    var monthNo = (int)Session["MonthNo"];
+    var yearNo = (int)Session["YearNo"];
+    
     var homeObj = new ViewOnlyController();
-    var mealRate = homeObj.GetMealRate((string)Session["GuestUser"]);
+    var mealRate = homeObj.GetMealRate((string)Session["GuestUser"],monthNo,yearNo);
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Home</title>
-</head>
-<body>
+<div style="margin-top: 10px;float: left">
+    @using (Html.BeginForm("MonthSelector","ViewOnly"))
+    {
+        
+        var list = (List<SelectListItem>)ViewBag.list;      
+         
+        @Html.DropDownList("month", list, new { @class = "form-control md-textbox", id="MonSel"})
+        
+    }
+</div>
     
-    <h2 style="text-align: center; color:white">Meal Rate:@mealRate.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</h2>
+<div style="margin-top: 10px; float: left; margin-left: 15px;">
+    @using (Html.BeginForm("YearSelector", "ViewOnly"))
+    {
+
+        <select id="YearSel" class="form-control md-textbox">
+            <option value="0">Select Year</option>
+            <option value="2007">2007</option>
+            <option value="2008">2008</option>
+            <option value="2009">2009</option>
+            <option value="2010">2010</option>
+            <option value="2011">2011</option>
+            <option value="2012">2012</option>
+            <option value="2013">2013</option>
+            <option value="2014">2014</option>
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+        </select>
+    }
+</div>
+
+<h3 style="float: left; margin-left: 15px; color:#ffa500; margin-top: 10px;">Meal Rate: @mealRate.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))  (@Session["MonthNo"]/@Session["YearNo"])</h3>
     @if (Model.Members.Count > 0)
     {
+        <div class="clearfix"></div>
         <div>
-            <table id="HomeTbl" class="table table-hover table-bordered">
+            <table id="HomeTbl" class="table table-hover">
                 <thead>
-                    <tr class="danger">
+                    <tr style="background-color: #2f4f4f" class="text-warning">
                         <th>Name</th>
                         <th>Deposit</th>
                         <th>Total Meal</th>
@@ -35,84 +65,82 @@
                 <tbody>
                     @foreach (var member in Model.Members)
                     {
-                        var home = new ViewOnlyController();
 
-                        var totalMeal = home.GetTotalMeal(member.Id);
-                        var mealExpense = home.GetMealRate((string)Session["GuestUser"]) * totalMeal;
-                        var otherExpense = home.GetOtherExpense((string)Session["GuestUser"]);
-                        var balance = member.Deposit - (mealExpense + otherExpense);
+                        var totalMeal = homeObj.GetTotalMeal(member.Id, monthNo, yearNo);
+                        var mealExpense = homeObj.GetMealRate((string)Session["GuestUser"], monthNo, yearNo) * (float)totalMeal;
+                        float otherExpense = homeObj.GetOtherExpense((string)Session["GuestUser"], monthNo, yearNo);
+                        float balance;
+                        int currentDeposit;
+                        try
+                        {
+                            currentDeposit = member.Deposits.SingleOrDefault(depo => depo.MonthNo == monthNo && depo.YearNo == yearNo).Amount;
+                            balance = currentDeposit - (mealExpense + otherExpense);
+                        }
+                        catch (Exception e)
+                        {
+                            currentDeposit = 0;
+                            balance = 0 - (mealExpense + otherExpense);
 
-                        <tr style="background-color:gainsboro">
-                            <td>@member.Name</td>
-                            <td>@member.Deposit.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
-                            <td>@totalMeal</td>
+                        }
+
+                        <tr>
+                            <td><span><img src="~/Images/@member.ImagePath" onerror="this.onerror = null; this.src = '/Images/meal.jpg';" style=" border-radius:50%;border:1.8px solid #00fa9a " width="50px" height="50px" /></span>   @member.Name</td>
+                            <td>@currentDeposit.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                            <td><span class="glyphicon glyphicon-cutlery"> </span>  @totalMeal</td>
                             <td>@mealExpense.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
                             <td>@otherExpense.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
                             @{
-                                if (balance < 0)
-                                {
-                                    balance = balance * -1;
-                                    <td style="color: red">Due:@balance.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
-                                }
-                                else
-                                {
-                                    <td>@balance.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                        if (balance < 0)
+                        {
+                            balance = balance * -1;
+                            <td style="color:#ee82ee">Due:@balance.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+                        }
+                        else
+                        {
+                            <td>@balance.ToString("C2", CultureInfo.CreateSpecificCulture("en-BD"))</td>
 
-                                }
+                        }
                             }
                         </tr>
                     }
                 </tbody>
             </table>
-            <br/>
-            <h2 style="text-align: center; color:white">Detailed Meals</h2>
-            <table class="table table-bordered table-hover">
-            <thead>
-            <tr class="danger">
-                <th>Date</th>
-                @foreach (var mem in Model.Members)
-                {
-                    <th>@mem.Name</th>
-                }
-            </tr>
-            </thead>
-            <tbody>
-            @{
-                int j = 0;
-                int m = 0;
-                var totalDay = Model.Days.Count;
-                var totalMember = Model.Members.Count;
-                for (int i = 0; i < totalDay; i++)
-                {
-                    <tr style="background-color:gainsboro">
-                        <td>@Model.Days[j++].DayNumber</td>
-                        @for (int k = 0; k < totalMember; k++)
-                        {
-                            <td>@Model.Meals[m++].MealNo</td>
-                        }
-                    </tr>
-
-                }
-            }
-            </tbody>
-         </table>
         </div>
 
     }
     else
     {
-        <div class="jumbotron">
-            Nothing to show
+        <div class="jumbotron" style="margin-top: 7%;background: brown">
+            <h1>There is no update yet for this month of @Session["YearNo"] !</h1>
         </div>
     }
 
-
-</body>
-</html>
 @section scripts
 {
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
+            $("#MonSel").change(function () {
+                console.log("Dukse1");
+                var value = $("#MonSel").val();
+                $.ajax({
+                    url: "/ViewOnly/MonthSelector/?month=" + value,
+                    success: function () {
+                        window.location.href = '@Url.Action("ViewHome","ViewOnly")';
+                    }
+                });
+            });
+
+            $("#YearSel").change(function () {
+                console.log("Dukse1");
+                var val = $("#YearSel").val();
+                $.ajax({
+                    url: "/ViewOnly/YearSelector/?year=" + val,
+                    success: function () {
+                        window.location.href = '@Url.Action("ViewHome","ViewOnly")';
+                    }
+                });
+            });
+
             $("#HomeTbl").DataTable({
                 paging:false
             });

@@ -14,7 +14,7 @@
              <div>
                 @{
                     <p>Day @j :</p>
-                    @Html.EditorFor(m => m.AssignDay[i], new {htmlAttributes = new {@class = "form-control", placeholder = "Select date", @readonly = "true", style = "background:transparent;color:white"}})
+                    @Html.EditorFor(m => m.AssignDay[i], new { htmlAttributes = new { @class = "form-control md-textbox", placeholder = "Select date", @readonly = "true", style = "background:transparent;color:white" } })
                     @Html.ValidationMessageFor(m => m.AssignDay[i])
                 }
                  <br/>

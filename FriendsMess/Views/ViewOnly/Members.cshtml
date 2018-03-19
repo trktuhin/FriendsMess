@@ -3,40 +3,53 @@
 @{
     ViewBag.Title = "Members";
     Layout = "~/Views/Shared/_ViewOnly.cshtml";
+    int monthNo = (int) Session["MonthNo"];
+    int yearNo = (int) Session["YearNo"];
 }
 
 <h2 style="text-align: center; color: white;">Members</h2>
 @if (Model.Count > 0)
 {
-    <table id="member" class="table table-bordered table-hover">
+    <table id="member" class="table table-hover">
         <thead>
-        <tr class="danger">
-            <th>Name</th>
-            <th>Current Deposit</th>
-            <th>Mobile Number</th>
-            <th>Meals</th>
-        </tr>
+            <tr style="background-color: #6a5acd;color: #e6e6fa">
+                <th>Name</th>
+                <th>Current Deposit</th>
+                <th>Mobile Number</th>
+                <th>Meals</th>
+            </tr>
         </thead>
         <tbody>
         @foreach (var member in Model)
         {
-            <tr style="background-color:gainsboro">
-                <td>@member.Name</td>
-                <td>@member.Deposit.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
+            int currentDeposit;
+            <tr>
+                <td><span><img src="~/Images/@member.ImagePath" onError="this.onerror = null; this.src = '/Images/meal.jpg';" style=" border-radius:50%; border:1.8px solid #00fa9a" width="50px;" height="50px;" /></span>
+                    @Html.ActionLink(member.Name, "Details", new { id = member.Id,monthNo,yearNo })</td>
+                @try
+                {
+                    currentDeposit = member.Deposits.SingleOrDefault(m => m.MonthNo == (int)monthNo && m.YearNo==(int)yearNo).Amount;
+
+                }
+                catch (Exception e)
+                {
+                    currentDeposit = 0;
+                }
+                <td>@currentDeposit.ToString("C0", CultureInfo.CreateSpecificCulture("en-BD"))</td>
                 <td>@member.MobileNumber</td>
-                <td>@Html.ActionLink("View Meals", "ViewMeal", new { id = member.Id }, new { style = "color:darkred;" })</td>
+                <td>@Html.ActionLink(" Meals", "ViewMeal","ViewOnly", new { id = member.Id }, new { @class = "btn btn-primary glyphicon glyphicon-eye-open" })</td>
 
             </tr>
 
         }
         </tbody>
     </table>
-    
+
 }
 else
 {
-    <div style="margin-top: 10%;" class="jumbotron">
-        <h3 style="color:red;">No Members yet !</h3>
+    <div style="margin-top: 7%;background: brown" class="jumbotron">
+        <h3>No Members yet !</h3>
     </div>
 }
 @section scripts

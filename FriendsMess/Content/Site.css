@@ -13,8 +13,17 @@
     
 }
 
+.md-textbox {
+    border-radius:0px;
+    border-left: 1px white;
+    border-right: 1px white;
+    border-top: 1px white;
+    border-color: #6495ed
+
+}
+
 select option {
-    background-color:crimson;
+    background-color:#483d8b;
     border-bottom: 1px white;
 }
 

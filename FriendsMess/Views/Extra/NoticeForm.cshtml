@@ -1,0 +1,30 @@
+﻿@model FriendsMess.Models.Notice
+@{
+    ViewBag.Title = "NoticeForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="float: right">
+    @Html.ValidationSummary(true, "Please fix these errors", new { @class = "error" })
+</div>
+<h2 style="text-align: center">@ViewBag.status</h2>
+
+@using (Html.BeginForm("SaveNotice", "Extra"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control md-textbox", placeholder = "Enter notice name" })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Details)
+        @Html.TextAreaFor(m => m.Details, new { @class = "form-control md-textbox", placeholder = "Describe the notice here" })
+        @Html.ValidationMessageFor(m => m.Details)
+
+    </div>
+    
+
+    @Html.HiddenFor(m => m.Id)
+    @Html.AntiForgeryToken()
+    <button class="btn btn-primary" type="Submit">Submit</button>
+}

@@ -354,6 +354,14 @@
     <Compile Include="Migrations\201803170916394_RemovingIdColumnFromDepositMakingThreeKey.Designer.cs">
       <DependentUpon>201803170916394_RemovingIdColumnFromDepositMakingThreeKey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803191827436_AddingNotice.cs" />
+    <Compile Include="Migrations\201803191827436_AddingNotice.Designer.cs">
+      <DependentUpon>201803191827436_AddingNotice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803191848580_RequiringDetails.cs" />
+    <Compile Include="Migrations\201803191848580_RequiringDetails.Designer.cs">
+      <DependentUpon>201803191848580_RequiringDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AssignedDate.cs" />
@@ -365,6 +373,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Meal.cs" />
     <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\Notice.cs" />
     <Compile Include="Models\OtherExpense.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -565,6 +574,12 @@
     <Content Include="Views\Members\AddAssignDay.cshtml" />
     <Content Include="Views\Members\ShowAssignDays.cshtml" />
     <Content Include="Views\Extra\ShowDates.cshtml" />
+    <Content Include="Views\ViewOnly\Details.cshtml" />
+    <Content Include="Views\ViewOnly\ShowDates.cshtml" />
+    <Content Include="Views\ViewOnly\Contact.cshtml" />
+    <Content Include="Views\Extra\Notice.cshtml" />
+    <Content Include="Views\Extra\NoticeForm.cshtml" />
+    <Content Include="Views\ViewOnly\Notice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -711,6 +726,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803170916394_RemovingIdColumnFromDepositMakingThreeKey.resx">
       <DependentUpon>201803170916394_RemovingIdColumnFromDepositMakingThreeKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803191827436_AddingNotice.resx">
+      <DependentUpon>201803191827436_AddingNotice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803191848580_RequiringDetails.resx">
+      <DependentUpon>201803191848580_RequiringDetails.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

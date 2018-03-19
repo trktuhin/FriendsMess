@@ -8,10 +8,10 @@ namespace FriendsMess
     {
         public MappingProfile()
         {
-            // Model to Domain
 
             Mapper.CreateMap<MemberViewModel, Member>()
-                .ForMember(m => m.Id, opt => opt.Ignore());
+                .ForMember(m => m.Id, opt => opt.Ignore())
+                .ForMember(m => m.ImagePath, opt => opt.Ignore());
         }
     }
 }

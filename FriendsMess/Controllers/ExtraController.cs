@@ -108,5 +108,72 @@ namespace FriendsMess.Controllers
             _context.SaveChanges();
             return RedirectToAction("ShowDates", "Extra");
         }
+
+        public ActionResult Notice()
+        {
+            ViewBag.Message = "Your Notices";
+            var userName = User.Identity.GetUserName();
+            var notices = _context.Notices.Where(m => m.UserId == userName).ToList();
+
+            return View(notices);
+        }
+
+        public ActionResult AddNotice()
+        {
+            ViewBag.status = "Add Notice";
+            var notice = new Notice();
+            return View("NoticeForm",notice);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveNotice(Notice notice)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("NoticeForm", notice);
+            }
+            if (notice.Id == 0)
+            {
+                var userName = User.Identity.GetUserName();
+                notice.UserId = userName;
+                _context.Notices.Add(notice);
+            }
+
+            else
+            {
+                var noticeInDb = _context.Notices.SingleOrDefault(m => m.Id == notice.Id);
+                if (noticeInDb == null)
+                    return HttpNotFound();
+                noticeInDb.Name = notice.Name;
+                noticeInDb.Details= notice.Details;
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Notice");
+
+
+        }
+
+        public ActionResult EditNotice(int id)
+        {
+            ViewBag.status = "Edit Notice";
+            var noticeInDb = _context.Notices.SingleOrDefault(m => m.Id == id);
+            if (noticeInDb == null)
+                return HttpNotFound();
+            return View("NoticeForm", noticeInDb);
+        }
+
+        public ActionResult DeleteNotice(int id)
+        {
+            var userName = User.Identity.GetUserName();
+            var noticeInDb = _context.Notices.SingleOrDefault(m => m.Id == id);
+            if (noticeInDb == null)
+                return HttpNotFound();
+            if (userName != noticeInDb.UserId)
+                return HttpNotFound();
+            _context.Notices.Remove(noticeInDb);
+            _context.SaveChanges();
+            return RedirectToAction("Notice");
+        }
     }
 }

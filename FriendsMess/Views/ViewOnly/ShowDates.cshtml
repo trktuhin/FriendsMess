@@ -1,0 +1,35 @@
+﻿@model List<FriendsMess.Models.AssignedDate>
+@{
+    ViewBag.Title = "ShowDates";
+    Layout = "~/Views/Shared/_ViewOnly.cshtml";
+}
+
+<h2 style="text-align: center; margin-top: 10px;">Assinged Dates</h2>
+@if (Model.Count > 0)
+{
+    <div>
+        <table id="ShowDates" class="table table-hover">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Assinged Member</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var day in Model)
+            {
+                <tr>
+                    <td>@day.AssignedDay.ToLongDateString()</td>
+                    <td>@day.Member.Name</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div style="margin-top: 7%;background: brown" class="jumbotron">
+        <h3>No date assigned yet !</h3>
+    </div>
+}

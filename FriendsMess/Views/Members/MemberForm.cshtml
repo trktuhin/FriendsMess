@@ -23,18 +23,18 @@
 {
     <div class="form-group">
         @Html.LabelFor(m => m.Name)
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control md-textbox",placeholder="Enter name" })
         @Html.ValidationMessageFor(m => m.Name)
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Deposit)
-        @Html.TextBoxFor(m => m.Deposit, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Deposit, new { @class = "form-control md-textbox" })
         @Html.ValidationMessageFor(m => m.Deposit)
 
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.MobileNumber)
-        @Html.TextBoxFor(m => m.MobileNumber, new {@class = "form-control"})
+        @Html.TextBoxFor(m => m.MobileNumber, new { @class = "form-control md-textbox", placeholder = "Enter mobile number" })
         @Html.ValidationMessageFor(m => m.MobileNumber)
 
     </div>

@@ -32,7 +32,7 @@
                             </td>
                             <td>
                                 @{
-                                    @Html.DropDownListFor(m => m.Meals[i].MealNo, new SelectList(new List<int>() {2, 1, 0, 3, 4, 5, 6, 7, 8, 9, 10}), new {@class = "form-control"})
+                                    @Html.DropDownListFor(m => m.Meals[i].MealNo, new SelectList(new List<int>() { 2, 1, 0, 3, 4, 5, 6, 7, 8, 9, 10 }), new { @class = "form-control" })
                                     Model.Meals[i].MemberId = member.Id;
                                 }
                             </td>
@@ -53,17 +53,17 @@
             <div style="float: right; margin-right: 20%; width: 20%; padding-bottom: 10px; margin-top: 20px">
                 <div class="form-group">
                     @Html.LabelFor(m => m.Day)
-                    @Html.EditorFor(m => m.Day, new {htmlAttributes = new {@class = "form-control", placeholder = "Select date", @readonly = "true", style = "background:transparent;color:white"}})
+                    @Html.EditorFor(m => m.Day, new { htmlAttributes = new { @class = "form-control md-textbox", placeholder = "Select date", @readonly = "true", style = "background:transparent;color:white" } })
                     @Html.ValidationMessageFor(m => m.Day)
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.Expense)
-                    @Html.TextBoxFor(m => m.Expense, new {@class = "form-control"})
+                    @Html.TextBoxFor(m => m.Expense, new { @class = "form-control md-textbox" })
                     @Html.ValidationMessageFor(m => m.Expense)
                 </div>
                 <div>
                     <label><b>Responsible Member</b></label>
-                    @Html.DropDownListFor(m => m.ResponsibleMem, new SelectList(Model.Members, "Name", "Name"), "Select Responsible Mebmer", new {@class = "form-control"})
+                    @Html.DropDownListFor(m => m.ResponsibleMem, new SelectList(Model.Members, "Name", "Name"), "Select Responsible Mebmer", new { @class = "form-control md-textbox" })
                 </div>
                 <button type="submit" class="btn btn-primary" style="margin-top: 10px; position: fixed;">Save</button>
 

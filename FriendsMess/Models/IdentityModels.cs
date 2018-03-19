@@ -18,6 +18,8 @@ namespace FriendsMess.Models
         public DbSet<Deposit> Deposits { get; set; }
         public DbSet<ContactList> ContactLists { get; set; }
         public DbSet<AssignedDate> AssignedDates { get; set; }
+        public DbSet<Notice> Notices { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection")
         {

@@ -102,3 +102,5 @@ C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migratio
 C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.CreatingCompositeKeyOfAssignedDate.resources
 C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.AddingIsDeletedToMember.resources
 C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.RemovingIdColumnFromDepositMakingThreeKey.resources
+C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.AddingNotice.resources
+C:\Users\robin\Desktop\FM version 1\FriendsMess\obj\Release\FriendsMess.Migrations.RequiringDetails.resources
