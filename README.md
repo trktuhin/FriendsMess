@@ -1,1 +1,1 @@
-# FriendsMess
+Friends Mess is a web application which helps one to manage members, meals and expenses of a mess who use mess meal system. This also has some extra features like assign dates to member, clear month, go to any previous month by selecting month and year. There is two roles here, one is manager who has the privileges to edit or delete option and the other is member who has only read-only views. Every manager has to log in with username and password whereas a member only need the username to view as a member.
